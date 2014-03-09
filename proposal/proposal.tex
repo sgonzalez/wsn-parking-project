@@ -67,6 +67,7 @@ Work on the automobile detection subsystem will involve a variety of tests and a
 
 \subsection{License Plate Image Acquisition}
 Kevin
+From Brandon: I called out your section in my section to talk about the determination of cropping and image manipulation on the server versus the Acquisition Pi.
 
 
 \subsection{Central Basestation}
@@ -76,26 +77,39 @@ Everyone
 \subsection{Server Processing}
 Once an image has been determined to contain a license plate, it will be transmitted from the Acquisition Raspberry Pi to a server online via the Central Basestation Pi. The server will then be responsible for using recognition software technology to extract the digits of the license plate from the image. Upon successful completion, the textual representation of the license plate will be stored in a database residing on the server to be later integrated into a front-facing web application.
 
-The subsystem encapsulating server processing will require a review of recognition software and literature. There exists a market for Automatic License Plate Recognition (ALPR) software that relies on Optical Character Recognition (OCR) engines to extract characters. Once an ALPR solution is chosen, it will be necessary to collect a set of test data using the Acquisition Pi to tune the workflow of character extraction. Because the system is being deployed in the metro Denver area, it can be assumed that Colorado plates will make up the majority of license plates the system will detect. Therefore, the last step will be to analyze the accuracy of the ALPR tool on extracting characters from other license plates.
+The subsystem encapsulating server processing will require a review of recognition software and literature. There exists a market for Automatic License Plate Recognition (ALPR) software that relies on Optical Character Recognition (OCR) engines to extract characters. Once an ALPR solution is chosen, it will be necessary to collect a set of test data using the Acquisition Pi to tune the workflow of character extraction. Because the system is being deployed in the metro Denver area, it can be assumed that Colorado plates will make up the majority of license plates the system will detect.
 
-\subsubsection{Review of ALPR Software}
-For the scope of this project, three ALPR solutions will be evaluated to determine which is the most suitable for our purposes.
+\subsubsection{Considerations for ALPR Software}
+For the scope of this project, three ALPR solutions will be evaluated to determine which is the most suitable for our purposes. An ideal ALPR software needs to be currently maintained and capable of reading a license plate if it is skew in an image, taken in poor lighting conditions, and taken with low resolution.
 
-Q-Free Intrada ALPR is a license plate recognition software that offers a C++ API, as well as a cloud-based service. Both the API and cloud requests can be accomplished from a Linux server. Q-Free's software is used in countries around the world for traffic management and toll collection. The wide-ranging geography of its use mean that Intrada ALPR is likely to be reliable and accurate for all types of license plates.
+Q-Free Intrada ALPR is a license plate recognition software that offers a C++ API, as well as a cloud-based service. Both the API and cloud requests can be accomplished from a Linux server. Q-Free's software is used in countries around the world for traffic management and toll collection. The wide-ranging geography of its use mean that Intrada ALPR is likely to be reliable and accurate for all types of license plates. Use of the Intrada suite is dependent on Q-Free granting an educational use license for this semester.
 
-OpenALPR is another C++ library for use with both North American and European plates. This library relies upon two underlying technologies: OpenCV (an open-source computer vision library) and Tesseract OCR (an OCR engine being developed and maintained by Google). The open-source nature of this project make it appealing as it can be immediately integrated without needing to obtain an educational license first.
+OpenALPR is another C++ library for use with both North American and European plates. This library relies upon two underlying technologies: OpenCV (an open-source computer vision library) and Tesseract OCR (an OCR engine being developed and maintained by Google). The open-source nature of this project make it appealing as it can be immediately integrated without needing to obtain an educational license first. Additionally, the last updates were pushed to the source repository in January. While it is desirable for the software we consider to be relatively up-to-date and maintained, this repository was created only four months ago (November, 2013). Use of such a young library may require a less stable solution than what is practical to work with throughout the course of the semester.
 
-JavaANPR markets itself as an Automated Number Plate Recognition library using Java's built-in libraries. 
+JavaANPR markets itself as an Automated \emph{Number} Plate Recognition library (hence ANPR instead of ALPR) using Java's built-in libraries. This software is also open-source, and therefore offers the ability to be quickly integrated into our testing environment. The documentation of the software has not been updated since 2007, and so this option may be the weakest of the three because it is not clear whether or not it is still being actively developed.
 
 \subsubsection{Collection of Test Data}
+Since two of the three proposed ALPR softwares do not require connecting to an external server for computation, it may be necessary to provide training data to improve the accuracy of the system. This would be in addition to the training data that comes with the libraries.
 
-\subsubsection{Effect of Different License Plates on OCR Software}
+The majority of the plates used in our application can be assumed to be Colorado licenses since it is planned to be deployed in the Denver area. Depending on the amount of training the underlying OCR engines have with Colorado plates, the accuracy of the ALPR software may be able to be improved provided additional images of known license plates.
 
+Collection of test data would require using the Acquisition Pi to take images, as this would simulate the real-world use of the application.
+
+For web services such as Q-Free's Intrada solution, \cite{intrada2014} shows a glimpse behind their OCR technology. The Intrada software already has a reliable sum of data from its real-world deployments.
+
+\subsubsection{Interface with Basestation Pi}
+The recognition and extraction of license plate characters will not directly interface with the Arduino Fio or Acquisition Pi that takes the images of cars. Instead, it is assumed all communications will come through the Basestation Pi, and that the Basestation Pi will upload received images to the ACMx Linux server.
+
+Upon upload of the image to the ACMx server, a script will be invoked to process the image. The ACMx server will then run redundancy measures to ensure the image uploaded does contain a license plate. Upon a successful identification, the server will invoke the selected ALPR strategy to extract characters from the license plate image. Cropping and image manipulation required by the selected ALPR strategy will be done before invoking this script. The amount of cropping done on the server and on the Acquisition Pi is something to be determined throughout the course of this project. Section 2.3 goes into more detail about this subject.
+
+If the chosen ALPR strategy is self-sufficient, all calculations will be completed on the ACMx server. If the chosen ALPR strategy uses a centralized cloud computing strategy, a request will be made to the appropriate server to extract the characters, and the returned result will be used. The cloud computing strategy will also introduce an asynchronous workflow as the ACMx server will perform other tasks while waiting for the result.
+
+Once the ACMx server has a plain text representation of the license plate characters, they will be stored in a MySQL database where they can be retrieved and processed by the Web Application subsystem described in Section 2.6.
 
 
 \subsection{Web Application}
 Taylor
-
+From Brandon: I called you out in my section to describe how your subsystem will use the license plate characters I extract from the MySQL database.
 
 \subsection{Deployment}
 Blah
@@ -106,9 +120,16 @@ A summary \cite{johnson2012} Talk about the motivation behind this project. Why 
 
 
 \begin{thebibliography}{99}
-\bibitem{stillwell2013} R. Stillwell, A. Wilson ``Magnetometer Parking Sensor'' \emph{EGGN 383 Final Project, Colorado School of Mines}. December 12, 2013.
+\bibitem{stillwell2013} R. Stillwell, A. Wilson ``Magnetometer Parking Sensor,'' \emph{EGGN 383 Final Project, Colorado School of Mines}. December 12, 2013.
 
-\bibitem{parkingWiki}  R. Stillwell ``Parking Sensor Wiki'' \url{http://github.com/ColoradoSchoolOfMines/parking_sensor/wiki}. % Not sure how to cite this; can someone help?
+\bibitem{parkingWiki} R. Stillwell. (2014). \emph{Parking Sensor Wiki} [Online]. Available: \url{http://github.com/ColoradoSchoolOfMines/parking_sensor/wiki}
+% Not sure how to cite this; can someone help?
+
+\bibitem{intrada2014} Q-Free ASA. (2014). \emph{OCR Technology} [Online]. Available: \url{http://www.q-free.com/product/ocr-technology/}
+
+\bibitem{du2013} S. Du et al., ``Automatic License Plate Recognition (ALPR): A State-of-the-Art Review,'' \emph{IEEE Trans. Circuits and Systems for Video Technology}, vol. 23, no. 2, Feb. 2013.
+
+\bibitem{patel2012} C. Patel et al., ``Optical Character Recognition by Open Source OCR Tool Tesseract: A Case Study,'' \emph{Intl. Journal Computer Applications} vol. 55, no. 10, Oct. 2012.
 
 \bibitem{johnson2012} X. Johnson
 \end{thebibliography}
