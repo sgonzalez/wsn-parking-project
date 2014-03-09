@@ -30,8 +30,10 @@
 
 The parking lots at the Colorado School of Mines (CSM, Mines) are often a source of frustration for students and faculty members. Because space on campus is limited, the lots are often unable to accommodate everyone who needs to use them. Students need to decide which lot to park in before they go to class; however, knowing which lots have free spaces usually requires driving through the lots looking for a space. The extra time spent searching one or many lots can make students or faculty late for class. If campus members could find out which lots had available spaces before they arrived, much time and frustration could be saved. The goal of this project is to design and deploy a working parking lot monitoring system that will be the first step towards a better parking experience on the Mines campus. The system will keep track of both the number of vehicles in a parking lot and the license plate numbers of those vehicles. The information will be available online to system administrators and Mines campus members. There are two main parts to this project:
 
-1) Parking lot capacity monitoring
-2) License plate detection and monitoring
+\begin{enumerate}
+\item Parking lot capacity monitoring
+\item License plate detection and monitoring
+\end{enumerate}
 
 The idea behind the first part is that a student can get on their smartphone, tablet, or laptop before heading to class, see a nicely-formatted list/map of the lots on campus, and decide where to park based on how full each lot is. Administrators will monitor the information and make sure it is correct, updating the web application as needed with new statistics, lists and maps as more lots are added to the system. The Association for Computing Machinery group (ACMx) at Mines has already started working on a system for monitoring lot capacities (see description of the SmartLots project in section 1.2). We will collaborate closely with the ACMx group, integrating our work with theirs to create and deploy a working system by the end of this semester (May 2014).
 
@@ -40,7 +42,7 @@ The second part of the project is motivated by a desire to test the feasibility 
 Our goal is to work with the ACMx group to deploy the system in two parking lots on campus, the CTLM upper lot and CTLM lower lot, which are the two closest parking lots to the CTLM building on the Mines campus. The system itself will consist of five main subsystems, which are described in detail in section 2.
 
 \subsection{Related Work}
-The ACMx group at CSM has designed a system called SmartLots to track the number of vehicles in a parking lot. Their system is a wireless sensor network consisting of sensor nodes and a central base station. The sensor nodes are Arduino Fio microcomputers equipped with tri-axial magnetometors and XBEE Pro radios. The base station is one small, commercially available Raspberry Pi Linux computer. The information collected by the sensor nodes is transmitted to the base station and forwarded to a server running a small web application. The system is described in \cite{stillwell2013} and \cite{parkingWiki}. \cite{stillwell2013} describes an implementation of a system to detect automobiles entering and exiting a parking lot using the Fio and the Raspberry Pi. This system uses the ubiquitous IEEE 802.15.4 communications standard to communicate automobile detection data from the sensor nodes to the base station. \cite{parkingWiki} describes the ongoing status of the ACMx project. At the time of writing this proposal, the group has created a website that will display the status of the CTLM upper and lower lots once the monitoring system has been deployed. \cite{parkingWiki} is updated periodically with new information about project progress. The project described in this proposal will augment and extend the ACMx project while collaborating closely with Stillwell (ACMx president and author of \cite{stillwell2013}), with the goal of a real world deployment by May 2014.
+The ACMx group at CSM has designed a system called SmartLots to track the number of vehicles in a parking lot. Their system is a wireless sensor network consisting of sensor nodes and a central base station. The sensor nodes are Arduino Fio microcontorllers equipped with tri-axial magnetometors and XBEE Pro radios. The base station is one small, commercially available Raspberry Pi Linux computer. The information collected by the sensor nodes is transmitted to the base station and forwarded to a server running a small web application. The system is described in \cite{stillwell2013} and \cite{parkingWiki}. \cite{stillwell2013} describes an implementation of a system to detect automobiles entering and exiting a parking lot using the Fio and the Raspberry Pi. This system uses the ubiquitous IEEE 802.15.4 communications standard to communicate automobile detection data from the sensor nodes to the base station. \cite{parkingWiki} describes the ongoing status of the ACMx project. At the time of writing this proposal, the group has created a website that will display the status of the CTLM upper and lower lots once the monitoring system has been deployed. \cite{parkingWiki} is updated periodically with new information about project progress. The project described in this proposal will augment and extend the ACMx project while collaborating closely with Stillwell (ACMx president and author of \cite{stillwell2013}), with the goal of a real world deployment by May 2014.
 
 \section{Proposed Work}
 \subsection{Overview}
@@ -105,9 +107,7 @@ A summary \cite{johnson2012} Talk about the motivation behind this project. Why 
 \begin{thebibliography}{99}
 \bibitem{stillwell2013} R. Stillwell, A. Wilson ``Magnetometer Parking Sensor'' \emph{EGGN 383 Final Project, Colorado School of Mines}. December 12, 2013
 
-% Not sure how to cite this; can someone help?
-\bibitem{parkingWiki}  ACMx ``Parking Sensor Wiki'' https://github.com/ColoradoSchoolOfMines/parking\_sensor/wiki
-
+\bibitem{parkingWiki}  ACMx ``Parking Sensor Wiki'' \begin{verbatim}https://github.com/ColoradoSchoolOfMines/parking_sensor/wiki\end{verbatim} % Not sure how to cite this; can someone help?
 
 \bibitem{johnson2012} X. Johnson
 \end{thebibliography}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.3.2)  9 MAR 2014 14:07
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.3.2)  9 MAR 2014 14:10
 entering extended mode
 **proposal.tex
 
@@ -188,36 +188,31 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <autodetection.png, id=17, 363.3575pt x 337.26pt>
 File: autodetection.png Graphic file (type png)
  <use autodetection.png>
-Package pdftex.def Info: autodetection.png used on input line 53.
+Package pdftex.def Info: autodetection.png used on input line 55.
 (pdftex.def)             Requested size: 252.94499pt x 234.78355pt.
 
 [4 <C:/Users/Brandon/SkyDrive/SPRING2014/CSCI598A/ParkingProject/wsn-parking-pr
-oject/proposal/autodetection.png>] [5]
-Overfull \hbox (48.43802pt too wide) in paragraph at lines 108--109
-[]\OT1/cmr/m/n/10.95 ACMx ``Park-ing Sen-sor Wiki'' https://github.com/Colorado
-SchoolOfMines/parking[]sensor/wiki 
- []
-
-[6] [7]
+oject/proposal/autodetection.png>] [5] [6] [7]
 (C:\Users\Brandon\SkyDrive\SPRING2014\CSCI598A\ParkingProject\wsn-parking-proje
 ct\proposal\proposal.aux) ) 
 Here is how much of TeX's memory you used:
- 1971 strings out of 493921
- 25938 string characters out of 3152891
+ 1972 strings out of 493921
+ 25944 string characters out of 3152891
  82286 words of memory out of 3000000
  5265 multiletter control sequences out of 15000+200000
- 11105 words of font info for 41 fonts, out of 3000000 for 9000
+ 11273 words of font info for 42 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 27i,6n,26p,1513b,260s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,6n,26p,1515b,335s stack positions out of 5000i,500n,10000p,200000b,50000s
 <D:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10
 .pfb><D:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/MiKTeX 2.9/fo
 nts/type1/public/amsfonts/cm/cmr10.pfb><D:/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmr12.pfb><D:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/MiK
 TeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmti12.pfb>
-Output written on proposal.pdf (7 pages, 160275 bytes).
+blic/amsfonts/cm/cmti12.pfb><D:/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt1
+0.pfb>
+Output written on proposal.pdf (7 pages, 173871 bytes).
 PDF statistics:
- 55 PDF objects out of 1000 (max. 8388607)
+ 59 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
