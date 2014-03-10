@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  9 MAR 2014 18:19
-=======
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  9 MAR 2014 19:21
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  10 MAR 2014 17:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -10,7 +6,6 @@ entering extended mode
 **proposal.tex
 (./proposal.tex
 LaTeX2e <2011/06/27>
-<<<<<<< HEAD
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
 rman-x-2012-05-30, ngerman-x-2012-05-30, afrikaans, ancientgreek, ibycus, arabi
 c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
@@ -25,12 +20,6 @@ welsh, loaded.
 (/usr/local/texlive/2012/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/local/texlive/2012/texmf-dist/tex/latex/base/size11.clo
-=======
-Babel <3.9f> and hyphenation patterns for 78 languages loaded.
-(/usr/local/texlive/2013/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2013/texmf-dist/tex/latex/base/size11.clo
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -45,7 +34,6 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
@@ -62,24 +50,6 @@ Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
 (/usr/local/texlive/2012/texmf-dist/tex/generic/ifxetex/ifxetex.sty
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/geometry/geometry.sty
-Package: geometry 2010/09/12 v5.6 Page Geometry
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks14
-)
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
-)
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifvtex.sty
-Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
-Package ifvtex Info: VTeX not detected.
-)
-(/usr/local/texlive/2013/texmf-dist/tex/generic/ifxetex/ifxetex.sty
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count87
@@ -95,7 +65,6 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen110
 \Gm@dimlist=\toks15
 )
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -106,23 +75,10 @@ Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
 (/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/graphics.cfg
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/graphics.cfg
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
@@ -130,15 +86,6 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
 (/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count90
@@ -146,26 +93,17 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen111
 \Gin@req@width=\dimen112
 )
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/amssymb.sty
-Package: amssymb 2013/01/14 v3.01 AMS font symbols
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/amsfonts.sty
-Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 \@emptytoks=\toks16
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2012/05/13 v6.82q Hypertext links for LaTeX
 
@@ -174,16 +112,6 @@ Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
 
 
 (/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
-
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
-Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
-
-
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -222,35 +150,19 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/auxhook.sty
-Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
-)
-(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/kvoptions.sty
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
 \@linkdim=\dimen113
 \Hy@linkcounter=\count91
 \Hy@pagecounter=\count92
 
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2012/05/13 v6.82q Hyperref: PDFDocEncoding definition (HO)
 )
 \Hy@SavedSpaceFactor=\count93
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/hyperref.cfg
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
-)
-\Hy@SavedSpaceFactor=\count93
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/hyperref.cfg
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Hyper figures OFF on input line 4062.
@@ -262,11 +174,7 @@ Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4300.
 \c@Hy@tempcnt=\count94
 
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/url/url.sty
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/url/url.sty
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 \Urlmuskip=\muskip10
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
@@ -290,32 +198,19 @@ LaTeX Info: Redefining \pageref on input line 5847.
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2012/05/13 v6.82q Hyperref driver for pdfTeX
 \Fld@listcount=\count99
 \c@bookmark@seq@number=\count100
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
-\Fld@listcount=\count99
-\c@bookmark@seq@number=\count100
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
 \Hy@SectionHShift=\skip43
 )
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/setspace/setspace.sty
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/setspace/setspace.sty
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
 
@@ -374,11 +269,7 @@ LaTeX Font Info:    ... okay on input line 21.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/context/base/supp-pdf.mkii
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count101
 \scratchdimen=\dimen116
@@ -391,17 +282,10 @@ LaTeX Font Info:    ... okay on input line 21.
 \MPnumerator=\count105
 \makeMPintoPDFobject=\count106
 \everyMPtoPDFconversion=\toks18
-<<<<<<< HEAD
 ) (/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/grfext.sty
-=======
-) (/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/grfext.sty
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 )
 Package grfext Info: Graphics extension search list:
@@ -409,29 +293,17 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
 
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \AtBeginShipoutBox=\box27
 Package hyperref Info: Link coloring OFF on input line 21.
-<<<<<<< HEAD
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 
 (/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
-=======
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
-
-(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count107
@@ -446,7 +318,6 @@ LaTeX Info: Redefining \nameref on input line 21.
 
 LaTeX Font Info:    Try loading font information for U+msa on input line 23.
 
-<<<<<<< HEAD
 (/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
@@ -456,48 +327,46 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 23.
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 ) [1
 
-{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
+<architecture.png, id=104, 433.62pt x 164.615pt>
+File: architecture.png Graphic file (type png)
+ <use architecture.png>
+Package pdftex.def Info: architecture.png used on input line 54.
+(pdftex.def)             Requested size: 325.215pt x 123.46596pt.
 
-<autodetection.png, id=94, 363.3575pt x 337.26pt>
-=======
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 23.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
-
-{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-
-<autodetection.png, id=110, 363.3575pt x 337.26pt>
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
+[3] [4 <./architecture.png>]
+<autodetection.png, id=117, 363.3575pt x 337.26pt>
 File: autodetection.png Graphic file (type png)
  <use autodetection.png>
-Package pdftex.def Info: autodetection.png used on input line 61.
+Package pdftex.def Info: autodetection.png used on input line 67.
 (pdftex.def)             Requested size: 252.94499pt x 234.78355pt.
 
-<<<<<<< HEAD
-[4 <./autodetection.png>] [5] [6] [7] [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 141.
- [9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 141.
+[5 <./autodetection.png>] [6] [7] [8] [9] [10] [11]
+<deployment.png, id=159, 569.12625pt x 417.56pt>
+File: deployment.png Graphic file (type png)
+ <use deployment.png>
+Package pdftex.def Info: deployment.png used on input line 141.
+(pdftex.def)             Requested size: 361.34999pt x 265.12852pt.
+ [12]
+[13 <./deployment.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 172.
+ [14]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 172.
  (./proposal.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 141.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 141.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 172.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 172.
 Package rerunfilecheck Info: File `proposal.out' has not changed.
-(rerunfilecheck)             Checksum: B4A8A01BFE02261C19E452A4D0150FB2;996.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 141.
+(rerunfilecheck)             Checksum: E286E0C4692C7730ABDCB2A5E9E88205;1341.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 172.
  ) 
 Here is how much of TeX's memory you used:
- 5800 strings out of 493488
- 85339 string characters out of 3141326
- 169845 words of memory out of 3000000
- 9025 multiletter control sequences out of 15000+200000
+ 5827 strings out of 493488
+ 85766 string characters out of 3141326
+ 169938 words of memory out of 3000000
+ 9039 multiletter control sequences out of 15000+200000
  12521 words of font info for 47 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 29i,6n,28p,1518b,425s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 29i,6n,28p,1573b,431s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
@@ -506,45 +375,10 @@ r/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
 local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/l
 ocal/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/lo
 cal/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on proposal.pdf (9 pages, 177965 bytes).
+Output written on proposal.pdf (14 pages, 2451926 bytes).
 PDF statistics:
- 173 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 126 words of extra memory for PDF output out of 10000 (max. 10000000)
-=======
-[4] [5 <./autodetection.png>] [6] [7] [8] [9] [10] [11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 156.
- [12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 156.
- (./proposal.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 156.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 156.
-Package rerunfilecheck Info: File `proposal.out' has not changed.
-(rerunfilecheck)             Checksum: DBAE40AA0DAC7DB18DACA8FCB8F1854F;1331.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 156.
- ) 
-Here is how much of TeX's memory you used:
- 5920 strings out of 493315
- 87372 string characters out of 6137904
- 174621 words of memory out of 5000000
- 9280 multiletter control sequences out of 15000+600000
- 12521 words of font info for 47 fonts, out of 8000000 for 9000
- 957 hyphenation exceptions out of 8191
- 29i,6n,28p,1576b,329s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
-usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
-local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/l
-ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/lo
-cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on proposal.pdf (12 pages, 188470 bytes).
-PDF statistics:
- 205 PDF objects out of 1000 (max. 8388607)
- 180 compressed objects within 2 object streams
- 42 named destinations out of 1000 (max. 500000)
- 158 words of extra memory for PDF output out of 10000 (max. 10000000)
->>>>>>> 31be51f5579bd8c5c37b4c11cf45eba24ba4331b
+ 222 PDF objects out of 1000 (max. 8388607)
+ 193 compressed objects within 2 object streams
+ 46 named destinations out of 1000 (max. 500000)
+ 168 words of extra memory for PDF output out of 10000 (max. 10000000)
 
