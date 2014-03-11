@@ -57,28 +57,30 @@ The project we are proposing will be an extension of the ACMx SmartLots project.
 \label{fig:system}
 \end{figure}
 
-The system will rely on three sensor nodes: one will be placed at the entrance to the upper lot, one at the entrance to the lower lot, and one at the junction between the two lots. Each sensor node will contain an Arduino Fio equipped with a tri-axial magnetometer that will be used to detect when a car passes the sensor. The work to determine the hardware configuration and software for the Fios has already been done by ACMx. Our contribution will be to also equip each node with a Raspberry Pi mini-computer and camera, which will take pictures of the license plates of cars as they pass by. When a car passes a sensor node, the magnetometer will detect the car, and the Fio will send an interrupt to the Pi via the XBEE radio, waking it up so it can take a picture of the license plate. There will be a central base station in an upper window of the CTLM building, which will receive all the data from the sensor nodes via transmission from the XBEE Pro radios attached to the sensor nodes. This base station Raspberry Pi will also have a camera attached that will take periodic images of the lots from above. These images will be used to reconcile the sensed data with the actual state of the lots. The base station will forward the data to the ACMx server, where it will be processed and displayed in the web application. The following sections describe the architecture and function of each of the aforementioned subsystems in detail.
+The system will rely on three sensor nodes: one will be placed at the entrance to the upper lot, one at the entrance to the lower lot, and one at the junction between the two lots. Each sensor node will contain an Arduino Fio equipped with a tri-axial magnetometer that will be used to detect when a car passes the sensor. The work to determine the hardware configuration and software for the Arduino Fios has already been done by ACMx. Our contribution will be to also equip each node with a Raspberry Pi mini-computer and camera, which will take pictures of the license plates of cars as they pass by. When a car passes a sensor node, the magnetometer will detect the car, and the Arduino Fio will send an interrupt to the Raspberry Pi via the Xbee radio, waking it up so it can take a picture of the license plate. There will be a central base station in an upper window of the CTLM building, which will receive all the data from the sensor nodes via transmission from the Xbee Pro radios attached to the sensor nodes. This base station Raspberry Pi will also have a camera attached that will take periodic images of the lots from above. These images will be used to reconcile the sensed data with the actual state of the lots. The base station will forward the data to the ACMx server, where it will be processed and displayed in the web application. The following sections describe the architecture and function of each of the aforementioned subsystems in detail.
 
 \subsection{Automobile Detection}
-The automobile detection subsystem provides a means for detecting ingress and egress of vehicles from a parking lot. This subsystem is to be placed on the side of the road next to each parking lot entrance and exit. Automobiles will be detected using a magnetometer which perceives the induced change in the local magnetic field as the metallic structure of the vehicle passes by as described in \cite{stillwell2013}. The automobile detection subsystem will be based around the commercially available Arduino Fio 16-bit  platform which utilizes the ubiquitous Atmel ATMEGA328p microcontroller.
+The automobile detection subsystem provides a means for detecting ingress and egress of vehicles from a parking lot. This subsystem is to be placed on the side of the road next to each parking lot entrance and exit. Automobiles will be detected using a magnetometer which perceives the induced change in the local magnetic field as the metallic structure of the vehicle passes by as described in \cite{stillwell2013}. The automobile detection subsystem will be based around the commercially available Arduino Fio 16-bit  platform which utilizes the ubiquitous Atmel ATMEGA328p microcontroller. When an automobile is detected by the Arduino Fio, a packet is sent through the onboard Xbee to the central basestation (described in Section 2.4) containing the direction of the passing vehicle and a hardware interrupt is sent to the license plate recognition system to awaken it from sleep.
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=3.5in]{autodetection}
 \end{center}
 \caption{Automobile Detection Subsystem Architecture}
+\label{fig:autodetect}
 \end{figure}
 
-The hardware to be used for automobile detection will be contained in the same enclosure as the license plate image acquisition hardware.
+The hardware to be used for automobile detection will be contained in the same enclosure as the license plate image acquisition hardware for simplicity. Both components will share a unified power supply based on a high-capacity lithium polymer battery which is charged by a relatively small photovoltaic panel as seen in Figure~\ref{fig:autodetect}. A 5V boost converter will be required to interface with the Acquisition Raspberry Pi since lithium polymer batteries only provide 3.7V.
 
-The use of a magnetometer ensures that solely automobile and other large vehicles such as motorcycles are detected while pedestrians are ignored.
+The use of a magnetometer ensures that solely automobile and other large vehicles such as motorcycles are detected while pedestrians and particulate deposits, such as snow, are ignored. 
 
+\subsubsection{Tests and Analyses}
 Work on the automobile detection subsystem will involve a variety of tests and analyses to ensure system and data integrity.
 
 
 \subsection{License Plate Image Acquisition}
 Kevin
-From Brandon: I called out your section in my section to talk about the determination of cropping and image manipulation on the server versus the Acquisition Pi.
+From Brandon: I called out your section in my section to talk about the determination of cropping and image manipulation on the server versus the Acquisition Raspberry Pi.
 
 
 \subsection{Central Basestation}
