@@ -98,8 +98,17 @@ The efficacy of the automobile detection subsystem will also be evaluated throug
 
 
 \subsection{License Plate Image Acquisition}
-Kevin
-From Brandon: I called out your section in my section to talk about the determination of cropping and image manipulation on the server versus the Acquisition Raspberry Pi.
+Once the Raspberry Pi receives the interrupt from the automobile detection system that a car is entering the lot it will begin the process of obtaining a picture of the cars license plate. This procedure will be separated into two separate sections, image acquisition and license plate detection.
+
+\subsubsection{Image Acquisition}
+While the automobile detection system correctly identifies when a vehicle enters the lot, the Raspberry Pi will be responsible for determining when to capture a picture of that car in order to optimize the quality of the license plate in the picture. The timing difference between when the Raspberry Pi receives the interrupt and when it actually captures the picture will initially be determined experimentally using the average speed at which cars enter the parking lot. As the project progresses this timing will be fine tuned in order to capture the optimal image every time. The goal with this section is to only take one picture to capture the license plate, so as to minimize capture time and power consumption.
+
+\subsubsection{License Plate Detection}
+Once the image has been captured, the Raspberry Pi will then focus on detecting the license plate in the image and then cropping the image to only include the license plate. This will be done in order to minimize the size of the transmission and the power required for that transmission.
+
+The license plates will be detected using the OpenCV (Open Source Computer Vision Library) API, which provides many different algorithms that can be used for image detection and shape recognition. This particular API was chosen for both it's ease of use and widespread cross-compatibility, as it has interfaces for development in C, C++, Python, Java, and MATLAB and supports all major operating systems. OpenCV is used across the industry for image processing, giving us confidence that it will meet our needs.
+
+Once OpenCV has detected the license plate, the image will then be cropped as needed until all that remains in the image is the license plate from the car that is entering the lot. That image will then be sent to the central base station for processing.
 
 
 \subsection{Central Base Station}

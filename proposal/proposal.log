@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  15 MAR 2014 16:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  16 MAR 2014 11:16
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **proposal.tex
 (./proposal.tex
@@ -323,14 +322,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
 
-<architecture.png, id=115, 433.62pt x 164.615pt>
+<architecture.png, id=123, 433.62pt x 164.615pt>
 File: architecture.png Graphic file (type png)
  <use architecture.png>
 Package pdftex.def Info: architecture.png used on input line 52.
 (pdftex.def)             Requested size: 325.215pt x 123.46596pt.
 
 [4 <./architecture.png>] [5]
-<autodetection.png, id=129, 363.3575pt x 337.26pt>
+<autodetection.png, id=137, 363.3575pt x 337.26pt>
 File: autodetection.png Graphic file (type png)
  <use autodetection.png>
 Package pdftex.def Info: autodetection.png used on input line 75.
@@ -345,31 +344,31 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 90.
  [7] [8] [9]
-[10] [11] [12] [13] <deployment.png, id=181, 569.12625pt x 417.56pt>
+[10] [11] [12] [13] [14] [15] <deployment.png, id=197, 569.12625pt x 417.56pt>
 File: deployment.png Graphic file (type png)
 
 <use deployment.png>
-Package pdftex.def Info: deployment.png used on input line 162.
+Package pdftex.def Info: deployment.png used on input line 171.
 (pdftex.def)             Requested size: 361.34999pt x 265.12852pt.
- [14] [15 <./deployment.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 194.
- [16]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 194.
+ [16 <./deployment.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 203.
+ [17]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 203.
  (./proposal.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 194.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 194.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 203.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 203.
 Package rerunfilecheck Info: File `proposal.out' has not changed.
-(rerunfilecheck)             Checksum: BDE441D9AC4D51635201D04E1DAEF810;1421.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
+(rerunfilecheck)             Checksum: E1BC4DC5FE7E71BF1853E65687AF6179;1581.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 203.
  ) 
 Here is how much of TeX's memory you used:
- 5963 strings out of 493315
- 88033 string characters out of 6137904
- 173807 words of memory out of 5000000
- 9308 multiletter control sequences out of 15000+600000
+ 5967 strings out of 493315
+ 88107 string characters out of 6137904
+ 173774 words of memory out of 5000000
+ 9309 multiletter control sequences out of 15000+600000
  12867 words of font info for 48 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 29i,6n,28p,1573b,433s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,6n,28p,1573b,400s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
@@ -379,10 +378,10 @@ local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
 ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/lo
 cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/loc
 al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on proposal.pdf (16 pages, 2464604 bytes).
+Output written on proposal.pdf (17 pages, 2466752 bytes).
 PDF statistics:
- 247 PDF objects out of 1000 (max. 8388607)
- 214 compressed objects within 3 object streams
- 52 named destinations out of 1000 (max. 500000)
- 176 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 260 PDF objects out of 1000 (max. 8388607)
+ 226 compressed objects within 3 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 192 words of extra memory for PDF output out of 10000 (max. 10000000)
 
