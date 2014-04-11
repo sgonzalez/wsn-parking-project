@@ -1,4 +1,4 @@
 #!/bin/sh
 
-echo -ne "Running sensor pi program..."
-echo -ne "(requires connected and operation camera)"
+echo -e "Running sensor pi program..."
+echo -e "(requires connected and operational camera)"

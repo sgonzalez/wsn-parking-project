@@ -1,12 +1,12 @@
 #!/bin/sh
 
-echo -ne "Running basestation program..."
+echo -e "Running basestation program..."
 
-echo -ne "Checking internet connection..."
-if ping -t 1 -c 1 google.com > /dev/null 2>&1
-then
-  echo " GOOD"
+echo -e "Checking internet connection..."
+wget -q --tries=10 --timeout=20 http://google.com
+if [[ $? -eq 0 ]]; then
+        echo " GOOD"
 else
-  echo " FAILED"
-  exit 1
+        echo " FAILED"
+        exit 1
 fi
