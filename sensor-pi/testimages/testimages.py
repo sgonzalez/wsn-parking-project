@@ -28,7 +28,7 @@ while(True):
     if(GPIO.input(24)==False):
       now = datetime.datetime.now()
       timeString = now.strftime("%Y-%m-%d_%H:%M:%S")
-      filename = "photo-"+timeString+".png"
+      filename = "photo-"+timeString+".jpg"
       takepic(filename)
   up = GPIO.input(24)
   count = count+1
