@@ -10,6 +10,7 @@
 
 \usepackage{setspace}
 \setstretch{1.5}
+\usepackage{enumerate}
 
 
 % Code formatting
@@ -135,6 +136,78 @@ The central base station will be the point of contact between the sensor network
 
 
 \subsection{Server Processing}
+Once an image has been captured by an Acquisition Raspberry Pi it is transmitted via the XBee antenna to the base station Raspberry Pi where it is uploaded online via an Ethernet hardwire connection. The REST route that the image is posted serves several purposes. First, it authenticates the sender by checking for a username and password. The script then timestamps the image and saves it to a directory on the server not directly accessible from the web. Lastly, the script calls a function to invoke two different automatic license plate recognition (ALPR) programs and store the resulting character extraction to a MySQL database.
+
+\subsubsection{ALPR Literature Survey}
+License plate extraction algorithms have been developed, implemented, and critiqued in the academic community. For use in our project, we needed to find an implemented ALPR algorithm capable of running in a Linux environment (on the server) or a cloud service that would allow for reliable character recognition from license images.
+
+Much of the research done on ALPR technology is less concerned with implementation and more interested in algorithmic advances. License plate recognition relies heavily on manipulation of graphics files and computer vision - each fields of study in their own right. Despite the lack of detailed literature on implemented programs, we were still able to find papers that briefly mentioned two operational systems: OpenALPR and JavaANPR. Note that ALPR and ANPR are synonymous (some packages use the term 'number' plate recognition in place of 'license' plate recognition).
+
+\emph{A. OpenALPR}
+
+OpenALPR is a relatively new open source ALPR system that is built on top of OpenCV (a computer vision framework), and the Tesseract OCR engine. Initial commits to the source code were made in December, 2013. Using such a new program can be more risky than going with an established leader in the market, but we found that OpenALPR offered just the type of functionality we were looking for.
+
+\emph{B. JavaANPR}
+
+JavaANPR is an older program (published in 2007) that was created as part of a Bachelor's thesis at the Brno University of Technology in the Czech Republic. Stemming from an academic environment, JavaANPR has much more detailed documentation on the program and the algorithms implemented in the program than any other option surveyed (both academic and industrial). On the same token, development on the program seems to have stopped after the thesis was submitted, so the software has not seen updates in eight years. No software is perfect, and knowing that we would be using a program that is no longer being maintained is just one of the drawbacks we discovered about JavaANPR. The other main disadvantage of JavaANPR is that it was developed in Europe for European license plates. The source code would have to be correctly adapted in order to recognize North American plates, and the OCR engine would need to be trained for fonts used in America.
+
+\emph{C. General ALPR Algorithm}
+
+The two programs do share the same general algorithm for extracting license plates. First, the plate is identified using some means to isolate rectangles in the image (texture, color, boundaries, etc.). Once the bounding box containing the plate is found, segmentation begins to isolate each individual character on the license plate. Finally, these image representations of characters are mapped to their most likely plain text counterpart.
+
+In general, ALPR systems only work for a specific geographic region they are "trained" for. For example, North American plates are a different size than European plates. Detection algorithms to identify a license plate in America would not work on an English car without modifications to the ALPR's configuration. Similarly, different states and countries use different fonts on their plates. In order to achieve maximum accuracy, you would need to collect hundreds of samples of the font and teach the program what those letters look like.
+
+
+\subsubsection{ALPR Industry Survey}
+Many ALPR systems exist today for commercial and government purposes. Uses can range from cross-referencing address information with the DMV to bill users of toll roads to monitoring roadways for stolen cars or even measuring car speeds. Our team was able to contact two manufacturers of ALPR systems to learn more about their use in industry: Q-Free ASA and The 3M Company.
+
+\emph{A. Q-Free ASA}
+
+One commercial provider of ALPR software is Q-Free ASA, which is based out of the Netherlands. Q-Free is a top search result when querying for ALPR software. Their ALPR product, named Intrada, offers a cloud based solution where we are able to send the image of the license plate to their servers, and get back the plain text representation of the characters. One unique feature Intrada includes that we did not find in any other package surveyed is the ability to identify the state of origin of the license plate. Intrada does this by analyzing minor differences in fonts used across state borders.
+
+Note that this feature is not the same as training OpenALPR or another system with a new font. In OpenALPR, new trained data helps increase accuracy in detection. As a user, you can ask OpenALPR to examine the probability of a "template match" to a specific font, but the software does not intelligently determine which font family it most closely matches. Intrada offers the simplest solution in terms of startup costs because there is no local software to configure on our machine.
+
+\emph{B. The 3M Company}
+
+E-470 uses high speed cameras to capture and extract license plate data in order to bill users of their toll road in the Denver Metro area. We reached out to the E-470 Public Highway Authority to inquire more about their deployment of sensors and ALPR software. Representatives informed us that their toll booths used an ALPR system developed by The 3M Company. Even though E-470 is using an ALPR which automatically detects the characters of a license plate, every image must be reviewed by a human operator before the driver is billed. In our project, we don't want a human operator to have to confirm each plate - we want to trust the ALPR to do its job.
+
+After communicating with E-470, we contacted The 3M Company with regards to their ALPR software. A representative reached out and confirmed that they do offer an API to their program, allowing their technology to be built into other projects. Because we are creating a parking lot monitor system, and not just a license plate recognition system, an API is crucial so we can integrate the ALPR into our workflow. Unfortunately, our request for an educational use license for their ALPR was denied, as after reviewing our team's proposal 3M was worried we might try to commercialize our network. We were unable to learn more about their algorithm or API after that point.
+
+\subsubsection{Selection of ALPR Programs}
+Our literature and industry surveys left us with three viable options for license plate recognition: OpenALPR, JavaANPR, and Q-Free's Intrada ALPR. Of those three, only OpenALPR was ready to be integrated into our network. Intrada ALPR is a commercial service, so our ability to use it was dependent on Q-Free granting an educational use license to us for the semester. Lastly, JavaANPR would need to be modified to detect and recognize North American plates and fonts. JavaANPR also lacks additional information that both OpenALPR and Intrada ALPR provide such as execution time and confidence.
+
+The goal of this project is to demonstrate a proof of concept network that is capable of monitoring parking lots and capturing license plate data. To stay aligned with this goal, and because of our unfamiliarity with graphical algorithms, we decided not to pursue using JavaANPR as a software solution for our network.
+
+After reaching out to Q-Free with regards to using their Intrada service for the semester, we were referred to their Global Account Manager OEM Partners representative Marco Sinnema. Dr. Sinnema, on behalf of Q-Free, graciously granted our request to use their product free of charge for the spring 2014 semester.
+
+Instead of choosing between two ALPR systems, we decided to integrate both platforms into our network to allow an ALPR comparison between the two tools, and offer better data integrity by checking if results from both systems (for the same photo) matched.
+
+\subsubsection{Test Data Collection}
+??? WHERE TO DISCUSS ACTUAL COLLECTION OF TEST DATA???
+
+\subsubsection{ALPR-Project Integration}
+Both OpenALPR and Intrada ALPR had to be integrated into our web application so they would run automatically without the need for human intervention. OpenALPR, because it is not a cloud service, needed to be installed locally on the ACMx server. The Intrada ALPR was much simpler because we were only interacting with the API.
+
+\emph{A. OpenALPR}
+As stated in ??? LITERATURE SURVEY REFERENCE ???, OpenALPR is built on top of OpenCV, a computer vision library, and Tesseract OCR, an OCR engine. Tesseract OCR had additional dependencies that needed to be installed before it would compile.
+
+We used Ubuntu's \verb+apt-get+ command to install almost all of Tesseract's dependency packages. Tesseract makes use of a recent version of an image processing software called Leptonica. Because the version used in Tesseract superseded the versions available in Ubuntu's repository, we had to download the source files for Leptonica and compile it from scratch.
+
+After installing all the dependencies, we were finally able to compile Tesseract from its source files. Additionally, OpenCV came bundled with all of its dependencies, so we were able to build the OpenCV library rather effortlessly.
+
+Once OpenCV and Tesseract were operational, compiling OpenALPR was a breeze. The entire process of installing all the dependencies and compiling everything (correctly) took a full working day. After installation, OpenALPR was able to start recognizing license plates immediately because it comes bundled with training data for both North American and European plates.
+
+\emph{B. Intrada ALPR}
+Intrada ALPR uses the SOAP protocol for exchanging information. To create SOAP requests, we used the \verb+SoapClient+ class available in PHP to create, send, and receive the output of our request.
+
+Intrada requires a username and password to process images. The SOAP API allows for the sending of the username and password as part of each request object for authentication. Then, Intrada runs their proprietary algorithm on its own servers before returning a result string back to our web application. The result string contains helpful
+
+\subsubsection{Evaluation Results}
+
+
+
+
+\subsubsection{Proposal part}
 Once an image has been determined to contain a license plate, it will be transmitted from the Acquisition Raspberry Pi to a server online via the base station Raspberry Pi. The server will then be responsible for using recognition software technology to extract the digits of the license plate from the image. Upon successful completion, the textual representation of the license plate will be stored in a database residing on the server to be later integrated into the front-facing web application.
 
 The subsystem encapsulating server processing will require a review of recognition software and literature. There exists a market for Automatic License Plate Recognition (ALPR) software that relies on Optical Character Recognition (OCR) engines to extract characters. \cite{du2013} describes the various methods and features used to extract characters from a license plate. Once an ALPR solution is chosen, it will be necessary to collect a set of test data using the Acquisition Raspberry Pi to tune the workflow of character extraction.
@@ -633,7 +706,66 @@ void loop(){
 \end{lstlisting}
 \end{spacing}
 
+\subsection*{ALPR Invocation Function}
+\begin{spacing}{1}
+\begin{lstlisting}[language=php]
+function get_license_number($image_filepath, $image_url) {
+	$license_number = "FAIL";
+	$intrada_license_number = "FAIL";
+	$state = NULL;
 
+	// Start the OpenALPR engine on the ACMx server.
+	// Sample result string (plate is LTM378):
+	// - LTM378 confident: 92.4582 template_match: 0
+	$unfiltered_result = exec("/var/license_plates/openalpr/src/alpr -r /var/license_plates/openalpr/runtime_data -n 1 $image_filepath");
+
+	if ($unfiltered_result != '') {
+		$exploded_result = explode(' ', $unfiltered_result);
+		$license_number = $exploded_result[5];
+	}
+
+	// Create a SOAP request for Intrada ALPR cloud service.
+	$intrada_client = new SoapClient('http://intrada2.cloudapp.net/IntradaService.asmx?WSDL',
+		array('soap_version' => SOAP_1_2));
+	$intrada_request = $intrada_client->IntradaRecognizeDirectPassage(
+		array(
+			'project' => 'brodrigu.demo',
+			'key' => '8053',
+			'images' => array($image_url),
+			'metadata' => array()
+		)
+	);
+
+	// Sample result string (plate is LTM378):
+	// RESULT:{hash}:{plate},{confidence},{state},{confidence},{coordinates of license plate in image}:{execution time}
+	// RESULT:592E1EE8D1DE427BB6E0042F34745523:LTM378,750,USA_CO,750,(309,156),(503,159),(309,206),(503,207):1594
+	$unfiltered_result = $intrada_request->IntradaRecognizeDirectPassageResult;
+	if (!is_soap_fault($unfiltered_result)) {
+		$exploded_result = explode(':', $unfiltered_result);
+		$unfiltered_result = $exploded_result[2];
+		if ($unfiltered_result == '[reject]' || $unfiltered_result == 'Could not download file') {
+			$unfiltered_result = 'REJECT';
+		}
+		$exploded_result = explode(',', $unfiltered_result);
+		$intrada_license_number = $exploded_result[0];
+		if ($unfiltered_result != 'REJECT') {
+			$state = $exploded_result[2];
+		}
+	}
+
+	// $license_number will be FAIL if OpenALPR didn't find a number, or the plate/partial.
+	// $intrada_license_number will be FAIL if Intrada had an error,
+	// [reject] if it could not find a number, or the plate/partial.
+	$license_info = array(
+		0 => $license_number,
+		1 => $intrada_license_number,
+		2 => $state
+	);
+
+	return $license_info;
+}
+\end{lstlisting}
+\end{spacing}
 
 
 \end{document}  

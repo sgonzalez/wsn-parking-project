@@ -10,13 +10,19 @@
 \BOOKMARK [3][-]{subsubsection.2.3.2}{License Plate Detection}{subsection.2.3}% 10
 \BOOKMARK [2][-]{subsection.2.4}{Central Base Station}{section.2}% 11
 \BOOKMARK [2][-]{subsection.2.5}{Server Processing}{section.2}% 12
-\BOOKMARK [3][-]{subsubsection.2.5.1}{Considerations for ALPR Software}{subsection.2.5}% 13
-\BOOKMARK [3][-]{subsubsection.2.5.2}{Collection of Test Data}{subsection.2.5}% 14
-\BOOKMARK [3][-]{subsubsection.2.5.3}{Interface with Base Station Raspberry Pi}{subsection.2.5}% 15
-\BOOKMARK [2][-]{subsection.2.6}{Web Application}{section.2}% 16
-\BOOKMARK [3][-]{subsubsection.2.6.1}{HTTP Interface}{subsection.2.6}% 17
-\BOOKMARK [3][-]{subsubsection.2.6.2}{Viewing License Plate Data}{subsection.2.6}% 18
-\BOOKMARK [3][-]{subsubsection.2.6.3}{Validating and Adjusting Lot Capacity Data}{subsection.2.6}% 19
-\BOOKMARK [3][-]{subsubsection.2.6.4}{User Accounts}{subsection.2.6}% 20
-\BOOKMARK [2][-]{subsection.2.7}{Deployment}{section.2}% 21
-\BOOKMARK [1][-]{section.3}{Summary}{}% 22
+\BOOKMARK [3][-]{subsubsection.2.5.1}{ALPR Literature Survey}{subsection.2.5}% 13
+\BOOKMARK [3][-]{subsubsection.2.5.2}{ALPR Industry Survey}{subsection.2.5}% 14
+\BOOKMARK [3][-]{subsubsection.2.5.3}{Selection of ALPR Programs}{subsection.2.5}% 15
+\BOOKMARK [3][-]{subsubsection.2.5.4}{Test Data Collection}{subsection.2.5}% 16
+\BOOKMARK [3][-]{subsubsection.2.5.5}{ALPR-Project Integration}{subsection.2.5}% 17
+\BOOKMARK [3][-]{subsubsection.2.5.6}{Evaluation Results}{subsection.2.5}% 18
+\BOOKMARK [3][-]{subsubsection.2.5.7}{Considerations for ALPR Software}{subsection.2.5}% 19
+\BOOKMARK [3][-]{subsubsection.2.5.8}{Collection of Test Data}{subsection.2.5}% 20
+\BOOKMARK [3][-]{subsubsection.2.5.9}{Interface with Base Station Raspberry Pi}{subsection.2.5}% 21
+\BOOKMARK [2][-]{subsection.2.6}{Web Application}{section.2}% 22
+\BOOKMARK [3][-]{subsubsection.2.6.1}{HTTP Interface}{subsection.2.6}% 23
+\BOOKMARK [3][-]{subsubsection.2.6.2}{Viewing License Plate Data}{subsection.2.6}% 24
+\BOOKMARK [3][-]{subsubsection.2.6.3}{Validating and Adjusting Lot Capacity Data}{subsection.2.6}% 25
+\BOOKMARK [3][-]{subsubsection.2.6.4}{User Accounts}{subsection.2.6}% 26
+\BOOKMARK [2][-]{subsection.2.7}{Deployment}{section.2}% 27
+\BOOKMARK [1][-]{section.3}{Summary}{}% 28
