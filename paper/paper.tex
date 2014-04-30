@@ -11,6 +11,7 @@
 \usepackage{setspace}
 \setstretch{1.5}
 \usepackage{enumerate}
+\usepackage{paralist}
 
 
 % Code formatting
@@ -200,10 +201,17 @@ Once OpenCV and Tesseract were operational, compiling OpenALPR was a breeze. The
 \emph{B. Intrada ALPR}
 Intrada ALPR uses the SOAP protocol for exchanging information. To create SOAP requests, we used the \verb+SoapClient+ class available in PHP to create, send, and receive the output of our request.
 
-Intrada requires a username and password to process images. The SOAP API allows for the sending of the username and password as part of each request object for authentication. Then, Intrada runs their proprietary algorithm on its own servers before returning a result string back to our web application. The result string contains helpful
+Intrada requires a username and password to process images. The SOAP API allows for the sending of the username and password as part of each request object for authentication. Then, Intrada runs their proprietary algorithm on its own servers before returning a result string back to our web application. The result string contains colon delimited fields that carry 
+\begin{inparaenum}[\itshape a\upshape)]
+\item the extracted license plate characters;
+\item the confidence in the extraction;
+\item the state of origin of the license plate;
+\item the confidence in the state of origin;
+\item coordinates of the boundary box of the detected license plate; and
+\item the execution time for the specified image.
+\end{inparaenum}
 
-\subsubsection{Evaluation Results}
-
+The function that invokes the two different 
 
 
 
