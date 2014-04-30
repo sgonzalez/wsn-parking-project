@@ -16,13 +16,14 @@
 \BOOKMARK [3][-]{subsubsection.2.5.4}{Test Data Collection}{subsection.2.5}% 16
 \BOOKMARK [3][-]{subsubsection.2.5.5}{ALPR-Project Integration}{subsection.2.5}% 17
 \BOOKMARK [3][-]{subsubsection.2.5.6}{Evaluation Results}{subsection.2.5}% 18
-\BOOKMARK [3][-]{subsubsection.2.5.7}{Considerations for ALPR Software}{subsection.2.5}% 19
-\BOOKMARK [3][-]{subsubsection.2.5.8}{Collection of Test Data}{subsection.2.5}% 20
-\BOOKMARK [3][-]{subsubsection.2.5.9}{Interface with Base Station Raspberry Pi}{subsection.2.5}% 21
-\BOOKMARK [2][-]{subsection.2.6}{Web Application}{section.2}% 22
-\BOOKMARK [3][-]{subsubsection.2.6.1}{HTTP Interface}{subsection.2.6}% 23
-\BOOKMARK [3][-]{subsubsection.2.6.2}{Viewing License Plate Data}{subsection.2.6}% 24
-\BOOKMARK [3][-]{subsubsection.2.6.3}{Validating and Adjusting Lot Capacity Data}{subsection.2.6}% 25
-\BOOKMARK [3][-]{subsubsection.2.6.4}{User Accounts}{subsection.2.6}% 26
-\BOOKMARK [2][-]{subsection.2.7}{Deployment}{section.2}% 27
-\BOOKMARK [1][-]{section.3}{Summary}{}% 28
+\BOOKMARK [3][-]{subsubsection.2.5.7}{Proposal part}{subsection.2.5}% 19
+\BOOKMARK [3][-]{subsubsection.2.5.8}{Considerations for ALPR Software}{subsection.2.5}% 20
+\BOOKMARK [3][-]{subsubsection.2.5.9}{Collection of Test Data}{subsection.2.5}% 21
+\BOOKMARK [3][-]{subsubsection.2.5.10}{Interface with Base Station Raspberry Pi}{subsection.2.5}% 22
+\BOOKMARK [2][-]{subsection.2.6}{Web Application}{section.2}% 23
+\BOOKMARK [3][-]{subsubsection.2.6.1}{HTTP Interface}{subsection.2.6}% 24
+\BOOKMARK [3][-]{subsubsection.2.6.2}{Viewing License Plate Data}{subsection.2.6}% 25
+\BOOKMARK [3][-]{subsubsection.2.6.3}{Validating and Adjusting Lot Capacity Data}{subsection.2.6}% 26
+\BOOKMARK [3][-]{subsubsection.2.6.4}{User Accounts}{subsection.2.6}% 27
+\BOOKMARK [2][-]{subsection.2.7}{Deployment}{section.2}% 28
+\BOOKMARK [1][-]{section.3}{Summary}{}% 29
