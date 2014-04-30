@@ -295,7 +295,7 @@ Administrators are able to create, delete, and view other administrator accounts
 As mentioned in section 2.5, the license plate images are translated by the ALPR software from an image into a string of plain text, and stored in the MySQL database on the ACMx server. One of the main functions of the web interface is to display this data to administrators. The page that displays the license plate data is a simple interface that shows every license plate number we have collected, along with the time it was collected, the parking lot it came from, and the original image that the license number came from. The data is divided into two tables: one for the data returned from the OpenALPR software, and one for the data returned by the Intrada software. The entries are sorted by most-recent first. For this project, we were only interested in creating a proof-of-concept type interface that shows we have the capability to display the collected plate data in a useful format; in the future it could be useful to cross-reference our data with the campus parking department's database to check if a car has entered a lot without a permit.
 
 \emph{Database}
-
+The server stores all application data in a MySQL database. This database stores information about the sensor network, along with the data collected from the sensors. The schema for this
 
 \subsubsection{Validating and Adjusting Lot Capacity Data}
 {\color{red}\textbf{NOT COMPLETE}}
