@@ -267,6 +267,13 @@ Once the ACMx server has a plain text representation of the license plate charac
 
 \subsection{Web Application}
 {\color{red}\textbf{NOT COMPLETE}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=5in]{schema}
+\end{center}
+\caption{MySQL Database Schema}
+\label{fig:schema}
+\end{figure}
 As mentioned in section 1.2, the ACMx group has already created a web application that will display the data collected from the sensors in the system. The site is currently accessible online at \url{http://acmxlabs.org/parking/}. Since the current site is essentially just a shell with no data, one main goal of this project is to make the main pages of the site fully functional. Another main goal is to create an administrator side to the site, where data can be viewed and updated by site administrators. The main focus of this subsystem will be to provide interfaces for both general users and administrators that make the data we collect both useful and easy to access. Since the ACMx team already has some protocols in place for collecting and displaying the data from the magnetometer Arduino Fios, the ACMx team will continue development on this interface, and our group will focus on other parts of the application, as described below. The web application itself will be written with PHP on the back end and HTML5/CSS3/JavaScript on the front end. The following subsections describe the various pieces of the site that we aim to complete during this project.
 
 \subsubsection{HTTP Interface}
