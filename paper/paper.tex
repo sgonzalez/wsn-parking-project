@@ -42,12 +42,12 @@
 \maketitle
 
 \begin{abstract}
+{\color{red}\textbf{NOT COMPLETE}}
 This proposal describes a parking lot monitoring system to be used at the Colorado School of Mines (CSM). The system will help campus members enjoy a better parking experience by spending less time trying to find open lots. This is a semester project for the Computer Science graduate course \emph{Wireless Sensor Networks}, taught by Dr. Tracy Camp at CSM. The proposed work will be an extension of a project started by campus computing group ACMx, which uses a wireless sensor network to track the number of cars in specific parking lots. The system will extend the ACMx project by adding components to the sensor network that record the license plate numbers of cars as they enter and exit lots. The information gathered by the sensor network will be displayed on a website that will allow users to survey the state of the lots before arriving, allowing them to make informed parking decisions. The website will also be the result of collaboration between the authors of this proposal and the ACMx group. The proposal provides some background information, describes the proposed system and its components, and discusses implementation strategies. The goal of the project is a real-world deployment on the CSM campus by May 2014.
 \end{abstract}
 
-\section{Project Description}
 
-\subsection{Introduction}
+\section{Introduction}
 {\color{red}\textbf{NOT COMPLETE}}
 The parking lots at the Colorado School of Mines (CSM) can be a source of frustration for students and faculty members. Because space on campus is limited, the lots are often unable to accommodate everyone who needs to use them. Students need to choose a lot before they go to class; however, knowing which lots have free spaces usually requires driving through the lots looking for a space. The extra time spent searching one or many lots can make students or faculty late for class. If campus members could find out which lots had available spaces before they arrived, much time and frustration could be saved. The goal of this project is to design and deploy a working parking lot monitoring system that will be the first step towards a better parking experience on the CSM campus. The system will keep track of both the number of vehicles in a parking lot and the license plate numbers of those vehicles. The information will be available online to system administrators and CSM campus members. There are two main parts to this project:
 
@@ -62,11 +62,11 @@ The second part of the project is motivated by a desire to test the feasibility 
 
 The goal of this project is to work with the ACMx group to create and deploy the system in two parking lots on campus by the end of the semester. See section 2.7 for information about the deployment. The system itself will consist of several subsystems, which are described in detail in section 2.
 
-\subsection{Related Work}
+\section{Related Work}
 {\color{red}\textbf{NOT COMPLETE}}
 The ACMx group at CSM has designed a system named SmartLots to track the number of vehicles in a parking lot. Their system is a wireless sensor network consisting of sensor nodes and a central base station. The sensor nodes are based on the Arduino Fio microcontroller platform equipped with triaxial magnetometers and XBee Pro radios. The base station will be a Raspberry Pi connected to the internet via Ethernet. The information collected by the sensor nodes is transmitted to the base station and forwarded to a server running a small web application. The system is described in \cite{stillwell2013} and \cite{parkingWiki}. \cite{stillwell2013} describes an implementation of a system to detect automobiles entering and exiting a parking lot using the Arduino Fio and the Raspberry Pi. This system uses the IEEE 802.15.4 communications standard to communicate automobile detection data from the sensor nodes to the base station. \cite{parkingWiki} describes the ongoing status of the ACMx project. At the time of writing this proposal, the ACMx team has created a website that will display the status of the CTLM upper and lower lots once the monitoring system has been deployed. \cite{parkingWiki} is updated periodically with new information about project progress. The project described in this proposal will augment and extend the ACMx project while collaborating closely with Stillwell (ACMx president and coauthor of \cite{stillwell2013}), with the goal of a real world deployment by May 2014.
 
-\section{Proposed Work}
+\section{Project Overview}
 {\color{red}\textbf{NOT COMPLETE}}
 \subsection{Overview}
 The project we are proposing will be an extension of the ACMx SmartLots project. We will collaborate closely with Stillwell and the ACMx group to create and deploy the first working parking lot monitoring system on the CSM campus. Our system will consist of several components, each of which will be either an extension of a current SmartLots system or an entirely new subsystem that will be integrated into the existing system. Figure \ref{fig:system} shows the overall architecture of our system.
@@ -81,9 +81,9 @@ The project we are proposing will be an extension of the ACMx SmartLots project.
 
 The system will rely on three main components:
 \begin{enumerate}
-\item Detection Subsystem
-\item Central Base Station
-\item Server
+\item Detection Subsystem,
+\item Central Base Station,
+\item and Server.
 \end{enumerate}
 The detection subsystem will be made up of a small number of sensor nodes, placed strategically at parking lot entrances. Each sensor node will contain an Arduino Fio equipped with a triaxial magnetometer that will be used to detect when a car passes the sensor. The work to determine the hardware configuration and software for the Arduino Fios has already been done by the ACMx group. Our contribution will be to also equip each node with a Raspberry Pi mini-computer and camera, which will take pictures of the license plates of cars as they pass by. When a car passes a sensor node, the magnetometer will detect the car, and the Arduino Fio will send an interrupt to the Raspberry Pi via the XBee radio, waking it up so it can take a picture of the license plate.
 
@@ -106,6 +106,14 @@ The automobile detection subsystem will provide a means for detecting ingress an
 The hardware to be used for automobile detection will be contained in the same enclosure as the license plate image acquisition hardware for simplicity. Both components will share a unified power supply based on a high-capacity lithium polymer battery, which will be charged by a relatively small photovoltaic panel as seen in Figure~\ref{fig:autodetect}. A 5V boost converter will be required to interface with the Acquisition Raspberry Pi since the lithium polymer batteries only provide 3.7V.
 
 The use of a magnetometer ensures that automobiles and other roadway vehicles such as motorcycles are detected, while pedestrians and particulate deposits, such as snow, are ignored. As mentioned in \cite{stillwell2013}, the automobile detection subsystem shall use the commercially available HMC5883 triaxial magnetometer as it provides an adequate balance of sensitivity and low power consumption.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=4.5in]{sensornode}
+\end{center}
+\caption{Automobile Detection Node Hardware}
+\label{fig:autodetecthardware}
+\end{figure}
 
 \subsubsection{Tests and Analyses}
 {\color{red}\textbf{NOT COMPLETE}}
@@ -294,6 +302,12 @@ The system will be deployed at the CTLM Upper and Lower parking lots at CSM. The
 
 The central base station, as described in section 2.4, will be placed in an upper window of the CTLM building, allowing it to take a clear overhead picture of at least one of the two parking lots. For the first deployment we may only have one overhead camera to start off with, although ideally we would have two - one for each lot. Several potential locations exist which allow for a clear line-of-sight to all automobile detection subsystems, one of which is detailed in Figure \ref{fig:deployment}. The location of the base station must put it in range of the XBee Pros mounted on each sensor node, to allow data to be transferred from the detection subsystem to the base station. The locations being considered must also provide internet access to the base station Raspberry Pi through ethernet ports.
 
+\section{Results}
+{\color{red}\textbf{NOT COMPLETE}}
+
+
+\section{Future Research}
+{\color{red}\textbf{NOT COMPLETE}}
 
 \section{Summary}
 {\color{red}\textbf{NOT COMPLETE}}
