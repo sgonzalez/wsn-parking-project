@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2014 23:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2014 23:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -369,27 +369,27 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
 
-<architecture.png, id=149, 432.61626pt x 162.6075pt>
+<architecture.png, id=153, 432.61626pt x 162.6075pt>
 File: architecture.png Graphic file (type png)
  <use architecture.png>
 Package pdftex.def Info: architecture.png used on input line 70.
 (pdftex.def)             Requested size: 325.215pt x 122.24313pt.
 
 [4 <./architecture.png>] [5]
-<autodetection.png, id=165, 363.3575pt x 337.26pt>
+<autodetection.png, id=169, 363.3575pt x 337.26pt>
 File: autodetection.png Graphic file (type png)
  <use autodetection.png>
 Package pdftex.def Info: autodetection.png used on input line 96.
 (pdftex.def)             Requested size: 252.94499pt x 234.78355pt.
 
-<sensornode.png, id=168, 557.08125pt x 419.5675pt>
+<sensornode.png, id=172, 557.08125pt x 419.5675pt>
 File: sensornode.png Graphic file (type png)
  <use sensornode.png>
 Package pdftex.def Info: sensornode.png used on input line 108.
 (pdftex.def)             Requested size: 325.215pt x 244.94344pt.
 
 [6] [7 <./autodetection.png>] [8 <./sensornode.png>] [9]
-<basestation.png, id=197, 556.0775pt x 322.20375pt>
+<basestation.png, id=201, 556.0775pt x 322.20375pt>
 File: basestation.png Graphic file (type png)
  <use basestation.png>
 Package pdftex.def Info: basestation.png used on input line 143.
@@ -400,12 +400,12 @@ LaTeX Warning: Reference `fig:base station' on page 10 undefined on input line
 149.
 
 [10 <./basestation.png>] [11] [12] [13] [14] [15] [16] [17] [18]
-<homepage.png, id=265, 672.5125pt x 700.6175pt>
+<homepage.png, id=269, 672.5125pt x 700.6175pt>
 File: homepage.png Graphic file (type png)
  <use homepage.png>
 Package pdftex.def Info: homepage.png used on input line 262.
 (pdftex.def)             Requested size: 325.215pt x 338.80486pt.
- [19 <./homepage.png>] [20] <schema.png, id=281, 495.8525pt x 259.97125pt>
+ [19 <./homepage.png>] [20] <schema.png, id=285, 495.8525pt x 259.97125pt>
 File: schema.png Graphic file (type png)
  <use schema.png>
 Package pdftex.def Info: schema.png used on input line 280.
@@ -418,31 +418,30 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[23] <unexpectedrecognition.jpg, id=303, 2601.72pt x 1951.29pt>
+[23] <unexpectedrecognition.jpg, id=307, 2601.72pt x 1951.29pt>
 File: unexpectedrecognition.jpg Graphic file (type jpg)
 
 <use unexpectedrecognition.jpg>
 Package pdftex.def Info: unexpectedrecognition.jpg used on input line 343.
 (pdftex.def)             Requested size: 325.215pt x 243.91064pt.
  [24] [25 <./unexpectedrecognition.jpg>]
-[26] <deployment.png, id=320, 569.12625pt x 417.56pt>
+[26] <deployment.png, id=324, 569.12625pt x 417.56pt>
 File: deployment.png Graphic file (type png)
  <use deployment.png>
 Package pdftex.def Info: deployment.png used on input line 369.
 (pdftex.def)             Requested size: 361.34999pt x 265.12852pt.
 
-[27] [28 <./deployment.png>] [29] [30]
-Underfull \hbox (badness 3930) in paragraph at lines 415--416
+[27] [28 <./deployment.png>] [29] [30] [31]
+Underfull \hbox (badness 3930) in paragraph at lines 420--421
 []\OT1/cmr/m/n/10.95 OpenALPR. (2014). \OT1/cmr/m/it/10.95 Train OCR \OT1/cmr/m
 /n/10.95 [On-line]. Avail-able: []$\OT1/cmtt/m/n/10.95 https : / / github . com
  /
  []
 
-[31] [32] [33]
-(/usr/local/texlive/2013/texmf-dist/tex/latex/listings/lstlang1.sty
+[32] [33] (/usr/local/texlive/2013/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
-) [34]
-[35] [36] [37] [38] [39] [40] [41] [42]
+)
+[34] [35] [36] [37] [38] [39] [40] [41] [42]
 (/usr/local/texlive/2013/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 ) [43]
@@ -452,27 +451,27 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 (/usr/local/texlive/2013/texmf-dist/tex/latex/listings/lstlang2.sty
 File: lstlang2.sty 2004/09/05 1.3 listings language file
 ) [46]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1060.
-
 [47]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1060.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1065.
+ [48]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1065.
  (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1060.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1060.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1065.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1065.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 71E85C7A256740D7BA25265EAF39B351;1947.
+(rerunfilecheck)             Checksum: BFFB84CA79CCB39B7CCE686BBD5E357B;2029.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1060.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1065.
  ) 
 Here is how much of TeX's memory you used:
- 10190 strings out of 493315
- 155442 string characters out of 6137904
- 647157 words of memory out of 5000000
- 12826 multiletter control sequences out of 15000+600000
+ 10193 strings out of 493315
+ 155479 string characters out of 6137904
+ 650121 words of memory out of 5000000
+ 12827 multiletter control sequences out of 15000+600000
  13333 words of font info for 50 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  29i,8n,42p,1466b,3569s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -485,10 +484,10 @@ local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/l
 ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/lo
 cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/loc
 al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on paper.pdf (47 pages, 7402434 bytes).
+Output written on paper.pdf (48 pages, 7402849 bytes).
 PDF statistics:
- 1219 PDF objects out of 1440 (max. 8388607)
- 1141 compressed objects within 12 object streams
- 722 named destinations out of 1000 (max. 500000)
- 265 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1227 PDF objects out of 1440 (max. 8388607)
+ 1148 compressed objects within 12 object streams
+ 724 named destinations out of 1000 (max. 500000)
+ 273 words of extra memory for PDF output out of 10000 (max. 10000000)
 
