@@ -30,6 +30,7 @@ while(True):
       timeString = now.strftime("%Y-%m-%d_%H:%M:%S")
       filename = "photo-"+timeString+".jpg"
       takepic(filename)
+      subprocess.call(['./processImage.sh'])
   up = GPIO.input(24)
   count = count+1
   sleep(.1)

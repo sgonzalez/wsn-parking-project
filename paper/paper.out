@@ -3,9 +3,9 @@
 \BOOKMARK [1][-]{section.3}{Project Overview and Methods}{}% 3
 \BOOKMARK [2][-]{subsection.3.1}{Automobile Detection}{section.3}% 4
 \BOOKMARK [3][-]{subsubsection.3.1.1}{Tests and Analyses}{subsection.3.1}% 5
-\BOOKMARK [2][-]{subsection.3.2}{License Plate Image Acquisition}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{License Plate Imaging}{section.3}% 6
 \BOOKMARK [3][-]{subsubsection.3.2.1}{Image Acquisition}{subsection.3.2}% 7
-\BOOKMARK [3][-]{subsubsection.3.2.2}{License Plate Detection}{subsection.3.2}% 8
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Image Processing}{subsection.3.2}% 8
 \BOOKMARK [2][-]{subsection.3.3}{Central Base Station}{section.3}% 9
 \BOOKMARK [2][-]{subsection.3.4}{Server Processing}{section.3}% 10
 \BOOKMARK [3][-]{subsubsection.3.4.1}{ALPR Literature Survey}{subsection.3.4}% 11
@@ -16,22 +16,11 @@
 \BOOKMARK [3][-]{subsubsection.3.4.6}{ALPR Evaluation Environment}{subsection.3.4}% 16
 \BOOKMARK [2][-]{subsection.3.5}{Web Application}{section.3}% 17
 \BOOKMARK [3][-]{subsubsection.3.5.1}{HTTP Interface}{subsection.3.5}% 18
-<<<<<<< HEAD
-\BOOKMARK [3][-]{subsubsection.3.5.2}{Viewing License Plate Data}{subsection.3.5}% 19
-\BOOKMARK [3][-]{subsubsection.3.5.3}{Validating and Adjusting Lot Capacity Data}{subsection.3.5}% 20
-\BOOKMARK [3][-]{subsubsection.3.5.4}{User Accounts}{subsection.3.5}% 21
-\BOOKMARK [2][-]{subsection.3.6}{Deployment}{section.3}% 22
-\BOOKMARK [1][-]{section.4}{Results}{}% 23
-\BOOKMARK [2][-]{subsection.4.1}{ALPR Results}{section.4}% 24
-\BOOKMARK [1][-]{section.5}{Future Research}{}% 25
-\BOOKMARK [2][-]{subsubsection.5.0.1}{Web Application}{section.5}% 26
-\BOOKMARK [1][-]{section.6}{Summary}{}% 27
-=======
 \BOOKMARK [3][-]{subsubsection.3.5.2}{Database}{subsection.3.5}% 19
 \BOOKMARK [3][-]{subsubsection.3.5.3}{Administrator Website}{subsection.3.5}% 20
 \BOOKMARK [2][-]{subsection.3.6}{Deployment}{section.3}% 21
 \BOOKMARK [1][-]{section.4}{Results}{}% 22
-\BOOKMARK [1][-]{section.5}{Future Research}{}% 23
-\BOOKMARK [2][-]{subsubsection.5.0.1}{Validating and Adjusting Lot Capacity Data}{section.5}% 24
-\BOOKMARK [1][-]{section.6}{Summary}{}% 25
->>>>>>> 8b044a03e7d660e325f48d7179257f678fe1b1a6
+\BOOKMARK [2][-]{subsection.4.1}{ALPR Results}{section.4}% 23
+\BOOKMARK [1][-]{section.5}{Future Research}{}% 24
+\BOOKMARK [2][-]{subsubsection.5.0.1}{Validating and Adjusting Lot Capacity Data}{section.5}% 25
+\BOOKMARK [1][-]{section.6}{Summary}{}% 26

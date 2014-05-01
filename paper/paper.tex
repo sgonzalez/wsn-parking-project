@@ -1,10 +1,10 @@
 \documentclass[11pt, oneside, fullpage, doublespace]{article}
 \usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
-%\geometry{landscape}                		% Activate for for rotated page geometry
+%\geometry{landscape}                		% Activa te for for rotated page geometry
 %\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}				% Use pdf, png, jpg, or eps� with pdflatex; use eps in DVI mode
-								% TeX will automatically convert eps --> pdf in pdflatex		
+								% TeX will automatically convert eps --> pdf in pdflatex	
 \usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{color}
@@ -126,17 +126,14 @@ This will help determine whether certain portions of the image data processing m
 The efficacy of the automobile detection subsystem will also be evaluated through several tests. A variety of different sized vehicles will be passed through the system at different velocities to ensure high detection accuracy. We will also analyze the end results of deployment after a certain period of time, to determine how often the automobile count needs to be reconciled.
 
 
-\subsection{License Plate Image Acquisition}
-{\color{red}\textbf{NOT COMPLETE}}
-Once the Acquisition Raspberry Pi receives the interrupt from the vehicle detection Arduino Fio, it will begin the process of obtaining a picture of the vehicle's license plate. This procedure will be separated into two separate sections: image acquisition and license plate detection.
+\subsection{License Plate Imaging}
+Once the Acquisition Raspberry Pi receives the signal from the vehicle detection Arduino Fio, it begins the process of obtaining a picture of the vehicle's license plate. This procedure is separated into two separate sections: image acquisition and image processing
 
 \subsubsection{Image Acquisition}
-{\color{red}\textbf{NOT COMPLETE}}
-While the automobile detection subsystem correctly identifies when a vehicle enters the lot, the image acquisition subsystem will be responsible for determining when to capture a picture of that car in order to optimize the quality of the license plate image. The timing difference between when the Raspberry Pi receives the interrupt and when it actually captures the picture will initially be determined experimentally using the average speed at which cars enter the parking lot. As the project progresses, this timing will be fine-tuned in order to capture the optimal image every time. The goal of this subsystem is to only take one picture to capture the license plate, so as to minimize capture time and power consumption.
+While the automobile detection subsystem correctly identifies when a vehicle enters the lot, the image acquisition subsystem is responsible for determining when to capture a picture of that car in order to optimize the quality of the license plate image. The timing difference between when the Raspberry Pi receives the signal from the Arduino Fio and when the image is captured is set to 500 milliseconds so as to allow the car to completely pass the Arduino Fio and enter the capture area. Only one picture is taken of each car so that capture time and power consumption on the Raspberry Pi are limited. This allows for more resources to be allocated towards the process of image processing.
 
-\subsubsection{License Plate Detection}
-{\color{red}\textbf{NOT COMPLETE}}
-Once the image has been captured, the Raspberry Pi will then focus on detecting the license plate in the image and cropping the image to only include the license plate. This will be done in order to minimize the size of the transmission and the power required for that transmission. In order to detect the location of the license plate within the larger image, a detection algorithm needs to be applied.
+\subsubsection{Image Processing}
+Once the image is captured, the Raspberry Pi will then focus on detecting the license plate in the image and cropping the image to only include the license plate. This will be done in order to minimize the size of the transmission and the power required for that transmission. In order to detect the location of the license plate within the larger image, a detection algorithm needs to be applied.
 
 The location of the license plates will be detected on the acquisition Raspberry Pi using the OpenCV (Open Source Computer Vision Library) API \cite{openCV}, which provides many different algorithms that can be used for image detection and shape recognition. This particular API was chosen for both its ease of use and widespread cross-compatibility; it has interfaces for development in C, C++, Python, Java, and MATLAB, and supports all major operating systems (including distributions of Linux such as Raspbian). Because OpenCV is used across the industry for image processing, we are confident that it will meet our needs.
 
