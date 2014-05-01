@@ -85,7 +85,7 @@ The detection subsystem consists of a small number of sensor nodes, placed strat
 
 A Raspberry Pi operates as a central base station that receives automobile detection and status data from every sensor node, via transmission from the XBee radios attached to the sensor nodes. The base station Raspberry Pi will be centrally located in a nearby building with internet connectivity. The base station utilizes its network connection to forward the data to the ACMx server.
 
-The server runs a PHP web application with an RESTful HTTP interface that both receives the data from the base station and routes it to the correct part of the application (database, image processor, etc.). This interface will be the method of communication between the server and the base station. When data is received from the base station, the application processes it, stores it in a MySQL database, and displays it appropriately on a user-facing website. An administrator website also exists that provides direct access to license plate data and car counts.
+The server is a Linode hosted machine running Ubuntu 13.10 with 2 GB and 2 CPU cores. The web interface is served using Nginx. The server hosts a PHP web application with a RESTful HTTP interface that both receives the data from the base station and routes it to the correct part of the application (database, image processor, etc.). This interface will be the method of communication between the server and the base station. When data is received from the base station, the application processes it, stores it in a MySQL database, and displays it appropriately on a user-facing website. An administrator website also exists that provides direct access to license plate data and car counts.
 
 {\color{red}\textbf{NOT COMPLETE}} The following sections describe the architecture and function of each of the aforementioned subsystems in detail. The detection subsystem is broken up into two parts: Automobile Detection (section 2.2) and License Plate Image Acquisition (section 2.3). The server subsystem is also broken into two parts: Server Processing (section 2.5) and Web Application (section 2.6). Lastly, section 2.4 discusses the Central Base Station.
 
@@ -213,7 +213,7 @@ Besides images of the same license plate, we also collected several images of ne
 
 Overall, we were able to collect 56 images of seven different plates that contained recognizable numbers. Each image from the Raspberry Pi camera was about 3 megabytes in size in its uncompressed form. The Python script also specified that the camera should save in a JPEG (.jpg) format.
 
-The data set, which we will now refer to as the \emph{Unaltered Data Set}, is the basis for all other data sets in this paper. That is, all other data sets are derived from these original, uncompressed images. 
+The data set, which we will now refer to as the \emph{unaltered image data set}, is the basis for all other data sets in this paper. That is, all other data sets are derived from these original, uncompressed images. 
 
 \subsubsection{ALPR-Project Integration}
 {\color{red}\textbf{NOT COMPLETE}}
@@ -221,13 +221,18 @@ Both OpenALPR and Intrada ALPR had to be integrated into our web application so 
 
 \emph{A. OpenALPR}
 {\color{red}\textbf{NOT COMPLETE}}
-As stated in ??? LITERATURE SURVEY REFERENCE ???, OpenALPR is built on top of OpenCV, a computer vision library, and Tesseract OCR, an OCR engine. Tesseract OCR had additional dependencies that needed to be installed before it would compile.
+As stated in Section 3.4.1, OpenALPR is built on top of OpenCV, a computer vision library, and Tesseract OCR, an OCR engine. Tesseract OCR had additional dependencies that needed to be installed before it would compile.
 
 We used Ubuntu's \verb+apt-get+ command to install almost all of Tesseract's dependency packages. Tesseract makes use of a recent version of an image processing software called Leptonica. Because the version used in Tesseract superseded the versions available in Ubuntu's repository, we had to download the source files for Leptonica and compile it from scratch.
 
 After installing all the dependencies, we were finally able to compile Tesseract from its source files. Additionally, OpenCV came bundled with all of its dependencies, so we were able to build the OpenCV library rather effortlessly.
 
-Once OpenCV and Tesseract were operational, compiling OpenALPR was a breeze. The entire process of installing all the dependencies and compiling everything (correctly) took a full working day. After installation, OpenALPR was able to start recognizing license plates immediately because it comes bundled with training data for both North American and European plates.
+Once OpenCV and Tesseract were operational, compiling OpenALPR was a breeze. The entire process of installing all the dependencies and compiling everything (correctly) took a full working day. After installation, OpenALPR was able to start recognizing license plates immediately because it comes bundled with training data for both North American and European plates. The result of an OpenALPR output string contains
+\begin{inparaenum}[\itshape a\upshape]
+\item the extracted license plate characters;
+\item the confidence in the characters; and
+\item the execution time.
+\end{inparaenum}
 
 \emph{B. Intrada ALPR}
 {\color{red}\textbf{NOT COMPLETE}}
@@ -240,49 +245,14 @@ Intrada requires a username and password to process images. The SOAP API allows 
 \item the state of origin of the license plate;
 \item the confidence in the state of origin;
 \item coordinates of the boundary box of the detected license plate; and
-\item the execution time for the specified image.
+\item the execution time.
 \end{inparaenum}
 
+\emph{C. MySQL Interface}
+The resulting plain text representations of the license plate are stored in MySQL database tables. There exists one table for OpenALPR recognitions, and one table for Intrada ALPR recognitions. Each table has the same structure: it stores the license plate and a reference to the 'images' table where the image filepath is stored. The Intrada ALPR table also contains a column for the recognized state. These fields are then used by the web application to be displayed to administrator users.
+
 \subsubsection{ALPR Evaluation Environment}
-The ALPR software is 
-
-
-
-\subsubsection{Proposal part}
-{\color{red}\textbf{NOT COMPLETE}}
-Once an image has been determined to contain a license plate, it will be transmitted from the Acquisition Raspberry Pi to a server online via the base station Raspberry Pi. The server will then be responsible for using recognition software technology to extract the digits of the license plate from the image. Upon successful completion, the textual representation of the license plate will be stored in a database residing on the server to be later integrated into the front-facing web application.
-
-The subsystem encapsulating server processing will require a review of recognition software and literature. There exists a market for Automatic License Plate Recognition (ALPR) software that relies on Optical Character Recognition (OCR) engines to extract characters. \cite{du2013} describes the various methods and features used to extract characters from a license plate. Once an ALPR solution is chosen, it will be necessary to collect a set of test data using the Acquisition Raspberry Pi to tune the workflow of character extraction.
-
-\subsubsection{Considerations for ALPR Software}
-{\color{red}\textbf{NOT COMPLETE}}
-For the scope of this project, three ALPR solutions will be evaluated to determine which is the most suitable for our purposes. An ideal ALPR software needs to be currently maintained and capable of reading a license plate if it is skew in an image, taken in poor lighting conditions, and taken with low resolution.
-
-Q-Free Intrada ALPR \cite{intrada2014} is a license plate recognition software that offers a C++ API, as well as a cloud-based service. Both the API and cloud-based service can be utilized from a Linux server. Q-Free's software is used in countries around the world for traffic management and toll collection. The wide-ranging geography of its use mean that Intrada ALPR is likely to be reliable and accurate for all types of license plates. Use of the Intrada suite is dependent on Q-Free granting an educational use license for this semester.
-
-OpenALPR is another C++ library for use with both North American and European plates. This library relies upon two underlying technologies: OpenCV \cite{openCV} and Tesseract OCR (an OCR engine being developed and maintained by Google). The Tesseract OCR Tool is self-sufficient, and relies on included training data. \cite{patel2012} goes into greater detail how Tesseract extracts data from images. The open-source nature of this project make it appealing as it can be immediately integrated without needing to obtain an educational license first. Additionally, the last updates were pushed to the source repository in January. While it is desirable for the software we consider to be relatively up-to-date and maintained, this repository was started only four months ago (November, 2013). Use of such a young library may create a less stable solution than what is practical to work with throughout the course of the semester.
-
-JavaANPR markets itself as an Automated \emph{Number} Plate Recognition library (hence ANPR instead of ALPR) using Java's built-in libraries. This software is also open-source, and therefore offers the ability to be quickly integrated into our testing environment. The documentation of the software has not been updated since 2007, and so this option may be the weakest of the three because it is not clear whether or not it is still being actively developed.
-
-\subsubsection{Collection of Test Data}
-{\color{red}\textbf{NOT COMPLETE}}
-Since two of the three proposed ALPR softwares do not require connecting to an external server for computation, it may be necessary to provide training data to improve the accuracy of the system. This would be in addition to the training data that comes with the libraries.
-
-The majority of the plates used in our application can be assumed to be Colorado licenses since it is planned to be deployed in the Denver area. Depending on the amount of training the underlying OCR engines have with Colorado plates, the accuracy of the ALPR software may be able to be improved provided additional images of known license plates.
-
-Collection of test data would require using the Acquisition Raspberry Pi to take images, as this would simulate the real-world use of the application.
-
-For web services such as Q-Free's Intrada solution, \cite{intrada2014} shows a glimpse behind their OCR technology. The Intrada software already has a reliable sum of data from its real-world deployments.
-
-\subsubsection{Interface with Base Station Raspberry Pi}
-{\color{red}\textbf{NOT COMPLETE}}
-The recognition and extraction of license plate characters will not directly interface with the Arduino Fio or Acquisition Raspberry Pi that takes the images of automobiles. Instead, it is assumed all communications will come through the base station Raspberry Pi, and that the base station Raspberry Pi will upload received images to the ACMx Linux server (See section 2.6.1 about the HTTP interface).
-
-Upon upload of the image to the ACMx server, a script will be invoked to process the image. The ACMx server will then run redundancy measures to ensure the image uploaded does contain a license plate. Upon a successful identification, the server will invoke the selected ALPR strategy to extract characters from the license plate image. Most of the image cropping will be done on the image acquisition Raspberry Pis to reduce the size of the data transmission, and any additional cropping and image manipulation required by the selected ALPR strategy will be done before invoking this script.
-
-If the chosen ALPR strategy is self-sufficient, all calculations will be completed on the ACMx server. If the chosen ALPR strategy uses a centralized cloud computing strategy, a request will be made to the appropriate server to extract the characters, and the returned result will be used. The cloud computing strategy will also introduce an asynchronous workflow as the ACMx server will perform other tasks while waiting for the result.
-
-Once the ACMx server has a plain text representation of the license plate characters, they will be stored in a MySQL database, along with a timestamp and lot id, where they can be retrieved and processed by the Web Application subsystem described in section 2.6.
+We evaluated our two programs (OpenALPR and Intrada ALPR) by having each service process three different data sets: the unaltered images, cropped images, and compressed images. OpenALPR ran on the ACMx server, while Intrada ALPR ran as a cloud service, so its environment was outside of our control. Although each service offered methods to enqueue an entire directory of images and process them in bulk, we opted to evaluate them individually, as will be done in deployment.
 
 \subsection{Web Application}
 {\color{red}\textbf{NOT COMPLETE}}
