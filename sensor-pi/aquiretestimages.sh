@@ -4,4 +4,4 @@
 
 echo -e "Running test image acquisition program..."
 
-sudo python testimages/testimages.py
+sudo python testimages.py
