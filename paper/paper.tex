@@ -43,10 +43,8 @@
 \maketitle
 
 \begin{abstract}
-{\color{red}\textbf{NOT COMPLETE}}
-This proposal describes a parking lot monitoring system to be used at the Colorado School of Mines (CSM). The system will help campus members enjoy a better parking experience by spending less time trying to find open lots. This is a semester project for the Computer Science graduate course \emph{Wireless Sensor Networks}, taught by Dr. Tracy Camp at CSM. The proposed work will be an extension of a project started by campus computing group ACMx, which uses a wireless sensor network to track the number of cars in specific parking lots. The system will extend the ACMx project by adding components to the sensor network that record the license plate numbers of cars as they enter and exit lots. The information gathered by the sensor network will be displayed on a website that will allow users to survey the state of the lots before arriving, allowing them to make informed parking decisions. The website will also be the result of collaboration between the authors of this proposal and the ACMx group. The proposal provides some background information, describes the proposed system and its components, and discusses implementation strategies. The goal of the project is a real-world deployment on the CSM campus by May 2014.
+This paper describes a parking lot monitoring system to be used at the Colorado School of Mines (CSM). The system is designed to help campus members enjoy a better parking experience by spending less time trying to find open parking lots. This project was a semester project for the computer science graduate course \emph{Wireless Sensor Networks}, taught by Dr. Tracy Camp at CSM. The work described in this paper is an extension of a project called Smartlots started by campus computing group ACMx, which uses a wireless sensor network to track the number of cars in specific parking lots. The system extends the ACMx project by adding components to the sensor network that record the license plate numbers of cars as they enter and exit lots, and by adding an administrator interface to the already existing Smartlots website. The information gathered by the sensor network is displayed on a website that lets users survey the state of the lots before arriving on campus, allowing them to make informed parking decisions. The website is also the result of collaboration between the authors of this paper and the ACMx group. The paper provides some background information, describes the parking lot monitoring system and its components, discusses the details of our implementation, and provides some initial results from testing the system and its various components.
 \end{abstract}
-
 
 \section{Introduction}
 The parking lots at the Colorado School of Mines (CSM) can be a source of frustration for students and faculty members. Because space on campus is limited, the lots are often unable to accommodate everyone who needs to use them. Students need to choose a lot before they go to class; however, knowing which lots have free spaces usually requires driving through the lots looking for a space. The extra time spent searching one or many lots is frustrating, and can make students or faculty late for class. If campus members could discover which lots had available spaces before they arrived, much time and frustration could be saved. The goal of this project is to design and create a working parking lot monitoring system that will be the first step towards a better parking experience on the CSM campus. The system will keep track of both the number of vehicles in a parking lot and the license plate numbers of those vehicles. The information will be available online to system administrators and CSM campus members. There are two main parts to this project:
@@ -292,27 +290,17 @@ The server stores all application data in a MySQL database. This database stores
 \subsubsection{Administrator Website}
 Much of the work done on the ACMx server during this project involved developing and deploying the administrator website. The site serves as an easy-to-use interface that provides tools for administrators (our group members and ACMx group members). These tools allow administrators to view the data collected by the magnetometer sensors and the image-acquisition Raspberry Pis, view health data about the sensors, and manage user accounts. Each component of the administrator website is described below.
 
-\emph{A. User Account Management}
+\textbf{A. User Account Management}
+
 Administrators are able to create, delete, and view other administrator accounts. Maintaining user accounts is important for this system because our API requires user authentication for certain HTTP routes, as described above. We have created a dedicated user that is allowed to access all the back-end routes; this user is the one that is used by the base station Raspberry Pi to POST its magnetometer and image data to the server. Other administrator accounts are used to gain access to the administrator site, and to provide authentication when testing specific routes.
 
-\emph{B. License Plate Viewer}
+\textbf{B. License Plate Viewer}
+
 As mentioned in section 2.5, the license plate images are translated by the ALPR software from an image into a string of plain text, and stored in the MySQL database on the ACMx server. One of the main functions of the web interface is to display this data to administrators. The page that displays the license plate data is a simple interface that shows every license plate number we have collected, along with the time it was collected, the parking lot it came from, and the original image that the license number came from. The data is divided into two tables: one for the data returned from the OpenALPR software, and one for the data returned by the Intrada software. The entries are sorted by most-recent first. For this project, we were only interested in creating a proof-of-concept type interface that shows we have the capability to display the collected plate data in a useful format; in the future it could be useful to cross-reference our data with the campus parking department's database to check if a car has entered a lot without a permit.
 
-\emph{C. Sensor Data Viewer}
+\textbf{C. Sensor Data Viewer}
+
 Another feature of the administrator webpage is the page that allows administrators to view sensor data. This page maintains a table showing each sensor, its current and last count, its battery level, and the lot where it is deployed. Although this is a simple page, it provides useful information to the system administrators. Future additions to this page will include a way to add and remove sensors from the database.
-
-\subsection{Deployment}
-{\color{red}\textbf{NOT COMPLETE}}
-The system will be deployed at the CTLM Upper and Lower parking lots at CSM. These lots were chosen because of their accessible location, unobstructed visibility from a campus structure, and wide use. Both parking lots have one entryway, each of which will be equipped with an automobile detection subsystem. The junction between the two lots is also of interest, because we want to know when a car moves from the upper lot to the lower lot, and vice versa. The locations of the entrances and junction are shown in Figure \ref{fig:deployment}. The locations for the three sensor nodes benefit from having a clear view of the sky for increased photovoltaic efficiency.
-\begin{figure}
-\begin{center}
-\includegraphics[width=5in]{deployment}
-\end{center}
-\caption{Deployment Location}
-\label{fig:deployment}
-\end{figure}
-
-The central base station, as described in section 2.4, will be placed in an upper window of the CTLM building, allowing it to take a clear overhead picture of at least one of the two parking lots. For the first deployment we may only have one overhead camera to start off with, although ideally we would have two - one for each lot. Several potential locations exist which allow for a clear line-of-sight to all automobile detection subsystems, one of which is detailed in Figure \ref{fig:deployment}. The location of the base station must put it in range of the XBees mounted on each sensor node, to allow data to be transferred from the detection subsystem to the base station. The locations being considered must also provide internet access to the base station Raspberry Pi through Ethernet ports.
 
 \section{Results}
 \subsection{ALPR Results}
@@ -349,17 +337,27 @@ Compressed images & 8 & 27 & 29.63 \% \\ \hline
 \subsection{Validating and Adjusting Lot Capacity Data}
 We expect that our first deployment of this system may not be 100\% accurate at detecting all vehicles that enter and exit lots. Therefore, we would like to create a system to periodically collect overhead images of the parking lots from a camera mounted on the base station Raspberry Pi. These images would serve as a visual representation of how many cars were actually in the parking lot at the time the image was taken. If this feature is implemented, administrators will be able to periodically compare the overhead images to the collected data from the sensor network to make sure the numbers being computed by the system accurately represent the car counts of the lots. A page would be added to the web interface to allow administrators to pull up the image for any lot with an overhead camera and see the numbers for that lot right next to the image. If any discrepancies are found, the administrator would be able to overwrite the count in the database to reflect reality. Such an interface would be useful in helping to calibrate the system. For example, if the sensors consistently report less cars in the lot than the image shows, they can be fine-tuned to make sure fewer cars slip through unnoticed. Another improvement to work in this area could include an automated version of this process, where a computer program could compare the overhead images to the sensed data and make any necessary corrections to the car count in the database.
 
+\subsection{Real-world Deployment}
+Due to the fact that this project was time-constrained, we were unable to test our system in a real-world environment. We had initially planned to deploy a working version of our system on two parking lots on the CSM campus. Even though we never deployed our system, we were able to get everything connected together as described in section 2, so that data collected by the sensors flowed all the way up through the system and was displayed in the web application. Our plans for a future deployment are as follows: ACMx and members from our group plan to deploy a version of our system at the CTLM Upper and Lower parking lots at CSM. These lots were chosen because of their accessible location, unobstructed visibility from a campus structure, and frequent use. Both parking lots have one entryway, each of which will be equipped with an automobile detection subsystem. The junction between the two lots is also of interest, because we want to know when a car moves from the upper lot to the lower lot, and vice versa. The locations of the entrances and junction are shown in Figure \ref{fig:deployment}. The locations for the three sensor nodes benefit from having a clear view of the sky for increased photovoltaic efficiency.
+\begin{figure}
+\begin{center}
+\includegraphics[width=5in]{deployment}
+\end{center}
+\caption{Deployment Location}
+\label{fig:deployment}
+\end{figure}
+
+The central base station, as described in section 2.4, will be placed in an upper window of the CTLM building, allowing it to take a clear overhead picture of at least one of the two parking lots. The first deployment only have one overhead camera to start off with, although ideally we would have two - one for each lot. Several potential locations exist which allow for a clear line-of-sight to all automobile detection subsystems, one of which is detailed in Figure \ref{fig:deployment}. The location of the base station must put it in range of the XBees mounted on each sensor node, to allow data to be transferred from the detection subsystem to the base station. The locations being considered must also provide internet access to the base station Raspberry Pi through an Ethernet port.
+
+
 \section{Summary}
-{\color{red}\textbf{NOT COMPLETE}}
-This project extends the work done by ACMx to create the first comprehensive parking management system for the Colorado School of Mines. The proposed expansions cover interfacing with the existing automobile detection network, acquiring images of license plates, processing those images, and presenting the resulting data in a web application.
+This project extends the work done by ACMx towards creating the first comprehensive, computerized parking management system for the Colorado School of Mines. These extensions cover interfacing with the previously existing automobile detection network, acquiring images of license plates, processing those images, and presenting the resulting data in a web application.
 
-Acquiring images of license plates will include experimentally testing the timing of taking the picture, as well as on-mote pre-processing of the image. By completing some processing of the image on the Raspberry Pi, we can both reduce the size of data we need to transmit (saving battery power), while also avoiding transmitting false positives (when no license plate is detected).
+Image acquisition is done by Raspberry Pis stationed at parking lot entrances. These images are sent to a central base station Raspberry Pi, which then uploads the data to the server via our RESTful API. Once on the server, additional image processing is done to retrieve the characters composing the license plate. This data is then stored in a database for use in the web application.
 
-Image acquisition will come from several acquisition Raspberry Pis stationed at parking lot entrances. These images will be sent to a central base station, which will then upload the data to a server. Once on the server, additional image processing will be done to retrieve the characters composing the license plate. This data will be stored in a database for use in the web application.
+Acquiring images of license plates includes listening for an interrupt from the automobile detection sensor, temporarily storing the image, and on-mote pre-processing of the image. By completing some processing of the image on the Raspberry Pi, we reduce the size of data we need to transmit, which saves battery power while also reducing the transmission time, thereby improving system latency and throughput.
 
-In addition, the base station Raspberry Pi will sample images of the parking lots to allow administrators to correct the status of the system. This may happen when the acquisition motes unsuccessfully identify a car entering or exiting, and therefore have incorrect information regarding the parking lot's capacity.
-
-The web application will serve to show the state of the parking lots, as well as offer a way for administrators to reconcile observed data (from base station images) and sensed data (from acquisition motes). Administrators will also be able to access license plate data from processed images to show proof-of-concept for this utility.
+The web application serves to show the state of the parking lots, and provides an interface that allows administrators to view license plate data and sensor data, and manage user accounts.
 
 Once deployed, the SmartLots system, augmented with our additional license plate extraction subsystem and improvements to the web application, will offer the Mines campus an accessible way to manage campus parking lots. Faculty and students will be able to use this to find open parking and save time. Future applications could include interfacing with Parking Services to locate illegally parked vehicles or to gather data regarding campus parking needs.
 
