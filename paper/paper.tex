@@ -147,6 +147,13 @@ Once the OpenCV software has detected the license plate, the image will then be 
 
 \subsection{Central Base Station}
 {\color{red}\textbf{NOT COMPLETE}}
+\begin{figure}
+\begin{center}
+\includegraphics[width=4.5in]{basestation}
+\end{center}
+\caption{Central Base Station Hardware}
+\label{fig:basestation}
+\end{figure}
 The central base station will be the point of contact between the sensor network and the server. The data gathered by the Arduino Fio and Raspberry Pi sensors will be routed to the base station via XBee radios. The base station, which will itself be a Raspberry Pi, will forward the data to the ACMx server using HTTP requests. Forwarding data is the main function of the base station. The base station will run the Raspbian operating system \cite{raspbian}, a lightweight version of Linux. Raspbian is optimized for the Raspberry Pi, so writing shell scripts that will take care of forwarding the data via HTTP to the server will be an easily achievable task. A second function of the base station will be to take periodic overhead photos of the parking lots to help reconcile the sensed data with the actual state of the lots. System administrators will be able to look at the photos to see if the number of cars reported in the lot by the sensors is correct, and fix any errors. See section 2.6 for more detailed information about the error correction functionality of the web application.
 
 
