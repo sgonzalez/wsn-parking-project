@@ -12,6 +12,7 @@
 \usepackage{setspace}
 \setstretch{1.5}
 \usepackage{enumerate}
+\usepackage{paralist}
 
 
 % Code formatting
@@ -209,7 +210,17 @@ Instead of choosing between two ALPR systems, we decided to integrate both platf
 
 \subsubsection{Test Data Collection}
 {\color{red}\textbf{NOT COMPLETE}}
-??? WHERE TO DISCUSS ACTUAL COLLECTION OF TEST DATA???
+In order to evaluate the ALPR platforms, we needed to collect test data. Both platforms were already trained to run North American license plates out-of-the-box, so the stage was set to process images for a comparison in performance. With our final deployment in mind, we also wanted to collect images from a variety of different angles and distances, as the resulting evaluation will help determine the best camera placement in the CTLM parking lot. To accurately test the ALPR programs for our project, the test images need to be taken with the same camera that would be used during deployment.
+
+We loaded a special testing script written in Python onto a Raspberry Pi to accomplish this task. The script was programmed to wait for a hardware interrupt before taking an image. We wired a button via a breadboard to provide the hardware interrupt. Our team brought this Pi, camera, and button out to the CTLM parking lot and positioned it near where it would be deployed.
+
+Once powered on, we had one teammate drive their car in and out of the parking lot multiple times. While he was driving, two other team members operated the camera and breadboard hardware to take images. Using the same license plate for this portion of our test data acquisition was intentional to lower the number of uncontrolled variables in gathering data.
+
+Besides images of the same license plate, we also collected several images of nearby parked cars, as well as cars that entered or exited the CTLM parking lot during that time period. And because our system is to be deployed on a college campus, we also collected images from different states, as the population of nonresidents is much greater here than in neighboring small towns.
+
+Overall, we were able to collect 56 images of seven different plates that contained recognizable numbers. Each image from the Raspberry Pi camera was about 3 megabytes in size in its uncompressed form. The Python script also specified that the camera should save in a JPEG (.jpg) format.
+
+The data set, which we will now refer to as the \emph{Unaltered Data Set}, is the basis for all other data sets in this paper. That is, all other data sets are derived from these original, uncompressed images. 
 
 \subsubsection{ALPR-Project Integration}
 {\color{red}\textbf{NOT COMPLETE}}
@@ -229,10 +240,18 @@ Once OpenCV and Tesseract were operational, compiling OpenALPR was a breeze. The
 {\color{red}\textbf{NOT COMPLETE}}
 Intrada ALPR uses the SOAP protocol for exchanging information. To create SOAP requests, we used the \verb+SoapClient+ class available in PHP to create, send, and receive the output of our request.
 
-Intrada requires a username and password to process images. The SOAP API allows for the sending of the username and password as part of each request object for authentication. Then, Intrada runs their proprietary algorithm on its own servers before returning a result string back to our web application. The result string contains helpful
+Intrada requires a username and password to process images. The SOAP API allows for the sending of the username and password as part of each request object for authentication. Then, Intrada runs their proprietary algorithm on its own servers before returning a result string back to our web application. The result string contains colon delimited fields that carry 
+\begin{inparaenum}[\itshape a\upshape)]
+\item the extracted license plate characters;
+\item the confidence in the extraction;
+\item the state of origin of the license plate;
+\item the confidence in the state of origin;
+\item coordinates of the boundary box of the detected license plate; and
+\item the execution time for the specified image.
+\end{inparaenum}
 
-\subsubsection{Evaluation Results}
-{\color{red}\textbf{NOT COMPLETE}}
+\subsubsection{ALPR Evaluation Environment}
+The ALPR software is 
 
 
 
