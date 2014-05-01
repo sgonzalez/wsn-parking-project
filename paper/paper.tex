@@ -148,8 +148,7 @@ Once the OpenCV software has detected the license plate, the image will then be 
 \caption{Central Base Station Hardware}
 \label{fig:basestation}
 \end{figure}
-The central base station will be the point of contact between the sensor network and the server. The data gathered by the Arduino Fio and Raspberry Pi sensors will be routed to the base station via XBee radios. The base station, which will itself be a Raspberry Pi, will forward the data to the ACMx server using HTTP requests. Forwarding data is the main function of the base station. The base station will run the Raspbian operating system \cite{raspbian}, a lightweight version of Linux. Raspbian is optimized for the Raspberry Pi, so writing shell scripts that will take care of forwarding the data via HTTP to the server will be an easily achievable task. A second function of the base station will be to take periodic overhead photos of the parking lots to help reconcile the sensed data with the actual state of the lots. System administrators will be able to look at the photos to see if the number of cars reported in the lot by the sensors is correct, and fix any errors. See section 2.6 for more detailed information about the error correction functionality of the web application.
-
+The central base station is the point of contact between the sensor network and the server. The data gathered by the Arduino Fio and Raspberry Pi sensors are routed to the base station via XBee radios. The base station, which is itself a Raspberry Pi, forwards the data to the ACMx server using HTTP requests. Forwarding data is the main function of the base station. The base station runs the Raspbian operating system \cite{raspbian}, a lightweight version of Linux. Raspbian is optimized for the Raspberry Pi, so writing Python scripts that take care of forwarding the data via HTTP to the server was simple.
 
 \subsection{Server Processing}
 {\color{red}\textbf{NOT COMPLETE}}
@@ -266,7 +265,15 @@ Prior to the start of our project, the ACMx group created a web application desi
 \item Administrator website
 \end{enumerate}
 
-The Smartlots website makes use of the magnetometer sensor data; it provides maps showing the number of cars in each parking lot, maintains lists of parking lots, and lists usage statistics about each lot. The administrator website provides tools for system administrators. These tools are described in detail below. Before we started this project, the ACMx group had already created the publicly-accessible Smartlots interface. Therefore, we chose to focus on creating the administrator side of the site, and improving the back-end of the entire site to make it more secure and easier to extend in the future.
+The Smartlots website makes use of the magnetometer sensor data; it provides maps showing the number of cars in each parking lot, maintains lists of parking lots, and lists usage statistics about each lot. The administrator website provides tools for system administrators. These tools are described in detail below. Before we started this project, the ACMx group had already created the publicly-accessible Smartlots webpage. Therefore, we chose to focus on creating the administrator side of the site, and improving the back-end of the entire site to make it more secure and easier to extend in the future. The homepage of the Smartlots site is shown in figure \ref{fig:homepage}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=4.5in]{homepage}
+\end{center}
+\caption{The Smartlots homepage}
+\label{fig:homepage}
+\end{figure}
 
 The web application subsystem encompasses several components, each of which helps to accomplish our goal of providing campus members with a better parking experience. The interfaces for both general users and administrators make the data we collect useful and easy to access. The web application itself is written with PHP on the back end and HTML5/CSS3/JavaScript on the front end. The data from the sensors is stored in a MySQL database, which is described in detail below. The following subsections describe the various pieces of the site that we completed during this project.
 
