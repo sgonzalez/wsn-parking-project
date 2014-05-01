@@ -318,6 +318,9 @@ Another feature of the administrator webpage is the page that allows administrat
 
 \subsection{Image Processing Results}
 
+The original goal in image processing was to crop the image down from a large image to a small, manageable image of just the license plate. This software does exist, and is used in many applications, such as \cite{du2013} and \cite{e470}. However, this software is very hard to implement in practice. Most applications use contour mapping to detect the license plate, but this relies on having an image where the license plate is one of the prominent features in the image. When contour mapping methods were applied to the images in this project, most commonly the contours detected pebbles on the ground in the concrete or lines in the parking lot instead of license plates. While successful in other applications, it did not prove to be a good method in this instance.
+
+With contour mapping out of the question, the chosen method for image processing was converting the image to grayscale, resizing it to reduce the file size, and then greedily cropping the top and bottom of the picture to eliminate the ground below the car and the sky above. While not 100\% effective, it proved to be the best solution in testing.
 
 \subsection{ALPR Results}
 Three data sets were run through each ALPR system. In each case, Intrada ALPR was able to recognize at least twice as many plates as OpenALPR.
