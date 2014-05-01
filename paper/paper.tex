@@ -56,12 +56,14 @@ The parking lots at the Colorado School of Mines (CSM) can be a source of frustr
 \item License plate detection and monitoring.
 \end{enumerate}
 
-The idea behind the first part is that a student can get on their smartphone, tablet, or laptop before heading to class, see a nicely-formatted list/map of the lots on campus, and decide where to park based on how full each lot is. Administrators can monitor the information and make sure it is correct, updating the web application as needed with new statistics, lists, and maps as more lots are added to the system. Before beginning this project, the Association for Computing Machinery (ACMx) student organization at CSM had already started working on a system for monitoring lot car counts and capacities (see section 1.2\textbf{\color{red} FIX SECTION NUMBER}). We collaborated with the ACMx group, integrating our new systems and work with theirs to design and test our parking lot monitoring system.
+The idea behind the first part is that a student can get on their smartphone, tablet, or laptop before heading to class, see a nicely-formatted list/map of the lots on campus, and decide where to park based on how full each lot is. Administrators can monitor the information and make sure it is correct, updating the web application as needed with new statistics, lists, and maps as more lots are added to the system. Before beginning this project, the Association for Computing Machinery (ACMx) student organization at CSM had already started working on a system for monitoring lot car counts and capacities (see section 1.2\textbf{\color{red} CHECK SECTION NUMBER}). We collaborated with the ACMx group, integrating our new systems and work with theirs to design and test our parking lot monitoring system.
 
 The second part of the project is motivated by a desire to test the feasibility of using the small Raspberry Pi Linux computer as a platform for capturing and processing images of license plates. Because the Raspberry Pi is inexpensive (\$25-\$35 depending on the model), it could be useful in a wide variety of applications that require accurate license plate recognition. Currently, our web application simply lists the license plate numbers for site administrators to view, but we envision that this monitoring system may eventually be used by the campus parking department to detect when vehicles have entered lots without parking passes. The system itself will consist of several subsystems, which are described in detail in section 2.
 
 \section{Related Work}
 The ACMx group at CSM has designed a system named SmartLots to track the number of vehicles in a parking lot. Their system is a wireless sensor network consisting of sensor nodes and a central base station. The sensor nodes are based on the Arduino Fio microcontroller platform equipped with triaxial magnetometers and XBee Pro radios. The base station is a Raspberry Pi connected to the internet via Ethernet. The information collected by the sensor nodes is transmitted to the base station and forwarded to a server running a small web application. The system is described in \cite{stillwell2013} and \cite{parkingWiki}. \cite{stillwell2013} describes an implementation of a system to detect automobiles entering and exiting a parking lot using the Arduino Fio and the Raspberry Pi. This system uses the IEEE 802.15.4 communications standard to communicate automobile detection data from the sensor nodes to the base station. \cite{parkingWiki} describes the ongoing status of the ACMx project. At the time of writing, the ACMx team has created a website that will display the status of the CTLM upper and lower lots once the monitoring system has been deployed. \cite{parkingWiki} is updated periodically with new information regarding project progress. The project described in this paper augments and extends the ACMx project while collaborating with Stillwell (ACMx president and coauthor of \cite{stillwell2013}).
+
+K. V. S. Hari, researched the use of magnetometers for detecting and classifying automotive vehicles in \cite{itsindia}, as part of the Centre for Development of Advanced Computing at Thiruvananthapuram, India. Hari conducted this project in the hopes that a similar system could eventually be used in traffic lights to improve the flow of vehicles. Automobiles are detected using a threshold system similar to \cite{stillwell2013} and are classified using various features in the vehicle's magnetic signature with one or more sensor axes using clustered dipole models.
 
 \section{Project Overview and Methods}
 
@@ -84,12 +86,12 @@ The detection subsystem consists of a small number of sensor nodes, placed strat
 
 A Raspberry Pi operates as a central base station that receives automobile detection and status data from every sensor node, via transmission from the XBee radios attached to the sensor nodes. The base station Raspberry Pi will be centrally located in a nearby building with internet connectivity. The base station utilizes its network connection to forward the data to the ACMx server.
 
-The server is a Linode hosted machine running Ubuntu 13.10 with 2 GB RAM and 2 CPU cores. The web interface is served using Nginx. The server hosts a PHP web application with a RESTful HTTP interface that both receives the data from the base station and routes it to the correct part of the application (database, image processor, etc.). This interface will be the method of communication between the server and the base station. When data is received from the base station, the application processes it, stores it in a MySQL database, and displays it appropriately on a user-facing website. An administrator website also exists that provides direct access to license plate data and car counts.
+The server is a Linode hosted machine running Ubuntu 13.10 with 2 GB RAM and 2 CPU cores. The web interface is served using Nginx. The server hosts a PHP web application with a RESTful HTTP interface that both receives the data from the base station and routes it to the correct part of the application (database, image processor, etc.). This interface is the method of communication between the server and the base station. When data is received from the base station, the application processes it, stores it in a MySQL database, and displays it appropriately on a user-facing website. An administrator website also exists that provides direct access to license plate data and car counts.
 
-The following sections describe the architecture and function of each of the aforementioned subsystems in detail. The detection subsystem is broken up into two parts: Automobile Detection (section 2.2) and License Plate Image Acquisition (section 2.3). The server subsystem is also broken into two parts: Server Processing (section 2.5) and Web Application (section 2.6). Lastly, section 2.4 discusses the Central Base Station.
+The following sections describe the architecture and function of each of the aforementioned subsystems in detail. The detection subsystem is broken up into two parts: Automobile Detection (section 2.2 \textbf{\color{red} CHECK SECTION NUMBER}) and License Plate Image Acquisition (section 2.3 \textbf{\color{red} CHECK SECTION NUMBER}). The server subsystem is also broken into two parts: Server Processing (section 2.5 \textbf{\color{red} CHECK SECTION NUMBER}) and Web Application (section 2.6 \textbf{\color{red} CHECK SECTION NUMBER}). Lastly, section 2.4 \textbf{\color{red} CHECK SECTION NUMBER} discusses the Central Base Station.
 
 \subsection{Automobile Detection}
-The automobile detection subsystem will provide a means for detecting ingress and egress of vehicles from a parking lot. This subsystem is to be placed on the side of the road next to each parking lot entrance and exit. Automobiles will be detected using a magnetometer which perceives the induced change in the local magnetic field as the metallic structure of the vehicle passes by, as described in \cite{stillwell2013}. The automobile detection subsystem will be based around the commercially available Arduino Fio 16-bit  platform which utilizes the ubiquitous Atmel ATMEGA328p microcontroller. When an automobile is detected by the Arduino Fio, a packet will be sent through the onboard XBee radio to the central base station (described in section 2.4). The packet will  contain the direction of the passing vehicle. At the time of detection, a hardware interrupt will also be sent to the license plate recognition system to awaken it from sleep mode.
+The automobile detection subsystem provides a means for detecting entry and departure of vehicles from a parking lot. This subsystem is designed to be placed on the side of the road next to each parking lot entrance and exit. Automobiles are detected using a magnetometer which perceives the induced change in the local magnetic field as the metallic structure of the vehicle passes by, as described in \cite{stillwell2013}. The automobile detection subsystem is based around the commercially available Arduino Fio 16-bit platform which utilizes the ubiquitous Atmel ATMEGA328p microcontroller. When an automobile is detected by the Arduino Fio, a packet is sent through the onboard XBee radio to the central base station (described in section 2.4 \textbf{\color{red} CHECK SECTION NUMBER}). The packet  contains the direction of the passing vehicle, the processor's temperature, the battery voltage, and a portion of the magnetometer data stream. At the time of detection, a hardware interrupt is sent to the license plate recognition system to trigger it. Interrupts may also be initiated by a mechanical button that has also been included for ease of testing.
 
 \begin{figure}
 \begin{center}
@@ -99,9 +101,9 @@ The automobile detection subsystem will provide a means for detecting ingress an
 \label{fig:autodetect}
 \end{figure}
 
-The hardware to be used for automobile detection will be contained in the same enclosure as the license plate image acquisition hardware for simplicity. Both components will share a unified power supply based on a high-capacity lithium polymer battery, which will be charged by a relatively small photovoltaic panel as seen in Figure~\ref{fig:autodetect}. A 5V boost converter will be required to interface with the Acquisition Raspberry Pi since the lithium polymer batteries only provide 3.7V.
+The hardware used for automobile detection would be contained in the same enclosure as the license plate image acquisition hardware for simplicity. Both components share a unified power supply based on a high-capacity, 6000 mAh lithium polymer battery, which is charged by a relatively small photovoltaic panel as seen in Figure~\ref{fig:autodetect}. A 5V boost converter is required to interface with the Acquisition Raspberry Pi since lithium polymer batteries only provide 3.7V.
 
-The use of a magnetometer ensures that automobiles and other roadway vehicles such as motorcycles are detected, while pedestrians and particulate deposits, such as snow, are ignored. As mentioned in \cite{stillwell2013}, the automobile detection subsystem shall use the commercially available HMC5883 triaxial magnetometer as it provides an adequate balance of sensitivity and low power consumption.
+The use of a magnetometer ensures that automobiles and other roadway vehicles such as motorcycles are detected, while pedestrians and particulate deposits, such as snow, are ignored. As mentioned in \cite{stillwell2013}, the automobile detection subsystem uses the commercially available HMC5883 triaxial magnetometer as it provides an adequate balance of sensitivity and low power consumption.
 
 \begin{figure}
 \begin{center}
@@ -111,24 +113,9 @@ The use of a magnetometer ensures that automobiles and other roadway vehicles su
 \label{fig:autodetecthardware}
 \end{figure}
 
-\subsubsection{Tests and Analyses}
-Because the ACMx group has already written the necessary software and designed a working configuration for detecting vehicles with the Arduino Fios, the bulk of our work on the automobile detection subsystem will involve a variety of tests and analyses to ensure system and data integrity. Power consumption analyses will be conducted on the automobile detection and license plate image acquisition subsystem to identify power usage per main component (Figure~\ref{fig:autodetect}) while the mote is in different states, such as sleeping and detecting vehicles. Such an analysis will allow us to allocate how much time the mote is allowed to spend in each state and determine the required lithium polymer battery capacity.
-
-Analyses will also be performed on the timing of different actions within the network, including:
-\begin{itemize}
-\item Automobile detection lag
-\item Imaging of vehicle
-\item License plate recognition and extraction
-\item Packet transmission
-\end{itemize}
-This will help determine whether certain portions of the image data processing may need to be performed on a server and whether it would be feasible to funnel the image data through the XBee instead of a dedicated directional IEEE 802.11 system.
-
-The efficacy of the automobile detection subsystem will also be evaluated through several tests. A variety of different sized vehicles will be passed through the system at different velocities to ensure high detection accuracy. We will also analyze the end results of deployment after a certain period of time, to determine how often the automobile count needs to be reconciled.
-
-
 \subsection{License Plate Image Acquisition}
 {\color{red}\textbf{NOT COMPLETE}}
-Once the Acquisition Raspberry Pi receives the interrupt from the vehicle detection Arduino Fio, it will begin the process of obtaining a picture of the vehicle's license plate. This procedure will be separated into two separate sections: image acquisition and license plate detection.
+Once the Acquisition Raspberry Pi receives an interrupt from the vehicle detection Arduino Fio, it begins the process of obtaining a picture of the vehicle's license plate. This procedure will be separated into two separate sections: image acquisition and license plate detection.
 
 \subsubsection{Image Acquisition}
 {\color{red}\textbf{NOT COMPLETE}}
@@ -345,15 +332,20 @@ Compressed images & 8 & 27 & 29.63 \% \\ \hline
 \end{table}
 
 \section{Future Research}
+There is substantial future research that can be performed to add features and improve the efficacy of the system. This area of research appears very promising as similar systems may be applied and adapted to many different settings.
 
 \subsection{Validating and Adjusting Lot Capacity Data}
 We expect that our first deployment of this system may not be 100\% accurate at detecting all vehicles that enter and exit lots. Therefore, we would like to create a system to periodically collect overhead images of the parking lots from a camera mounted on the base station Raspberry Pi. These images would serve as a visual representation of how many cars were actually in the parking lot at the time the image was taken. If this feature is implemented, administrators will be able to periodically compare the overhead images to the collected data from the sensor network to make sure the numbers being computed by the system accurately represent the car counts of the lots. A page would be added to the web interface to allow administrators to pull up the image for any lot with an overhead camera and see the numbers for that lot right next to the image. If any discrepancies are found, the administrator would be able to overwrite the count in the database to reflect reality. Such an interface would be useful in helping to calibrate the system. For example, if the sensors consistently report less cars in the lot than the image shows, they can be fine-tuned to make sure fewer cars slip through unnoticed. Another improvement to work in this area could include an automated version of this process, where a computer program could compare the overhead images to the sensed data and make any necessary corrections to the car count in the database.
 
+\subsection{Xbee Image Transmission}
+Currently, our system relies on a IEEE 802.11 WiFi network for transmitting license plate images from the Acquisition Raspberry Pi. Future systems would benefit from having such images funneled and transmitted through the Xbee radio due to significantly improved transmission range. We envision that this would be implemented by sending a bitstream of the image from the Raspberry Pi to the Arduino Fio through a serial link which would then be streamed and packetized by the Fio to the Xbee radio. However, such a feature would have to be carefully thought out so as to not obstruct the Arduino Fio's automobile detection operations and not congest the Xbee data link.
+
+
 \section{Summary}
 {\color{red}\textbf{NOT COMPLETE}}
-This project extends the work done by ACMx to create the first comprehensive parking management system for the Colorado School of Mines. The proposed expansions cover interfacing with the existing automobile detection network, acquiring images of license plates, processing those images, and presenting the resulting data in a web application.
+This project extends the work done by ACMx to create the first comprehensive parking management system for the Colorado School of Mines. The system's expansions cover interfacing with the existing automobile detection network, acquiring images of license plates, processing said images, and presenting the resulting data in a web application.
 
-Acquiring images of license plates will include experimentally testing the timing of taking the picture, as well as on-mote pre-processing of the image. By completing some processing of the image on the Raspberry Pi, we can both reduce the size of data we need to transmit (saving battery power), while also avoiding transmitting false positives (when no license plate is detected).
+Acquiring images of license plates included experimentally testing the timing of taking the picture, as well as on-mote pre-processing of the image. By completing some processing of the image on the Raspberry Pi, both the size of data needed to transmit can be reduced (saving battery power), while also avoiding transmitting false positives (when no license plate is detected).
 
 Image acquisition will come from several acquisition Raspberry Pis stationed at parking lot entrances. These images will be sent to a central base station, which will then upload the data to a server. Once on the server, additional image processing will be done to retrieve the characters composing the license plate. This data will be stored in a database for use in the web application.
 
@@ -368,6 +360,8 @@ Once deployed, the SmartLots system, augmented with our additional license plate
 \bibitem{stillwell2013} R. Stillwell, A. Wilson ``Magnetometer Parking Sensor,'' \emph{EGGN 383 Final Project, Colorado School of Mines}. December 12, 2013.
 
 \bibitem{parkingWiki} R. Stillwell. (2014). \emph{Parking Sensor Wiki} [Online]. Available: \url{http://github.com/ColoradoSchoolOfMines/parking_sensor/wiki}
+
+\bibitem{itsindia} K. V. S. Hari. (2011). \emph{Study of Magnetometer Signals for Vehicle Detection and Classification} [Online]. Available: \url{http://www.intranse.in/its1/sites/default/files/D2-S2-03_Study\%20of\%20Magnetometer\%20Signals\%20for\%20Vehicle.pdf}
 
 \bibitem{openCV} \emph{OpenCV} [Online] Available: \url{http://opencv.org/}
 
