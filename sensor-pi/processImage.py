@@ -52,5 +52,5 @@ resizeFactor = 3
 
 filename, prefixString = getCommandLineArguments()
 
-resizeImage(rootDirectory, filename, prefixString ,resizeFactor)
+resizeImage(rootDirectory, filename, prefixString, resizeFactor)
 
