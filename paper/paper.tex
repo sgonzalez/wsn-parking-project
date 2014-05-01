@@ -298,12 +298,13 @@ Three data sets were run through each ALPR system. In each case, Intrada ALPR wa
 \begin{tabular}{| l || l | l | l |}
 \hline
 Data Set & Correct Recognition & Total Images & Percent Correct \\ \hline
-Unaltered images & 12 & 41 & 29.27 \% \\ \hline
+Unaltered images & 20 & 52 & 38.46 \% \\ \hline
 Cropped images & 4 & 52 & 7.69 \% \\ \hline
 Compressed images & 4 & 27 & 14.81 \% \\ \hline
 \end{tabular}
 \end{center}
 \caption{OpenALPR Results}
+\label{tab:openalprresults}
 \end{table}
 
 \begin{table}[h!]
@@ -311,16 +312,36 @@ Compressed images & 4 & 27 & 14.81 \% \\ \hline
 \begin{tabular}{| l || l | l | l |}
 \hline
 Data Set & Correct Recognition & Total Images & Percent Correct \\ \hline
-Unaltered images & 27 & 41 & 65.85 \% \\ \hline
+Unaltered images & 34 & 52 & 65.39 \% \\ \hline
 Cropped images & 12 & 52 & 23.08 \% \\ \hline
 Compressed images & 8 & 27 & 29.63 \% \\ \hline
 \end{tabular}
 \end{center}
 \caption{Intrada ALPR Results}
+\label{tab:intradaresults}
 \end{table}
+Three data sets were run through each ALPR system. As seen in Table \ref{tab:openalprresults} and Table \ref{tab:intradaresults}, Intrada ALPR outperformed OpenALPR in each case in terms of accuracy. In terms of speed, OpenALPR always outperformed Intrada ALPR by at least a factor of three. In some cases, OpenALPR was better by a factor of 110.
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=4.5in]{unexpectedrecognition}
+\end{center}
+\caption{The foreground license plate goes unrecognized in favor of a smaller plate in the background}
+\label{fig:unexpectedrecognition}
+\end{figure}
+
+These results were calculated by determining whether or not the ALPR software correctly identified \emph{any} license plate in the photo. It is the case that, for certain out of state plates or nonstandard plates (e.g. Disabled Veteran), the ALPR programs will not identify the primary, or largest, license plate in the photo. However, both programs were successful in recognizing a much smaller, but standard, license plate. Figure \ref{fig:unexpectedrecognition} shows an example image where a New Mexico plate is ignored in favor of a smaller plate in the background.
 \section{Future Research}
 There is substantial future research that can be performed to add features and improve the efficacy of the system. This area of research appears very promising as similar systems may be applied and adapted to many different settings.
+
+\subsection{ALPR Training}
+The accuracy rate for our ALPR software is not as high as we had originally hoped it to be. OpenALPR offers a separate program, 'train-ocr' to help build definition files for certain geographic regions. Because it initially came seeded with training data for the entire continent, the recognition of Colorado plates may be improved if we create a training file for only Colorado.
+
+Intrada ALPR cannot be configured by the end user (our team). We can, however, send sample images from our deployment to Q-Free, where our files can be used to train our account for better recognition.
+
+Because we ended up using two ALPR systems instead of one, it would be beneficial to utilize both to provide a confidence level for our project. Having validation from both ALPRs would likely mean the characters that were extracted were correct. Extractions that were not correct could be flagged in the database for human intervention.
+
+A proposed long-term goal for this project was to integrate license recognition with CSM's parking database to identify users who do not have valid parking permits. With the work that has been completed, we are now at a place where we could begin coding an interface to pass license data to Parking and Facilities.
 
 \subsection{Validating and Adjusting Lot Capacity Data}
 We expect that our first deployment of this system may not be 100\% accurate at detecting all vehicles that enter and exit lots. Therefore, we would like to create a system to periodically collect overhead images of the parking lots from a camera mounted on the base station Raspberry Pi. These images would serve as a visual representation of how many cars were actually in the parking lot at the time the image was taken. If this feature is implemented, administrators will be able to periodically compare the overhead images to the collected data from the sensor network to make sure the numbers being computed by the system accurately represent the car counts of the lots. A page would be added to the web interface to allow administrators to pull up the image for any lot with an overhead camera and see the numbers for that lot right next to the image. If any discrepancies are found, the administrator would be able to overwrite the count in the database to reflect reality. Such an interface would be useful in helping to calibrate the system. For example, if the sensors consistently report less cars in the lot than the image shows, they can be fine-tuned to make sure fewer cars slip through unnoticed. Another improvement to work in this area could include an automated version of this process, where a computer program could compare the overhead images to the sensed data and make any necessary corrections to the car count in the database.
@@ -336,10 +357,6 @@ Due to the fact that this project was time-constrained, we were unable to test o
 \end{figure}
 
 The central base station, as described in section 2.4, will be placed in an upper window of the CTLM building, allowing it to take a clear overhead picture of at least one of the two parking lots. The first deployment only have one overhead camera to start off with, although ideally we would have two - one for each lot. Several potential locations exist which allow for a clear line-of-sight to all automobile detection subsystems, one of which is detailed in Figure \ref{fig:deployment}. The location of the base station must put it in range of the XBees mounted on each sensor node, to allow data to be transferred from the detection subsystem to the base station. The locations being considered must also provide internet access to the base station Raspberry Pi through an Ethernet port.
-
-
-\section{Summary}
-This project extends the work done by ACMx towards creating the first comprehensive, computerized parking management system for the Colorado School of Mines. These extensions cover interfacing with the previously existing automobile detection network, acquiring images of license plates, processing those images, and presenting the resulting data in a web application.
 
 \subsection{Xbee Image Transmission}
 Currently, our system relies on a IEEE 802.11 WiFi network for transmitting license plate images from the Acquisition Raspberry Pi. Future systems would benefit from having such images funneled and transmitted through the Xbee radio due to significantly improved transmission range. We envision that this would be implemented by sending a bitstream of the image from the Raspberry Pi to the Arduino Fio through a serial link which would then be streamed and packetized by the Fio to the Xbee radio. However, such a feature would have to be carefully thought out so as to not obstruct the Arduino Fio's automobile detection operations and not congest the Xbee data link.
