@@ -86,7 +86,7 @@ A Raspberry Pi operates as a central base station that receives automobile detec
 
 The server is a Linode hosted machine running Ubuntu 13.10 with 2 GB RAM and 2 CPU cores. The web interface is served using Nginx. The server hosts a PHP web application with a RESTful HTTP interface that both receives the data from the base station and routes it to the correct part of the application (database, image processor, etc.). This interface is the method of communication between the server and the base station. When data is received from the base station, the application processes it, stores it in a MySQL database, and displays it appropriately on a user-facing website. An administrator website also exists that provides direct access to license plate data and car counts.
 
-The following sections describe the architecture and function of each of the aforementioned subsystems in detail. The detection subsystem is broken up into two parts: Automobile Detection (section 3.1) and License Plate Image Acquisition (section 3.2). The server subsystem is also broken into two parts: Server Processing (section 3.4) and Web Application (section 3.5). Lastly, section 3.3 discusses the Central Base Station.
+The following sections describe the architecture and function of each of the aforementioned subsystems in detail. The detection subsystem is broken up into two parts: Automobile Detection (section 3.1) and License Plate Image Acquisition (section 3.2). The glue between the sensors and the server is the Central Base Station (section 3.3). The server subsystem is also broken into two parts: Server Processing (section 3.4) and Web Application (section 3.5).
 
 \subsection{Automobile Detection}
 The automobile detection subsystem provides a means for detecting entry and departure of vehicles from a parking lot. This subsystem is designed to be placed on the side of the road next to each parking lot entrance and exit. Automobiles are detected using a magnetometer which perceives the induced change in the local magnetic field as the metallic structure of the vehicle passes by, as described in \cite{stillwell2013}. The automobile detection subsystem is based around the commercially available Arduino Fio 16-bit platform which utilizes the ubiquitous Atmel ATMEGA328p microcontroller. When an automobile is detected by the Arduino Fio, a packet is sent through the onboard XBee radio to the central base station (described in section 3.3). The packet  contains the direction of the passing vehicle, the processor's temperature, the battery voltage, and a portion of the magnetometer data stream. At the time of detection, a hardware interrupt is sent to the license plate recognition system to trigger it. Interrupts may also be initiated by a mechanical button that has also been included for ease of testing.
@@ -252,7 +252,7 @@ Prior to the start of our project, the ACMx group created a web application desi
 \item Front-facing, publicly-accessible "Smartlots" website,
 \item Back-end HTTP interface,
 \item MySQL database, and
-\item Administrator website
+\item Administrator website.
 \end{enumerate}
 
 The Smartlots website makes use of the magnetometer sensor data; it provides maps showing the number of cars in each parking lot, maintains lists of parking lots, and lists usage statistics about each lot. The administrator website provides tools for system administrators. These tools are described in detail below. Before we started this project, the ACMx group had already created the publicly-accessible Smartlots webpage. Therefore, we chose to focus on creating the administrator side of the site, and improving the back-end of the entire site to make it more secure and easier to extend in the future. The homepage of the Smartlots site is shown in figure \ref{fig:homepage}.
@@ -431,7 +431,7 @@ Once deployed, the Smartlots system, augmented with our additional license plate
 
 \section*{Appendix 1 --- Intra-team Work Distribution}
 
-This work described in this project was completed by six people. The four authors contributed the bulk of the work ( >90\%), and two ACMx group members also helped us, mainly by getting us up to speed on the state of the ACMx project when we started, and continuing to be our points of contact to the ACMx group. The work was broken down as follows:
+This work described in this project was completed by six people. The four authors of this paper contributed the bulk of the work ( >90\%), and two ACMx group members also helped us, mainly by getting us up to speed on the state of the ACMx project when we started, and continuing to be our points of contact to the ACMx group. The work was broken down as follows:
 
 \textbf{WSN Group Members}
 
@@ -441,7 +441,13 @@ Taylor Sallee wrote all code for the web application, excluding the front-end "S
 
 Kevin Emery worked with the image processing on the image acquisition Raspberry Pis. He wrote Python scripts that make use of the OpenCV library to process images, which mainly includes cropping and compressing to sizes that are reasonable for transmission over the XBee radio. He explored contour mapping as one possibility for reducing image size while still maintaining a readable license plate, but found the current OpenCV implementation to be ineffective given the provided images.
 
-Santiago worked primarily with the hardware needed to get this system working. He built the sensor nodes that include both the Arduino Fio and the Raspberry Pi. He deployed the code written by Roy Stilwell to the Arduino Fios, modifying slightly to suit our purposes. He also did most of the work deploying code to the image Acquisition Raspberry Pis, and he was the one that wrote the script that makes the Pis take an image when the magnetometer detects a car.
+Santiago Gonzalez worked primarily with the hardware needed to get this system working. He built the sensor nodes that include both the Arduino Fio and the Raspberry Pi. He deployed the code written by Roy Stilwell to the Arduino Fios, modifying slightly to suit our purposes. He also did most of the work deploying code to the image Acquisition Raspberry Pis, and he was the one that wrote the code that makes the Pis take an image when the magnetometer detects a car. His work is described in section 3.1.
+
+\textbf{ACMx Group Members}
+
+Roy Stilwell is the head of the ACMx group. Although he wasn't available to help us very much during the course of this project, much of what he and the other ACMx group members did laid the groundwork for what we accomplished in our project. The code that is listed below that runs on the Arduino Fios was written almost entirely by Roy. Roy also designed the Smartlots webpage, and wrote some of the code that is used on the base station Raspberry Pi.
+
+Drew Koelling was a huge help to our group during this project. He met with us several times during our hackathon, even though he did not have as much stake in the success of this project, given that his grade did not depend on what we got done. He primarily helped us understand the base station code, and the existing web interface, and provided Taylor with the information necessary to create a useful REST API. He also helped rewrite some of that base station code. He was overall a great point of contact between our group and the ACMx group, and he was very helpful and good-natured the whole time. We want to explicitly thank him for all the help he gave us in this project.
 
 \section*{Appendix 2 --- Code Listings}
 \subsection*{Arduino Fio Sensing Firmware}
