@@ -20,10 +20,12 @@
 \BOOKMARK [1][-]{section.4}{Results}{}% 20
 \BOOKMARK [2][-]{subsection.4.1}{Image Processing Results}{section.4}% 21
 \BOOKMARK [2][-]{subsection.4.2}{ALPR Results}{section.4}% 22
-\BOOKMARK [1][-]{section.5}{Future Research}{}% 23
-\BOOKMARK [2][-]{subsection.5.1}{ALPR Training}{section.5}% 24
-\BOOKMARK [2][-]{subsection.5.2}{Validating and Adjusting Lot Capacity Data}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.3}{Real-world Deployment}{section.5}% 26
-\BOOKMARK [2][-]{subsection.5.4}{Xbee Image Transmission}{section.5}% 27
-\BOOKMARK [2][-]{subsection.5.5}{Image Acquisition and Processing}{section.5}% 28
-\BOOKMARK [1][-]{section.6}{Summary}{}% 29
+\BOOKMARK [2][-]{subsection.4.3}{REST API and Route Security Results}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.4}{Overall System Performance}{section.4}% 24
+\BOOKMARK [1][-]{section.5}{Future Research}{}% 25
+\BOOKMARK [2][-]{subsection.5.1}{ALPR Training}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.2}{Validating and Adjusting Lot Capacity Data}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.3}{Real-world Deployment}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.4}{Xbee Image Transmission}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.5}{Image Acquisition and Processing}{section.5}% 30
+\BOOKMARK [1][-]{section.6}{Summary}{}% 31

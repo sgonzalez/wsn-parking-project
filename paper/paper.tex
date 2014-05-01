@@ -347,6 +347,13 @@ Three data sets were run through each ALPR system. As seen in Table \ref{tab:ope
 \end{figure}
 
 These results were calculated by determining whether or not the ALPR software correctly identified \emph{any} license plate in the photo. It is the case that, for certain out of state plates or nonstandard plates (e.g. Disabled Veteran), the ALPR programs will not identify the primary, or largest, license plate in the photo. However, both programs were successful in recognizing a much smaller, but standard, license plate. Figure \ref{fig:unexpectedrecognition} shows an example image where a New Mexico plate is ignored in favor of a smaller plate in the background.
+
+\subsection{REST API and Route Security Results}
+We performed a few manual tests to evaluate the performance of our REST API. These included attempting to access the routes provided in the API through different interfaces. The API proved to work successfully when accessed through a web browser (i.e. all GET requests returned the correct resource when accessed in the URL bar of a browser. The GET routes also all proved to be accessible through curl, and via JavaScript/AJAX XMLHttpRequests. Our base station Python code was also able to successfully send all necessary requests to the API. The front-end general user interface and admin website also makes use of the API, and performs as expected. All in all, using Slim was a good choice for creating the REST API, and we have yet to see it fail when the requests are correctly formed. The security implemented was also very successful. We tried accessing all the secure routes through the various interfaces previously described (browser, curl, PHP, AJAX), and none of them worked without providing a username and password, and all of them worked successfully when a valid administrator username and password was provided.
+
+\subsection{Overall System Performance}
+To test that our various subsystems performed as they were supposed to, we formulated a few manual tests to make sure everything was connected. We made sure the various pieces were in place before testing the whole system, and it seems that a few pieces work more consistently than others. As described above, when a request is sent to the server, the REST API we developed is very robust, and always processes the request in the expected way, unless the request itself is not in the correct format. This means that images and sensor data that are sent to the server are consistently placed into the correct database tables, and are immediately available for access via the administrator interface and the front-end Smartlots website. The two ALPR software packages also consistently perform their jobs in the expected way. When an image arrives at the server, it is passed to both OpenALPR and the Intrada ALPR
+
 \section{Future Research}
 There is substantial future research that can be performed to add features and improve the efficacy of the system. This area of research appears very promising as similar systems may be applied and adapted to many different settings.
 
@@ -436,13 +443,13 @@ Once deployed, the Smartlots system, augmented with our additional license plate
 
 \section*{Appendix 1 --- Intra-team Work Distribution}
 
-This work described in this project was completed by six people. The four authors of this paper contributed the bulk of the work ( >90\%), and two ACMx group members also helped us, mainly by getting us up to speed on the state of the ACMx project when we started, and continuing to be our points of contact to the ACMx group. The work was broken down as follows:
+This work described in this project was completed by six people. The four authors of this paper contributed the bulk of the work, and two ACMx group members also helped us, mainly by getting us up to speed on the state of the ACMx project when we started, and continuing to be our points of contact to the ACMx group. The work was broken down as follows:
 
 \textbf{WSN Group Members}
 
 Brandon Rodriguez worked with the license plate recognition software. All of the items he worked on are described in section 3.4 and section 4.2. Brandon did a lot of work researching ALPR software, and made the final decision to use OpenALPR and the Intrada ALPR software for our project. Basically, when reading this paper, realize that if something pertains to license plate recognition, Brandon was responsible for getting it all working. Brandon also worked with Taylor to write some of the server-side PHP code that gets the images from the HTTP requests and runs them through the ALPR software.
 
-Taylor Sallee wrote all code for the web application, excluding the front-end "Smartlots" part of the site that was already in place before the start of this project. Roy Stilwell from the ACMx group wrote the code for that part of the site. Taylor's contribution was the entire administrator interface, the RESTful API that services the website and the Raspberry Pis when they make POST requests. He also added user authentication and PHP security to all sensitive routes created the database tables for all data that our group was adding (images, licenses, intrada\_licenses, users), and wrote all code for viewing, creating, updating, and deleting data in these tables. He collaborated with Andrew Koelling to write the base-station Python code that listens for data from the Arduino Fios and Raspberry Pis, and sends that data to the server via HTTP requests. Some of this code was in place before the project, but Taylor and Andrew refactored almost all of it, and added in the parts to handle the image data, and the part that differentiates the Arduino Fio data from the Raspberry Pi (image) data. Taylor also worked with Santiago and Kevin on the sensor Raspberry Pis, making sure that everything was installed correctly, and testing the top-to-bottom functionality of the system (that is, make sure data is getting from the sensors all the way to the web application). Taylor's work is described in sections 3.3, 3.5, and 4.3.
+Taylor Sallee wrote all code for the web application, excluding the front-end "Smartlots" part of the site that was already in place before the start of this project. Roy Stilwell from the ACMx group wrote the code for that part of the site. Taylor's contribution was the entire administrator interface, the RESTful API that services the website and the Raspberry Pis when they make POST requests. He also added user authentication and PHP security to all sensitive routes created the database tables for all data that our group was adding (images, licenses, intrada\_licenses, users), and wrote all code for viewing, creating, updating, and deleting data in these tables. He collaborated with Andrew Koelling to write the base-station Python code that listens for data from the Arduino Fios and Raspberry Pis, and sends that data to the server via HTTP requests. Some of this code was in place before the project, but Taylor and Andrew refactored almost all of it, and added in the parts to handle the image data, and the part that differentiates the Arduino Fio data from the Raspberry Pi (image) data. Taylor also worked with Santiago and Kevin on the sensor Raspberry Pis, making sure that everything was installed correctly, and testing the top-to-bottom functionality of the system (that is, make sure data is getting from the sensors all the way to the web application). Taylor's work is described in sections 3.3, 3.5, 4.3, and 4.5.
 
 Kevin Emery worked with the image processing on the image acquisition Raspberry Pis. He wrote Python scripts that make use of the OpenCV library to process images, which mainly includes cropping and compressing to sizes that are reasonable for transmission over the XBee radio. He explored contour mapping as one possibility for reducing image size while still maintaining a readable license plate, but found the current OpenCV implementation to be ineffective given the provided images. His work is detailed in sections 3.2 and 4.1
 
@@ -1004,6 +1011,423 @@ r = requests.post(url, data=dPayload, files=fPayload)
 
 # Print out the server's response.
 print r.text
+\end{lstlisting}
+\end{spacing}
+
+\subsection*{Base Station Code to Receive Fio and Pi Data from XBee}
+\begin{spacing}{1}
+\begin{lstlisting}[language=python]
+#! /usr/bin/python
+
+"""
+receive_samples_async.py
+
+By Paul Malmsten, 2010
+pmalmsten@gmail.com
+
+This file reads from the serial port and asynchronously processes the data
+received from a remote XBee.
+"""
+
+from xbee import XBee
+import time
+import serial
+import update
+
+PORT = '/dev/tty.usbserial-A602TT7M'
+BAUD_RATE = 57600
+
+# A dictionary (map) that stores the Fio packets, with each packet 
+# in the map growing until the full data is received
+FIO_DATA_BUFFER = {}
+
+# A dictionary (map) that stores the Pi packets, with each packet 
+# in the map growing until the full image is received
+PI_DATA_BUFFER = {}
+
+# A dictionary that stores the lengths of each image sent by the Pis
+PI_STREAM_LENGTHS = {}
+
+# Open serial port
+ser = serial.Serial(PORT, BAUD_RATE)
+
+# Takes a data stream from a Fio and sends it to the server for storage
+def parseFioDataAndSend(sensorId, dataStream):
+	# Remove the < and > from of datastream
+	dataStream = dataStream.replace("<", "")
+	dataStream = dataStream.replace(">", "")
+
+	valuesplit = dataStream.split()
+	carcount = valuesplit[0]
+	voltage = valuesplit[1]
+	temperature = valuesplit[2]
+	window = valuesplit[3:]
+	update.postFioData(sensorId, carcount, voltage, temperature, window)
+
+# Takes a data stream from a Pi and sends it to the server for storage
+def parsePiDataAndSend(sensorId, dataStream):
+	f = open("kitten.jpeg", "rb")
+	update.postPiData(sensorId, f)
+
+"""
+The following function 'message_received(dataPacket)' is described below:
+Since XBee's will split the data along frames, we only want to send data to website once we have all the data
+To solve this, each data stream will end with a specific char, in this case it is '>'. 
+data streams will be 
+
+	header_data < localcount voltage temperature window_data window_data window_data ... window_data >
+
+Occasionally debug statements will be sent. all debugs will be surronded by square brackets  [ ] 
+Debug statements will be only a single xbee frame, and no data statments will be in the same window as a debug statment
+therefore all debug statments will be ignored can simply have the entire stream thrown out
+debug statments will be
+
+	header_data [ DEBUG_STATEMENT ... DEBUG_STATEMENT ]
+
+Because the entire data stream will not exist in a single XBee frame, when the id is extracted from the header,
+the stream will be added to a map. If there is already an id in the map, it will append the current frame into the data
+already in the dictonary
+When the terminating character is found (the > char) it will append the current frame to the one in the map and 
+then send the data in the map. The id will be removed from the map when the data is sent to site. 
+
+The name of the map is FIO_DATA_BUFFER and exists in global scope.
+"""
+
+def message_received(dataPacket):
+	print "Got a data packet"
+
+	print dataPacket
+	try :
+		
+		# Get the actual data payload we want to look at
+		sensorPayload = dataPacket["rf_data"]
+
+		if hackyMethodToIdentifyData(sensorPayload) == "pi":
+			processPiMessage(dataPacket)
+
+		elif hackyMethodToIdentifyData(sensorPayload) == "fio":
+			processFioMessage(dataPacket)
+	
+	except Exception as e:
+		# The last steps will fail for messages such as on calibration, we need to catch this
+		pass	
+
+def processPiMessage(dataPacket):
+
+	sensorId = getSensorId(dataPacket)
+
+	# Get the actual data payload we want to look at
+	sensorPayload = dataPacket["rf_data"]	
+
+	# Already received at least one packet for this sensor, so we will
+	# add this data to the existing value in the map
+	if sensorId in PI_DATA_BUFFER:
+
+		# If the stream is still smaller than the specified length
+		if len(PI_DATA_BUFFER[sensorId]) < PI_STREAM_LENGTHS[sensorId]:
+			
+			# Append this payload to the end of the stream
+			PI_DATA_BUFFER[sensorId] += sensorPayLoad
+
+			# Check to see the new length. If it's >= the specified length,
+			# we know we have reached the end of the image stream
+			if len(PI_DATA_BUFFER[sensorId]) == PI_STREAM_LENGTHS[sensorId]:
+				parsePiDataAndSend(sensorId, PI_DATA_BUFFER[sensorId])
+				del PI_DATA_BUFFER[sensorId]
+
+			if len(PI_DATA_BUFFER[sensorId]) > PI_STREAM_LENGTHS[sensorId]:
+				print("Error: Sensor " + sensorId + " sent the wrong number of image packets")
+				exit()
+		
+		else:
+			print("Error: Sensor " + sensorId + " sent the wrong number of image packets")
+			exit()
+				
+	else:
+		streamLength = int(sensorPayload[0:sensorPayload.find(" ")])
+		firstPacket = sensorPayload[sensorPayload.find(" ") + 1:]
+
+		PI_DATA_BUFFER[sensorId] = firstPacket
+		PI_STREAM_LENGTHS[sensorId] = streamLength
+
+
+def processFioMessage(dataPacket):
+
+	sensorId = getSensorId(dataPacket)
+
+	# Get the actual data payload we want to look at
+	sensorPayload = dataPacket["rf_data"]
+
+	# Remove dangerous characters
+	sensorPayload = sensorPayload.replace("\r", "").replace("\n", "")
+
+	# Already received at least one packet for this sensor, so we will
+	# add this data to the existing value in the map
+	if sensorId in FIO_DATA_BUFFER:
+		
+		# If this payload contains a '[', it means that this statement
+		# is all debug info, so we ignore it
+		if sensorPayload.find("[") != -1: 
+			None
+		
+		# Check that this payload is not the last packet in the stream
+		elif sensorPayload.find(">") == -1: 
+			FIO_DATA_BUFFER[sensorId] += sensorPayload
+		
+		# If it is the last packet in the stream
+		else:
+			# Append the last payload
+			FIO_DATA_BUFFER[sensorId] += sensorPayload
+			# Send the entire stream to the server for storage
+			parseFioDataAndSend(sensorId, FIO_DATA_BUFFER[sensorId])
+			# Delete the data that was just sent to save space
+			del FIO_DATA_BUFFER[sensorId]
+
+	# This is the first packet from this sensor, so we create a new
+	# entry in the map, with the sensorId as the key, payload as the value
+	else:
+		# If this payload contains a '[', it means that this statement
+		# is all debug info, so we ignore it
+		if sensorPayload.find("[") != -1:
+			None
+		else:
+			FIO_DATA_BUFFER[sensorId] = sensorPayload		
+
+def getSensorId(dataPacket):
+	# Grab hex string representing sensor id, it's given as a raw binary number
+	sensorIdHex = dataPacket["source_addr"]
+
+	# Get the actual sensor id, and make sure that there is data to grab
+	sensorId = ord(sensorIdHex[0]) * 256 + ord(sensorIdHex[1])
+
+	return sensorId
+
+def hackyMethodToIdentifyData(sensorPayload):
+
+	print("Currently using hacky method. Please update as soon as possible. Let's not be lazy here. Seriously though. FIX IT!")
+
+	isFio = True
+	for char in sensorPayload.replace("<", ""):
+		if not (ord(char) == ord(' ') or ord(char) == ord('.') or ord(char) == ord('>') or (ord(char) in range(ord('0'), ord('9') + 1))):
+			isFio = False
+			break
+
+	if isFio:
+		return "fio"
+	else:
+		return "pi"
+
+# testDataStream = "<200 4.7 50 10.1 10.2 10.3 10.4 10.5 10.6 10.7 10.8 10.9>"
+# parseFioDataAndSend(7, testDataStream)
+
+# testPiStream = "102400 as;ofijw9r8uapw9erjas jdfzsdjf jawli,,.fhxfglq8uw3498ysf#R$**9hdfsaehrksdf;sfawr68569#$("
+# parsePiDataAndSend(3, testPiStream)
+
+# Create API object, which spawns a new thread
+xbee = XBee(ser, callback=message_received)
+
+print "Listening for input on serial port " + PORT
+
+# Do other stuff in the main thread
+while True:
+   try:
+       time.sleep(.1)
+   except KeyboardInterrupt:
+       break
+
+# halt() must be called before closing the serial
+# port in order to ensure proper thread shutdown
+xbee.halt()
+ser.close()
+
+\end{lstlisting}
+\end{spacing}
+
+\subsection*{Slim/PHP code to create RESTful API}
+\begin{spacing}{1}
+\begin{lstlisting}[language=php]
+<?php
+	
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
+
+	require 'vendor/autoload.php';
+	require 'admin/validate_credentials.php';
+
+	require 'backend_php/fios.php';
+	require 'backend_php/images.php';
+	require 'backend_php/licenses.php';
+	require 'backend_php/pis.php';
+	require 'backend_php/sensors.php';
+	require 'backend_php/users.php';
+
+	# Create the server/app
+	$app = new \Slim\Slim();
+
+	date_default_timezone_set('America/Denver');
+
+	# Define all the routes our application will accept below
+
+	############### FRONT END (WEBPAGE) ROUTES ###################
+	##############################################################
+
+	# return 'home.php' when someone requests the root of our site
+	$app->get('/', function() {
+		readfile('home.html');
+	});
+
+	# return 'list.php' when someone requests /list
+	$app->get('/list', function() {
+		readfile('list.html');
+	});
+
+	# return 'stats.php' when someone requests /stats
+	$app->get('/stats', function() {
+		readfile('stats.html');
+	});
+
+	# return 'home.php' when someone requests /map
+	$app->get('/map', function() {
+		readfile('home.html');
+	});
+
+	######################## USER ROUTES #########################
+	##############################################################
+
+	$app->get('/users', function() {
+		authorize();
+		extract_all_users();
+	});
+
+	$app->get('/users/:id', function($id) {
+		authorize();
+		extract_user($id);
+	});
+
+	$app->post('/users', function() use ($app) {
+		authorize();
+		create_user($_POST);
+		$app->redirect('/smartlots/admin/view_users.php');
+	});
+
+	$app->delete('/users/:id', function($id) use ($app) {
+		authorize();
+		delete_user($id);
+	});
+
+	#################### IMAGE ROUTES ############################
+	##############################################################
+
+	$app->get('/images', function() {
+		authorize();
+		extract_all_images();
+	});
+
+	# Return the image with the specified date/timestamp
+	$app->get('/images/:date', function($date) {
+		// DON'T REQUIRE AUTHORIZATION! INTRADA NEEDS TO BE ABLE TO ACCESS IT W/O AUTHORIZATION
+		header('Content-Type: image/jpg');
+		imagejpeg(imagecreatefromjpeg("/var/license_plates/images/$date"));
+	});
+
+	// $app->post('/images', function() {
+	// 	authorize();
+	// 	create_image($_POST);
+	// });
+
+	// $app->delete('/images/:id', function($id) {
+	// 	authorize();
+	// 	delete_image($id);
+	// });
+
+	############## LICENSE PLATE NUMBER ROUTES ###################
+	##############################################################
+
+	$app->get('/licenses', function() {
+		authorize();
+		extract_all_licenses();
+	});
+
+	$app->get('/licenses/:id', function($id) {
+		authorize();
+		extract_license($id);
+	});
+
+	// $app->post('/licenses', function() {
+	// 	authorize();
+	// 	create_license($_POST);
+	// });
+
+	// $app->delete('/licenses/:id', function($id) {
+	// 	authorize();
+	// 	delete_license($id);
+	// });
+
+	############## INTRADA PLATE NUMBER ROUTES ###################
+	##############################################################
+
+	$app->get('/intrada_licenses', function() {
+		authorize();
+		extract_all_intrada_licenses();
+	});
+
+	$app->get('/intrada_licenses/:id', function($id) {
+		authorize();
+		extract_intrada_license($id);
+	});
+
+	// $app->post('/intrada_licenses', function() {
+	// 	authorize();
+	// 	create_intrada_license($_POST);
+	// });
+
+	// $app->delete('/intrada_licenses/:id', function($id) {
+	// 	authorize();
+	// 	delete_intrada_license($id);
+	// });
+
+	##################### SENSOR DATA ROUTES #####################
+	##############################################################
+
+	$app->get('/sensors', function() {
+		authorize();
+		extract_all_sensors();
+	});
+
+	$app->get('/sensors/:id', function($id) {
+		authorize();
+		extract_sensor($id);
+	});
+
+	// $app->post('/sensors', function() {
+	// 	authorize();
+	// 	create_sensor($_POST);
+	// });
+
+	// $app->delete('/sensors/:id', function($id) {
+	// 	authorize();
+	// 	delete_sensor($id);
+	// });
+
+	############ BACK END (PARKING SYSTEM) ROUTES ################
+	##############################################################
+
+	# Adds data from the parking lot fio sensors to the database
+	$app->post('/fiodata', function() {
+		authorize();
+		process_fio_data($_POST);
+	});
+
+	# Adds data from the parking lot pi sensors to the database
+	$app->post('/pidata', function() use ($app) {
+		authorize();
+		process_pi_data($_POST, $_FILES);
+		$app->redirect('/smartlots/admin/view_licenses.php');
+	});
+
+	$app->run();
+
+?>
 \end{lstlisting}
 \end{spacing}
 
