@@ -292,21 +292,28 @@ If the chosen ALPR strategy is self-sufficient, all calculations will be complet
 Once the ACMx server has a plain text representation of the license plate characters, they will be stored in a MySQL database, along with a timestamp and lot id, where they can be retrieved and processed by the Web Application subsystem described in section 2.6.
 
 \subsection{Web Application}
-<<<<<<< HEAD
 
-Prior to the start of our project, the ACMx group created a web application designed to display the data collected from the sensors in the parking lot monitoring system. Since the current site was essentially just a shell with no data, one main goal of this project was to improve the website. The site consists of three main parts:
+Prior to the start of our project, the ACMx group created a web application designed to display the data collected from the sensors in the parking lot monitoring system. Since the current site was essentially just a shell with no data, one main goal of this project was to improve the website. The site consists of four main parts:
 
 \begin{enumerate}
 \item Front-facing, publicly-accessible "Smartlots" website,
-\item Administrator website, and
-\item Back-end HTTP interface.
+\item Back-end HTTP interface,
+\item MySQL database, and
+\item Administrator website
 \end{enumerate}
 
 The Smartlots website makes use of the magnetometer sensor data; it provides maps showing the number of cars in each parking lot, maintains lists of parking lots, and lists usage statistics about each lot. The administrator website provides tools for system administrators. These tools are described in detail below. Before we started this project, the ACMx group had already created the publicly-accessible Smartlots interface. Therefore, we chose to focus on creating the administrator side of the site, and improving the back-end of the entire site to make it more secure and easier to extend in the future.
 
-This subsystem encompasses several components, each of which helps to accomplish our goal of providing campus members with a better parking experience. The interfaces for both general users and administrators make the data we collect both useful and easy to access. The web application itself is written with PHP on the back end and HTML5/CSS3/JavaScript on the front end. The data from the sensors is stored in a MySQL database, which is described in detail below. The following subsections describe the various pieces of the site that we completed during this project.
-=======
-{\color{red}\textbf{NOT COMPLETE}}
+The web application subsystem encompasses several components, each of which helps to accomplish our goal of providing campus members with a better parking experience. The interfaces for both general users and administrators make the data we collect useful and easy to access. The web application itself is written with PHP on the back end and HTML5/CSS3/JavaScript on the front end. The data from the sensors is stored in a MySQL database, which is described in detail below. The following subsections describe the various pieces of the site that we completed during this project.
+
+\subsubsection{HTTP Interface}
+The base station Raspberry Pi needs some way to communicate its data with the web application. The simplest way to meet this need is to provide an HTTP interface on the server. We use HTTP to handle requests from the front end of the web application, so it made sense to also allow the base station to communicate with our server through HTTP. We designed our backend services to be as RESTful \cite{REST} as possible. We used the PHP library Slim \cite{Slim} to create our RESTful API. For each table in the database, our API includes code to create, read, update, and delete the items, via HTTP POST, GET, PUT, and DELETE requests, respectively. For example, when a car is detected by the magnetometer sensor, the data is received by the base station Raspberry Pi, which then sends an HTTP POST request to http://acmxlabs.org/smartlots/fioData. Upon receiving this request, the server runs the appropriate PHP code to add new entries to the database tables that store the magnetometer and car count data. Furthermore, when the "View Licenses" web page on the administrator website needs to display a table with all the license plate data, it sends an HTTP GET request to http://acmxlabs.org/smartlots/licenses.
+
+Our API uses built-in PHP security to protect certain routes from being accessed by unauthorized users. To POST data to any of the routes, an administrator username and password is required. The routes that service the publicly-accessible Smartlots site are not authenticated, as we want anyone to be able to access that part of the site.
+
+\subsubsection{Database}
+The server stores all application data in a MySQL database. This database stores information about the sensor network, along with the data collected from the sensors. The database schema is shown in figure \ref{fig:schema}. The sensors table stores information about the individual sensors, and includes fields for car count and previous car count, so that the web application knows how many cars have passed by each sensor. The lots table maintains a list of lot names, and the sensormapping table is a join table that maps each sensor to the lot where it is deployed. The lots table also keeps the current car count for each parking lot, which is used by the front page of the Smartlots homepage. The images table maintains a list of image urls, and keeps track of which sensor the image came from. This table is updated whenever a new image is received from the base station Raspberry Pi. The licenses and intrada_licenses tables are also updated whenever a new image is received. These tables have an identical format, but store different data depending on the results returned upon running the two license plate recognition programs.
+
 \begin{figure}
 \begin{center}
 \includegraphics[width=5in]{schema}
@@ -314,17 +321,9 @@ This subsystem encompasses several components, each of which helps to accomplish
 \caption{MySQL Database Schema}
 \label{fig:schema}
 \end{figure}
-As mentioned in section 1.2, the ACMx group has already created a web application that will display the data collected from the sensors in the system. The site is currently accessible online at \url{http://acmxlabs.org/parking/}. Since the current site is essentially just a shell with no data, one main goal of this project is to make the main pages of the site fully functional. Another main goal is to create an administrator side to the site, where data can be viewed and updated by site administrators. The main focus of this subsystem will be to provide interfaces for both general users and administrators that make the data we collect both useful and easy to access. Since the ACMx team already has some protocols in place for collecting and displaying the data from the magnetometer Arduino Fios, the ACMx team will continue development on this interface, and our group will focus on other parts of the application, as described below. The web application itself will be written with PHP on the back end and HTML5/CSS3/JavaScript on the front end. The following subsections describe the various pieces of the site that we aim to complete during this project.
->>>>>>> 2c6eeca4f0295fc5496d9c304a47b04767a3bd22
-
-\subsubsection{HTTP Interface}
-The base station Raspberry Pi needs some way to communicate its data with the web application. The simplest way to meet this need is to provide an HTTP interface on the server. We use HTTP to handle requests from the front end of the web application, so it made sense to also allow the base station to communicate with our server through HTTP. We designed our backend services to be as RESTful \cite{REST} as possible. We used the PHP library Slim \cite{Slim} to create our RESTful API. For each table in the database, our API includes code to create, read, update, and delete the items, via HTTP POST, GET, PUT, and DELETE requests, respectively. For example, when a car is detected by the magnetometer sensor, the data is received by the base station Raspberry Pi, which then sends an HTTP POST request to http://acmxlabs.org/smartlots/fioData. Upon receiving this request, the server runs the appropriate PHP code to add new entries to the database tables that store the magnetometer and car count data. Furthermore, when the "View Licenses" web page on the administrator website needs to display a table with all the license plate data, it sends an HTTP GET request to http://acmxlabs.org/smartlots/licenses.
-
-Our API uses built-in PHP security to protect certain routes from being accessed by unauthorized users. To POST data to any of the routes, an administrator username and password is required. The routes that service the publicly-accessible Smartlots site are not authenticated, as we want anyone to be able to access that part of the site.
 
 \subsubsection{Administrator Website}
-
-Much of the work done on this subsection involved developing and deploying the administrator website. The site serves as an easy-to-use interface that provides tools for administrators (our group members and ACMx group members). These tools allow administrators to view the data collected by the magnetometer sensors and the image-acquisition Raspberry Pis, view health data about the sensors, and manage user accounts. Each component of the administrator website is described below.
+Much of the work done on the ACMx server during this project involved developing and deploying the administrator website. The site serves as an easy-to-use interface that provides tools for administrators (our group members and ACMx group members). These tools allow administrators to view the data collected by the magnetometer sensors and the image-acquisition Raspberry Pis, view health data about the sensors, and manage user accounts. Each component of the administrator website is described below.
 
 \emph{User Account Management}
 Administrators are able to create, delete, and view other administrator accounts. Maintaining user accounts is important for this system because our API requires user authentication for certain HTTP routes, as described above. We have created a dedicated user that is allowed to access all the back-end routes; this user is the one that is used by the base station Raspberry Pi to POST its magnetometer and image data to the server. Other administrator accounts are used to gain access to the administrator site, and to provide authentication when testing specific routes.
@@ -332,13 +331,8 @@ Administrators are able to create, delete, and view other administrator accounts
 \emph{License Plate Viewer}
 As mentioned in section 2.5, the license plate images are translated by the ALPR software from an image into a string of plain text, and stored in the MySQL database on the ACMx server. One of the main functions of the web interface is to display this data to administrators. The page that displays the license plate data is a simple interface that shows every license plate number we have collected, along with the time it was collected, the parking lot it came from, and the original image that the license number came from. The data is divided into two tables: one for the data returned from the OpenALPR software, and one for the data returned by the Intrada software. The entries are sorted by most-recent first. For this project, we were only interested in creating a proof-of-concept type interface that shows we have the capability to display the collected plate data in a useful format; in the future it could be useful to cross-reference our data with the campus parking department's database to check if a car has entered a lot without a permit.
 
-\emph{Database}
-The server stores all application data in a MySQL database. This database stores information about the sensor network, along with the data collected from the sensors. The schema for this
-
-\subsubsection{Validating and Adjusting Lot Capacity Data}
-{\color{red}\textbf{NOT COMPLETE}}
-We expect that our first deployment of this system may not be 100\% accurate at detecting all vehicles that enter and exit lots. Therefore, as mentioned in section 2.4, we will be collecting periodic overhead images from a camera mounted on the base station Raspberry Pi. These images will serve as a visual representation of how many cars are actually in the parking lot at the time the image was taken. Administrators should be able to periodically compare this image to the collected data from the sensor network to make sure the numbers being computed by the network accurately represent the number of cars in the lot. The web interface will allow administrators to pull up the image for any lot with an overhead camera and see the numbers for that lot right next to the image. If any discrepancies are found, the administrator should be able to overwrite the count in the database to reflect reality. This interface will be extremely useful in helping to calibrate the system. For example, if the sensors are consistently reporting less cars in the lot than the image shows, we can fine-tune the collection process to make sure fewer cars slip through unnoticed. Future work in this area will include an automated version of this process, where a computer program will compare the image to the sensed data and make any necessary corrections.
-
+\emph{Sensor Data Viewer}
+Another feature of the administrator webpage is the page that allows administrators to view sensor data. This page maintains a table showing each sensor, its current and last count, its battery level, and the lot where it is deployed. Although this is a simple page, it provides useful information to the administrators of the site. Future additions to this page will include a way to add and remove sensors from the database.
 
 \subsection{Deployment}
 {\color{red}\textbf{NOT COMPLETE}}
@@ -358,7 +352,9 @@ The central base station, as described in section 2.4, will be placed in an uppe
 
 
 \section{Future Research}
-{\color{red}\textbf{NOT COMPLETE}}
+
+\subsubsection{Validating and Adjusting Lot Capacity Data}
+We expect that our first deployment of this system may not be 100\% accurate at detecting all vehicles that enter and exit lots. Therefore, as mentioned in section 2.4, we will be collecting periodic overhead images from a camera mounted on the base station Raspberry Pi. These images will serve as a visual representation of how many cars are actually in the parking lot at the time the image was taken. Administrators should be able to periodically compare this image to the collected data from the sensor network to make sure the numbers being computed by the network accurately represent the number of cars in the lot. The web interface will allow administrators to pull up the image for any lot with an overhead camera and see the numbers for that lot right next to the image. If any discrepancies are found, the administrator should be able to overwrite the count in the database to reflect reality. This interface will be extremely useful in helping to calibrate the system. For example, if the sensors are consistently reporting less cars in the lot than the image shows, we can fine-tune the collection process to make sure fewer cars slip through unnoticed. Future work in this area will include an automated version of this process, where a computer program will compare the image to the sensed data and make any necessary corrections.
 
 \section{Summary}
 {\color{red}\textbf{NOT COMPLETE}}
