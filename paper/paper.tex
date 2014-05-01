@@ -58,14 +58,13 @@ The parking lots at the Colorado School of Mines (CSM) can be a source of frustr
 
 The idea behind the first part is that a student can get on their smartphone, tablet, or laptop before heading to class, see a nicely-formatted list/map of the lots on campus, and decide where to park based on how full each lot is. Administrators will monitor the information and make sure it is correct, updating the web application as needed with new statistics, lists, and maps as more lots are added to the system. Before beginning this project, the Association for Computing Machinery (ACMx) student organization at CSM had already started working on a system for monitoring lot car counts and capacities (see section 1.2). We collaborated closely with the ACMx group, integrating our work with theirs to design and test our parking lot monitoring system.
 
-The second part of the project is motivated by a desire to test the feasibility of using the small Raspberry Pi Linux computer as a platform for capturing and processing images of license plates. Because the Raspberry Pi is inexpensive (\$25-\$35 depending on the model), it could be useful in a wide variety of applications that require accurate license plate recognition. For now our web application will simply list the license plate numbers for site administrators to view, but we envision that this monitoring system may eventually be used by the campus parking department to detect when vehicles have entered lots without parking passes.
-
-The goal of this project is to work with the ACMx group to create and deploy the system in two parking lots on campus by the end of the semester. See section 2.7 for information about the deployment. The system itself will consist of several subsystems, which are described in detail in section 2.
+The second part of the project is motivated by a desire to test the feasibility of using the small Raspberry Pi Linux computer as a platform for capturing and processing images of license plates. Because the Raspberry Pi is inexpensive (\$25-\$35 depending on the model), it could be useful in a wide variety of applications that require accurate license plate recognition. Currently our web application simply lists the license plate numbers for site administrators to view, but we envision that this monitoring system may eventually be used by the campus parking department to detect when vehicles have entered lots without parking passes. The system itself will consist of several subsystems, which are described in detail in section 2.
 
 \section{Related Work}
 The ACMx group at CSM has designed a system named SmartLots to track the number of vehicles in a parking lot. Their system is a wireless sensor network consisting of sensor nodes and a central base station. The sensor nodes are based on the Arduino Fio microcontroller platform equipped with triaxial magnetometers and XBee Pro radios. The base station is a Raspberry Pi connected to the internet via Ethernet. The information collected by the sensor nodes is transmitted to the base station and forwarded to a server running a small web application. The system is described in \cite{stillwell2013} and \cite{parkingWiki}. \cite{stillwell2013} describes an implementation of a system to detect automobiles entering and exiting a parking lot using the Arduino Fio and the Raspberry Pi. This system uses the IEEE 802.15.4 communications standard to communicate automobile detection data from the sensor nodes to the base station. \cite{parkingWiki} describes the ongoing status of the ACMx project. At the time of writing, the ACMx team has created a website that will display the status of the CTLM upper and lower lots once the monitoring system has been deployed. \cite{parkingWiki} is updated periodically with new information regarding project progress. The project described in this paper augments and extends the ACMx project while collaborating with Stillwell (ACMx president and coauthor of \cite{stillwell2013}).
 
 \section{Project Overview and Methods}
+
 \begin{figure}
 \begin{center}
 \includegraphics[width=4.5in]{architecture}
@@ -73,6 +72,7 @@ The ACMx group at CSM has designed a system named SmartLots to track the number 
 \caption{Overall System Architecture}
 \label{fig:system}
 \end{figure}
+
 This project is partially an extension of the ACMx SmartLots project. The system consists of several components, each of which will is either an extension of a current SmartLots system or an entirely new subsystem that has been integrated into the existing system. Figure \ref{fig:system} shows the overall architecture of our system. The system relies on three main components:
 \begin{enumerate}
 \item Detection Subsystem,
@@ -316,7 +316,7 @@ The central base station, as described in section 2.4, will be placed in an uppe
 
 \section{Results}
 \subsection{ALPR Results}
-Three data sets were run through each ALPR system. In each case, Intrada ALPR was able to recognize at least double as many plates as OpenALPR.
+Three data sets were run through each ALPR system. In each case, Intrada ALPR was able to recognize at least twice as many plates as OpenALPR.
 
 \begin{table}[h!]
 \begin{center}
@@ -346,7 +346,7 @@ Compressed images & 8 & 27 & 29.63 \% \\ \hline
 
 \section{Future Research}
 
-\subsubsection{Validating and Adjusting Lot Capacity Data}
+\subsection{Validating and Adjusting Lot Capacity Data}
 We expect that our first deployment of this system may not be 100\% accurate at detecting all vehicles that enter and exit lots. Therefore, we would like to create a system to periodically collect overhead images of the parking lots from a camera mounted on the base station Raspberry Pi. These images would serve as a visual representation of how many cars were actually in the parking lot at the time the image was taken. If this feature is implemented, administrators will be able to periodically compare the overhead images to the collected data from the sensor network to make sure the numbers being computed by the system accurately represent the car counts of the lots. A page would be added to the web interface to allow administrators to pull up the image for any lot with an overhead camera and see the numbers for that lot right next to the image. If any discrepancies are found, the administrator would be able to overwrite the count in the database to reflect reality. Such an interface would be useful in helping to calibrate the system. For example, if the sensors consistently report less cars in the lot than the image shows, they can be fine-tuned to make sure fewer cars slip through unnoticed. Another improvement to work in this area could include an automated version of this process, where a computer program could compare the overhead images to the sensed data and make any necessary corrections to the car count in the database.
 
 \section{Summary}
