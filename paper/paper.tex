@@ -175,7 +175,6 @@ In general, ALPR systems only work for a specific geographic region they are "tr
 
 
 \subsubsection{ALPR Industry Survey}
-{\color{red}\textbf{NOT COMPLETE}}
 Many ALPR systems exist today for commercial and government purposes. Uses can range from cross-referencing address information with the DMV to bill users of toll roads to monitoring roadways for stolen cars or even measuring car speeds. Our team was able to contact two manufacturers of ALPR systems to learn more about their use in industry: Q-Free ASA and The 3M Company.
 
 \textbf{A. Q-Free ASA}
@@ -216,7 +215,6 @@ The data set, which we will now refer to as the \emph{unaltered image data set},
 Both OpenALPR and Intrada ALPR had to be integrated into our web application so they would run automatically without the need for human intervention. OpenALPR, because it is not a cloud service, needed to be installed locally on the ACMx server. The Intrada ALPR was much simpler because we were only interacting with the API.
 
 \textbf{A. OpenALPR}
-{\color{red}\textbf{NOT COMPLETE}}
 As stated in Section 3.4.1, OpenALPR is built on top of OpenCV, a computer vision library, and Tesseract OCR, an OCR engine. Tesseract OCR had additional dependencies that needed to be installed before it would compile.
 
 We used Ubuntu's \verb+apt-get+ command to install almost all of Tesseract's dependency packages. Tesseract makes use of a recent version of an image processing software called Leptonica. Because the version used in Tesseract superseded the versions available in Ubuntu's repository, we had to download the source files for Leptonica and compile it from scratch.
@@ -231,7 +229,6 @@ Once OpenCV and Tesseract were operational, compiling OpenALPR was a breeze. The
 \end{inparaenum}
 
 \textbf{B. Intrada ALPR}
-{\color{red}\textbf{NOT COMPLETE}}
 Intrada ALPR uses the SOAP protocol for exchanging information. To create SOAP requests, we used the \verb+SoapClient+ class available in PHP to create, send, and receive the output of our request.
 
 Intrada requires a username and password to process images. The SOAP API allows for the sending of the username and password as part of each request object for authentication. Then, Intrada runs their proprietary algorithm on its own servers before returning a result string back to our web application. The result string contains colon delimited fields that carry 
