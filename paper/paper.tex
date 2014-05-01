@@ -61,7 +61,7 @@ The second part of the project is motivated by a desire to test the feasibility 
 \section{Related Work}
 The ACMx group at CSM has designed a system named SmartLots to track the number of vehicles in a parking lot. Their system is a wireless sensor network consisting of sensor nodes and a central base station. The sensor nodes are based on the Arduino Fio microcontroller platform equipped with triaxial magnetometers and XBee Pro radios. The base station is a Raspberry Pi connected to the internet via Ethernet. The information collected by the sensor nodes is transmitted to the base station and forwarded to a server running a small web application. The system is described in \cite{stillwell2013} and \cite{parkingWiki}. \cite{stillwell2013} describes an implementation of a system to detect automobiles entering and exiting a parking lot using the Arduino Fio and the Raspberry Pi. This system uses the IEEE 802.15.4 communications standard to communicate automobile detection data from the sensor nodes to the base station. \cite{parkingWiki} describes the ongoing status of the ACMx project. At the time of writing, the ACMx team has created a website that will display the status of the CTLM upper and lower lots once the monitoring system has been deployed. \cite{parkingWiki} is updated periodically with new information regarding project progress. The project described in this paper augments and extends the ACMx project while collaborating with Stillwell (ACMx president and coauthor of \cite{stillwell2013}).
 
-K. V. S. Hari, researched the use of magnetometers for detecting and classifying automotive vehicles in \cite{itsindia}, as part of the Centre for Development of Advanced Computing at Thiruvananthapuram, India. Hari conducted this project in the hopes that a similar system could eventually be used in traffic lights to improve the flow of vehicles. Automobiles are detected using a threshold system similar to \cite{stillwell2013} and are classified using various features in the vehicle's magnetic signature with one or more sensor axes using clustered dipole models.
+K. V. S. Hari \cite{itsindia} researched the use of magnetometers for detecting and classifying automotive vehicles as part of the Centre for Development of Advanced Computing at Thiruvananthapuram, India. Hari conducted this project in the hopes that a similar system could eventually be used in traffic lights to improve the flow of vehicles. Automobiles are detected using a threshold system similar to that used in \cite{stillwell2013}, and are classified using various features in the vehicle's magnetic signature with one or more sensor axes using clustered dipole models.
 
 \section{Project Overview and Methods}
 
@@ -99,7 +99,7 @@ The automobile detection subsystem provides a means for detecting entry and depa
 \label{fig:autodetect}
 \end{figure}
 
-The hardware used for automobile detection would be contained in the same enclosure as the license plate image acquisition hardware for simplicity. Both components share a unified power supply based on a high-capacity, 6000 mAh lithium polymer battery, which is charged by a relatively small photovoltaic panel as seen in Figure~\ref{fig:autodetect}. A 5V boost converter is required to interface with the Acquisition Raspberry Pi since lithium polymer batteries only provide 3.7V.
+The hardware used for automobile detection would be contained in the same enclosure as the license plate image acquisition hardware for simplicity. Both components share a unified power supply based on a high-capacity, 6000 mAh lithium polymer battery, which is charged by a relatively small photovoltaic panel as seen in figure \ref{fig:autodetect}. A 5V boost converter is required to interface with the Acquisition Raspberry Pi since lithium polymer batteries only provide 3.7V.
 
 The use of a magnetometer ensures that automobiles and other roadway vehicles such as motorcycles are detected, while pedestrians and particulate deposits, such as snow, are ignored. As mentioned in \cite{stillwell2013}, the automobile detection subsystem uses the commercially available HMC5883 triaxial magnetometer as it provides an adequate balance of sensitivity and low power consumption.
 
@@ -110,21 +110,6 @@ The use of a magnetometer ensures that automobiles and other roadway vehicles su
 \caption{Automobile Detection Node Hardware}
 \label{fig:autodetecthardware}
 \end{figure}
-
-\subsubsection{Tests and Analyses}
-Because the ACMx group has already written the necessary software and designed a working configuration for detecting vehicles with the Arduino Fios, the bulk of our work on the automobile detection subsystem will involve a variety of tests and analyses to ensure system and data integrity. Power consumption analyses will be conducted on the automobile detection and license plate image acquisition subsystem to identify power usage per main component (Figure~\ref{fig:autodetect}) while the mote is in different states, such as sleeping and detecting vehicles. Such an analysis will allow us to allocate how much time the mote is allowed to spend in each state and determine the required lithium polymer battery capacity.
-
-Analyses will also be performed on the timing of different actions within the network, including:
-\begin{itemize}
-\item Automobile detection lag
-\item Imaging of vehicle
-\item License plate recognition and extraction
-\item Packet transmission
-\end{itemize}
-This will help determine whether certain portions of the image data processing may need to be performed on a server and whether it would be feasible to funnel the image data through the XBee instead of a dedicated directional IEEE 802.11 system.
-
-The efficacy of the automobile detection subsystem will also be evaluated through several tests. A variety of different sized vehicles will be passed through the system at different velocities to ensure high detection accuracy. We will also analyze the end results of deployment after a certain period of time, to determine how often the automobile count needs to be reconciled.
-
 
 \subsection{License Plate Imaging}
 Once the Acquisition Raspberry Pi receives the signal from the vehicle detection Arduino Fio, it begins the process of obtaining a picture of the vehicle's license plate. This procedure is separated into two separate sections: image acquisition and image processing
@@ -140,7 +125,6 @@ The location of the license plates will be detected on the acquisition Raspberry
 Once the OpenCV software has detected the license plate, the image will then be cropped as needed until all that remains in the image is the license plate from the car that is entering the lot. That image will then be sent to the central base station via an XBee radio transmission.
 
 \subsection{Central Base Station}
-{\color{red}\textbf{NOT COMPLETE}}
 \begin{figure}
 \begin{center}
 \includegraphics[width=4.5in]{basestation}
@@ -148,14 +132,14 @@ Once the OpenCV software has detected the license plate, the image will then be 
 \caption{Central Base Station Hardware}
 \label{fig:basestation}
 \end{figure}
-The central base station is the point of contact between the sensor network and the server. The data gathered by the Arduino Fio and Raspberry Pi sensors are routed to the base station via XBee radios. The base station, which is itself a Raspberry Pi, forwards the data to the ACMx server using HTTP requests. Forwarding data is the main function of the base station. The base station runs the Raspbian operating system \cite{raspbian}, a lightweight version of Linux. Raspbian is optimized for the Raspberry Pi, so writing Python scripts that take care of forwarding the data via HTTP to the server was simple. The more difficult task was writing code to allow the base station Raspberry Pi to interface with the XBee radio, and listen for packets coming from the XBee attached to the Arduino Fio. The Python code that runs on the base station Raspberry Pi is listed in Appendix 2.
 
-\subsection{Server Processing}
-{\color{red}\textbf{NOT COMPLETE}}
-Once an image has been captured by an Acquisition Raspberry Pi it is transmitted via the XBee radio to the base station Raspberry Pi, where it is uploaded to the server via an Ethernet connection. The REST route to which the image is posted serves several purposes. First, it authenticates the sender by checking for a username and password. The script then timestamps the image and saves it to a directory on the server not directly accessible from the web. Lastly, the script calls a function to invoke two different automatic license plate recognition (ALPR) programs and stores the resulting character extractions to a MySQL database.
+The central base station is the point of contact between the sensor network and the server. The data gathered by the Arduino Fio sensors are routed to the base station via XBee radios. The base station, which is itself a Raspberry Pi (see figure \ref{fig:base station}, forwards the data to the ACMx server using HTTP requests. Forwarding data is the main function of the base station.The base station runs the Raspbian operating system \cite{raspbian}, a lightweight version of Linux. Raspbian is optimized for the Raspberry Pi, so writing Python scripts that take care of forwarding the data via HTTP to the server was simple. The more difficult task was writing code to allow the base station Raspberry Pi to interface with the XBee radio, and listen for packets coming from the XBee attached to the Arduino Fio. The Python code that runs on the base station Raspberry Pi is listed in Appendix 2. The base station is also equipped to receive images via the XBee radio, and forward this data to the server. However, the time constraints of the project did not allow us to finish the code on the image acquisition Raspberry Pis that sends the image data via XBees. Therefore, when testing, we simply connected the image acquisition Raspberry Pis to a WiFi internet connection, and POSTed directly to the server, using the RESTful web services already in place.
+
+\subsection{Server Image Processing}
+Once an image has been captured by an Acquisition Raspberry Pi, it is transmitted to the server via the REST API provided on the server. The code that process the image once it is received on the server serves several purposes. First, it authenticates the sender by checking for a username and password. Next, it timestamps the image and saves it to a directory on the server not directly accessible from the web. Lastly, the script calls a function to invoke two different automatic license plate recognition (ALPR) programs and stores the resulting character extractions to a MySQL database.
 
 \subsubsection{ALPR Literature Survey}
-License plate extraction algorithms have been developed, implemented, and critiqued in the academic community. For use in our project, we needed to find an implemented ALPR algorithm capable of running in a Linux environment (on the server) or a cloud service that would allow for reliable character recognition from license images.
+Many license plate extraction algorithms have been developed, implemented, and critiqued in the academic community. For use in our project, we needed to find an implemented ALPR algorithm capable of running in a Linux environment (on the server) or a cloud service that would allow for reliable character recognition from license images.
 
 Much of the research done on ALPR technology is less concerned with implementation and more interested in algorithmic advances. License plate recognition relies heavily on manipulation of graphics files and computer vision - each fields of study in their own right. Despite the lack of detailed literature on implemented programs, we were still able to find papers that briefly mentioned two operational systems: OpenALPR and JavaANPR. Note that ALPR and ANPR are synonymous (some packages use the term 'number' plate recognition in place of 'license' plate recognition).
 
@@ -371,7 +355,7 @@ Due to the fact that this project was time-constrained, we were unable to test o
 The central base station, as described in section 3.3, will be placed in an upper window of the CTLM building, allowing it to take a clear overhead picture of at least one of the two parking lots. The first deployment only have one overhead camera to start off with, although ideally we would have two - one for each lot. Several potential locations exist which allow for a clear line-of-sight to all automobile detection subsystems, one of which is detailed in Figure \ref{fig:deployment}. The location of the base station must put it in range of the XBees mounted on each sensor node, to allow data to be transferred from the detection subsystem to the base station. The locations being considered must also provide internet access to the base station Raspberry Pi through an Ethernet port.
 
 \subsection{Xbee Image Transmission}
-Currently, our system relies on a IEEE 802.11 WiFi network for transmitting license plate images from the Acquisition Raspberry Pi. Future systems would benefit from having such images funneled and transmitted through the Xbee radio due to significantly improved transmission range. We envision that this would be implemented by sending a bitstream of the image from the Raspberry Pi to the Arduino Fio through a serial link which would then be streamed and packetized by the Fio to the Xbee radio. However, such a feature would have to be carefully thought out so as to not obstruct the Arduino Fio's automobile detection operations and not congest the Xbee data link.
+Currently, our system relies on a WiFi network for transmitting license plate images from the Acquisition Raspberry Pi. Future systems would benefit from having such images funneled and transmitted through the Xbee radio, because transmission range would be significantly improved, and eliminates the need for the sensor node to be in range of a WiFi network in order to function. We envision that this would be implemented by sending a bitstream of the image from the Raspberry Pi to the Arduino Fio through a serial link that would then be streamed and packetized by the Arduino Fio, and forwarded to the base station via the Xbee radio. However, such a feature would have to be carefully thought out so as to not obstruct the Arduino Fio's automobile detection operations and not congest the Xbee data link. Another main concern with transmitting images over the XBee comes from the fact that we did not implement any collision avoidance algorithms, and transmitting the images over the XBees would greatly increase the chance of collisions when multiple sensor nodes are sending data to the base station at a time.
 
 \section{Summary}
 
@@ -425,8 +409,19 @@ Once deployed, the Smartlots system, augmented with our additional license plate
 \end{thebibliography}
 
 
-\section*{Appendix 1 --- Intrateam Work Distribution}
+\section*{Appendix 1 --- Intra-team Work Distribution}
 
+This work described in this project was completed by six people. The four authors contributed the bulk of the work ( >90\%), and two ACMx group members also helped us, mainly by getting us up to speed on the state of the ACMx project when we started, and continuing to be our points of contact to the ACMx group. The work was broken down as follows:
+
+\textbf{WSN Group Members}
+
+Brandon Rodriguez worked with the license plate recognition software. All of the items he worked on are described in section 3.4 and section 4.2. Brandon did a lot of work researching ALPR software, and made the final decision to use OpenALPR and the Intrada ALPR software for our project. Basically, when reading this paper, realize that if something pertains to license plate recognition, Brandon was responsible for getting it all working. Brandon also worked with Taylor to write some of the server-side PHP code that gets the images from the HTTP requests and runs them through the ALPR software.
+
+Taylor Sallee wrote all code for the web application, excluding the front-end "Smartlots" part of the site that was already in place before the start of this project. Roy Stilwell from the ACMx group wrote the code for that part of the site. Taylor's contribution was the entire administrator interface, the RESTful API that services the website and the Raspberry Pis when they make POST requests. He also added user authentication and PHP security to all sensitive routes created the database tables for all data that our group was adding (images, licenses, intrada_licenses, users), and wrote all code for viewing, creating, updating, and deleting data in these tables. He collaborated with Andrew Koelling to write the base-station Python code that listens for data from the Arduino Fios and Raspberry Pis, and sends that data to the server via HTTP requests. Some of this code was in place before the project, but Taylor and Andrew refactored almost all of it, and added in the parts to handle the image data, and the part that differentiates the Arduino Fio data from the Raspberry Pi (image) data. Taylor also worked with Santiago and Kevin on the sensor Raspberry Pis, making sure that everything was installed correctly, and testing the top-to-bottom functionality of the system (that is, make sure data is getting from the sensors all the way to the web application). Taylor's work is described in sections 3.3, 3.5, and 4.3.
+
+Kevin Emery worked with the image processing on the image acquisition Raspberry Pis. He wrote Python scripts that make use of the OpenCV library to process images, which mainly includes cropping and compressing to sizes that are reasonable for transmission over the XBee radio. He explored contour mapping as one possibility for reducing image size while still maintaining a readable license plate, but found the current OpenCV implementation to be ineffective given the provided images.
+
+Santiago worked primarily with the hardware needed to get this system working. He built the sensor nodes that include both the Arduino Fio and the Raspberry Pi. He deployed the code written by Roy Stilwell to the Arduino Fios, modifying slightly to suit our purposes. He also did most of the work deploying code to the image Acquisition Raspberry Pis, and he was the one that wrote the script that makes the Pis take an image when the magnetometer detects a car.
 
 \section*{Appendix 2 --- Code Listings}
 \subsection*{Arduino Fio Sensing Firmware}
