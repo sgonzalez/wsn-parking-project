@@ -146,7 +146,7 @@ Once the software has processed the image is sent to the ACMx server via a wi-fi
 \label{fig:basestation}
 \end{figure}
 
-The central base station is the point of contact between the sensor network and the server. The data gathered by the Arduino Fio sensors are routed to the base station via XBee radios. The base station, which is itself a Raspberry Pi (see figure \ref{fig:base station}, forwards the data to the ACMx server using HTTP requests. Forwarding data is the main function of the base station.The base station runs the Raspbian operating system \cite{raspbian}, a lightweight version of Linux. Raspbian is optimized for the Raspberry Pi, so writing Python scripts that take care of forwarding the data via HTTP to the server was simple. The more difficult task was writing code to allow the base station Raspberry Pi to interface with the XBee radio, and listen for packets coming from the XBee attached to the Arduino Fio. The Python code that runs on the base station Raspberry Pi is listed in Appendix 2. The base station is also equipped to receive images via the XBee radio, and forward this data to the server. However, the time constraints of the project did not allow us to finish the code on the image acquisition Raspberry Pis that sends the image data via XBees. Therefore, when testing, we simply connected the image acquisition Raspberry Pis to a WiFi internet connection, and POSTed directly to the server, using the RESTful web services already in place.
+The central base station is the point of contact between the sensor network and the server. The data gathered by the Arduino Fio sensors are routed to the base station via XBee radios. The base station, which is itself a Raspberry Pi (see figure \ref{fig:basestation}, forwards the data to the ACMx server using HTTP requests. Forwarding data is the main function of the base station.The base station runs the Raspbian operating system \cite{raspbian}, a lightweight version of Linux. Raspbian is optimized for the Raspberry Pi, so writing Python scripts that take care of forwarding the data via HTTP to the server was simple. The more difficult task was writing code to allow the base station Raspberry Pi to interface with the XBee radio, and listen for packets coming from the XBee attached to the Arduino Fio. The Python code that runs on the base station Raspberry Pi is listed in Appendix 2. The base station is also equipped to receive images via the XBee radio, and forward this data to the server. However, the time constraints of the project did not allow us to finish the code on the image acquisition Raspberry Pis that sends the image data via XBees. Therefore, when testing, we simply connected the image acquisition Raspberry Pis to a WiFi internet connection, and POSTed directly to the server, using the RESTful web services already in place.
 
 \subsection{Server Image Processing}
 Once an image has been captured by an Acquisition Raspberry Pi, it is transmitted to the server via the REST API provided on the server. The code that process the image once it is received on the server serves several purposes. First, it authenticates the sender by checking for a username and password. Next, it timestamps the image and saves it to a directory on the server not directly accessible from the web. Lastly, the script calls a function to invoke two different automatic license plate recognition (ALPR) programs and stores the resulting character extractions to a MySQL database.
@@ -158,7 +158,7 @@ Much of the research done on ALPR technology is less concerned with implementati
 
 \textbf{A. OpenALPR}
 
-OpenALPR is a relatively new open source ALPR system that is built on top of OpenCV (a computer vision framework), and the Tesseract OCR engine. Initial commits to the source code were made in December, 2013. Using such a new program can be more risky than going with an established leader in the market, but we found that OpenALPR offered just the type of functionality we were looking for \cite{openalpr}.
+OpenALPR is a relatively new open source ALPR system that is built on top of OpenCV (a computer vision framework), and the Tesseract OCR engine. Initial commits to the source code were made in December, 2013 \cite{trainocr}. Using such a new program can be more risky than going with an established leader in the market, but we found that OpenALPR offered just the type of functionality we were looking for \cite{openalpr}.
 
 \textbf{B. JavaANPR}
 
@@ -226,7 +226,7 @@ Once OpenCV and Tesseract were operational, compiling OpenALPR was a breeze. The
 \end{inparaenum}
 
 \textbf{B. Intrada ALPR}
-Intrada ALPR uses the SOAP protocol for exchanging information. To create SOAP requests, we used the \verb+SoapClient+ class available in PHP to create, send, and receive the output of our request.
+Intrada ALPR uses the SOAP protocol for exchanging information \cite{soapw3c}. To create SOAP requests, we used the \verb+SoapClient+ class available in PHP to create, send, and receive the output of our request.
 
 Intrada requires a username and password to process images. The SOAP API allows for the sending of the username and password as part of each request object for authentication. Then, Intrada runs their proprietary algorithm on its own servers before returning a result string back to our web application. The result string contains colon delimited fields that carry 
 \begin{inparaenum}[\itshape a\upshape)]
@@ -407,19 +407,15 @@ Once deployed, the Smartlots system, augmented with our additional license plate
 
 \bibitem{raspbian} \emph{Raspbian} [Online] Available: \url{http://www.raspbian.org/}
 
-\bibitem{REST} \emph{Representational State Transfer} [Online] Available: \url{http://en.wikipedia.org/wiki/Representational_state_transfer}
-
-\bibitem{Slim} \emph{Slim} [Online] Avaliable: \url{http://www.slimframework.com/}
-
-\bibitem{du2013} S. Du, M. Ibrahim, M. Shehata and W. Badawy, ``Automatic License Plate Recognition (ALPR): A State-of-the-Art Review,'' \emph{IEEE Trans. Circuits and Systems for Video Technology}, vol. 23, no. 2, Feb. 2013.
-
-\bibitem{intrada2014} Q-Free ASA. (2014). \emph{OCR Technology} [Online]. Available: \url{http://www.q-free.com/product/ocr-technology/}
+\bibitem{trainocr} OpenALPR. (2014). \emph{Train OCR} [Online]. Available: \url{https://github.com/openalpr/train-ocr}
 
 \bibitem{openalpr} OpenALPR. (2014). \emph{OCR Technology} [Online]. Available: \url{http://www.q-free.com/product/ocr-technology/}
 
-\bibitem{trainocr} OpenALPR. (2014). \emph{Train OCR} [Online]. Available: \url{https://github.com/openalpr/train-ocr}
-
 \bibitem{javaanpr} Ondrej Martinsky. (2007). \emph{Automatic Number Plate Recognition System} [Online]. Available: \url{http://javaanpr.sourceforge.net/}
+
+\bibitem{nikolaos2006} C. Nikolaos, I. Anagnostopoulos, V. Loumos and E. Kayafas, ``A License Plate-Recognition Algorithm for Intelligent Transportation System Applications,'' \emph{IEEE Trans. Intelligent Transportation Systems} vol. 7, no. 3, Sept. 2006.
+
+\bibitem{intrada2014} Q-Free ASA. (2014). \emph{OCR Technology} [Online]. Available: \url{http://www.q-free.com/product/ocr-technology/}
 
 \bibitem{e470} E-470 Public Highway Authority. (2014). \emph{How E-470 Works} [Online]. Available: \url{https://expresstoll.com}
 
@@ -427,9 +423,11 @@ Once deployed, the Smartlots system, augmented with our additional license plate
 
 \bibitem{soapw3c} D. Box, D. Ehnebuske, G. Kakivaya, A. Layman, N. Mendelsohn, H. Nielsen, S. Thatte and D. Winer. (2014). \emph{Simple Object Access Protocol (SOAP) 1.1} [Online]. Available: \url{http://www.w3.org}
 
-\bibitem{patel2012} C. Patel, A. Patel and D. Patel, ``Optical Character Recognition by Open Source OCR Tool Tesseract: A Case Study,'' \emph{Intl. Journal Computer Applications} vol. 55, no. 10, Oct. 2012.
+\bibitem{REST} \emph{Representational State Transfer} [Online] Available: \url{http://en.wikipedia.org/wiki/Representational_state_transfer}
 
-\bibitem{nikolaos2006} C. Nikolaos, I. Anagnostopoulos, V. Loumos and E. Kayafas, ``A License Plate-Recognition Algorithm for Intelligent Transportation System Applications,'' \emph{IEEE Trans. Intelligent Transportation Systems} vol. 7, no. 3, Sept. 2006.
+\bibitem{Slim} \emph{Slim} [Online] Avaliable: \url{http://www.slimframework.com/}
+
+\bibitem{du2013} S. Du, M. Ibrahim, M. Shehata and W. Badawy, ``Automatic License Plate Recognition (ALPR): A State-of-the-Art Review,'' \emph{IEEE Trans. Circuits and Systems for Video Technology}, vol. 23, no. 2, Feb. 2013.
 
 \end{thebibliography}
 
