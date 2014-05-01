@@ -1,6 +1,6 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Related Work redNOT COMPLETE }{}% 2
-\BOOKMARK [1][-]{section.3}{Project Overview and Methods redNOT COMPLETE }{}% 3
+\BOOKMARK [1][-]{section.2}{Related Work}{}% 2
+\BOOKMARK [1][-]{section.3}{Project Overview and Methods}{}% 3
 \BOOKMARK [2][-]{subsection.3.1}{Automobile Detection}{section.3}% 4
 \BOOKMARK [3][-]{subsubsection.3.1.1}{Tests and Analyses}{subsection.3.1}% 5
 \BOOKMARK [2][-]{subsection.3.2}{License Plate Image Acquisition}{section.3}% 6
@@ -14,15 +14,12 @@
 \BOOKMARK [3][-]{subsubsection.3.4.4}{Test Data Collection}{subsection.3.4}% 14
 \BOOKMARK [3][-]{subsubsection.3.4.5}{ALPR-Project Integration}{subsection.3.4}% 15
 \BOOKMARK [3][-]{subsubsection.3.4.6}{ALPR Evaluation Environment}{subsection.3.4}% 16
-\BOOKMARK [3][-]{subsubsection.3.4.7}{Proposal part}{subsection.3.4}% 17
-\BOOKMARK [3][-]{subsubsection.3.4.8}{Considerations for ALPR Software}{subsection.3.4}% 18
-\BOOKMARK [3][-]{subsubsection.3.4.9}{Collection of Test Data}{subsection.3.4}% 19
-\BOOKMARK [3][-]{subsubsection.3.4.10}{Interface with Base Station Raspberry Pi}{subsection.3.4}% 20
-\BOOKMARK [2][-]{subsection.3.5}{Web Application}{section.3}% 21
-\BOOKMARK [3][-]{subsubsection.3.5.1}{HTTP Interface}{subsection.3.5}% 22
-\BOOKMARK [3][-]{subsubsection.3.5.2}{Administrator Website}{subsection.3.5}% 23
-\BOOKMARK [3][-]{subsubsection.3.5.3}{Validating and Adjusting Lot Capacity Data}{subsection.3.5}% 24
-\BOOKMARK [2][-]{subsection.3.6}{Deployment}{section.3}% 25
-\BOOKMARK [1][-]{section.4}{Results}{}% 26
-\BOOKMARK [1][-]{section.5}{Future Research}{}% 27
-\BOOKMARK [1][-]{section.6}{Summary}{}% 28
+\BOOKMARK [2][-]{subsection.3.5}{Web Application}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.5.1}{HTTP Interface}{subsection.3.5}% 18
+\BOOKMARK [3][-]{subsubsection.3.5.2}{Database}{subsection.3.5}% 19
+\BOOKMARK [3][-]{subsubsection.3.5.3}{Administrator Website}{subsection.3.5}% 20
+\BOOKMARK [2][-]{subsection.3.6}{Deployment}{section.3}% 21
+\BOOKMARK [1][-]{section.4}{Results}{}% 22
+\BOOKMARK [1][-]{section.5}{Future Research}{}% 23
+\BOOKMARK [2][-]{subsubsection.5.0.1}{Validating and Adjusting Lot Capacity Data}{section.5}% 24
+\BOOKMARK [1][-]{section.6}{Summary}{}% 25
