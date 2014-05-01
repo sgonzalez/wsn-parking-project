@@ -43,7 +43,7 @@
 \maketitle
 
 \begin{abstract}
-This paper describes a parking lot monitoring system to be used at the Colorado School of Mines (CSM). The system is designed to help campus members enjoy a better parking experience by spending less time trying to find open parking lots. This project was a semester project for the computer science graduate course \emph{Wireless Sensor Networks}, taught by Dr. Tracy Camp at CSM. The work described in this paper is an extension of a project called Smartlots started by campus computing group ACMx, which uses a wireless sensor network to track the number of cars in specific parking lots. The system extends the ACMx project by adding components to the sensor network that record the license plate numbers of cars as they enter and exit lots, and by adding an administrator interface to the already existing Smartlots website. The information gathered by the sensor network is displayed on a website that lets users survey the state of the lots before arriving on campus, allowing them to make informed parking decisions. The website is also the result of collaboration between the authors of this paper and the ACMx group. The paper provides some background information, describes the parking lot monitoring system and its components, discusses the details of our implementation, and provides some initial results from testing the system and its various components.
+This paper describes a parking lot monitoring system to be used at the Colorado School of Mines (CSM). The system is designed to help campus members enjoy a better parking experience by spending less time trying to find open parking lots. The project was a semester project for the computer science graduate course \emph{Wireless Sensor Networks}, taught by Dr. Tracy Camp at CSM. The work described in this paper is an extension of a project called Smartlots started by campus computing group ACMx, which uses a wireless sensor network to track the number of cars in specific parking lots. The system extends the ACMx project by adding components to the sensor network that record the license plate numbers of cars as they enter and exit lots, and by adding an administrator interface to the already existing Smartlots website. The information gathered by the sensor network is displayed on a website that lets users survey the state of the lots before arriving on campus, allowing them to make informed parking decisions. The website is also the result of collaboration between the authors of this paper and the ACMx group. The paper provides some background information, describes the parking lot monitoring system and its components, discusses the details of our implementation, and provides some initial results from testing the system and its various components.
 \end{abstract}
 
 \section{Introduction}
@@ -54,7 +54,7 @@ The parking lots at the Colorado School of Mines (CSM) can be a source of frustr
 \item License plate detection and monitoring.
 \end{enumerate}
 
-The idea behind the first part is that a student can get on their smartphone, tablet, or laptop before heading to class, see a nicely-formatted list/map of the lots on campus, and decide where to park based on how full each lot is. Administrators can monitor the information and make sure it is correct, updating the web application as needed with new statistics, lists, and maps as more lots are added to the system. Before beginning this project, the Association for Computing Machinery (ACMx) student organization at CSM had already started working on a system for monitoring lot car counts and capacities (see section 1.2\textbf{\color{red} CHECK SECTION NUMBER}). We collaborated with the ACMx group, integrating our new systems and work with theirs to design and test our parking lot monitoring system.
+The idea behind the first part is that a student can get on their smartphone, tablet, or laptop before heading to class, see a nicely-formatted list/map of the lots on campus, and decide where to park based on how full each lot is. Administrators can monitor the information and make sure it is correct, updating the web application as needed with new statistics, lists, and maps as more lots are added to the system. Before beginning this project, the Association for Computing Machinery (ACMx) student organization at CSM had already started working on a system for monitoring lot car counts and capacities (see section 2). We collaborated with the ACMx group, integrating our new systems and work with theirs to design and test our parking lot monitoring system.
 
 The second part of the project is motivated by a desire to test the feasibility of using the small Raspberry Pi Linux computer as a platform for capturing and processing images of license plates. Because the Raspberry Pi is inexpensive (\$25-\$35 depending on the model), it could be useful in a wide variety of applications that require accurate license plate recognition. Currently, our web application simply lists the license plate numbers for site administrators to view, but we envision that this monitoring system may eventually be used by the campus parking department to detect when vehicles have entered lots without parking passes. The system itself consists of several subsystems, which are described in detail in section 2.
 
@@ -86,10 +86,10 @@ A Raspberry Pi operates as a central base station that receives automobile detec
 
 The server is a Linode hosted machine running Ubuntu 13.10 with 2 GB RAM and 2 CPU cores. The web interface is served using Nginx. The server hosts a PHP web application with a RESTful HTTP interface that both receives the data from the base station and routes it to the correct part of the application (database, image processor, etc.). This interface is the method of communication between the server and the base station. When data is received from the base station, the application processes it, stores it in a MySQL database, and displays it appropriately on a user-facing website. An administrator website also exists that provides direct access to license plate data and car counts.
 
-The following sections describe the architecture and function of each of the aforementioned subsystems in detail. The detection subsystem is broken up into two parts: Automobile Detection (section 2.2 \textbf{\color{red} CHECK SECTION NUMBER}) and License Plate Image Acquisition (section 2.3 \textbf{\color{red} CHECK SECTION NUMBER}). The server subsystem is also broken into two parts: Server Processing (section 2.5 \textbf{\color{red} CHECK SECTION NUMBER}) and Web Application (section 2.6 \textbf{\color{red} CHECK SECTION NUMBER}). Lastly, section 2.4 \textbf{\color{red} CHECK SECTION NUMBER} discusses the Central Base Station.
+The following sections describe the architecture and function of each of the aforementioned subsystems in detail. The detection subsystem is broken up into two parts: Automobile Detection (section 3.1) and License Plate Image Acquisition (section 3.2). The server subsystem is also broken into two parts: Server Processing (section 3.4) and Web Application (section 3.5). Lastly, section 3.3 discusses the Central Base Station.
 
 \subsection{Automobile Detection}
-The automobile detection subsystem provides a means for detecting entry and departure of vehicles from a parking lot. This subsystem is designed to be placed on the side of the road next to each parking lot entrance and exit. Automobiles are detected using a magnetometer which perceives the induced change in the local magnetic field as the metallic structure of the vehicle passes by, as described in \cite{stillwell2013}. The automobile detection subsystem is based around the commercially available Arduino Fio 16-bit platform which utilizes the ubiquitous Atmel ATMEGA328p microcontroller. When an automobile is detected by the Arduino Fio, a packet is sent through the onboard XBee radio to the central base station (described in section 2.4 \textbf{\color{red} CHECK SECTION NUMBER}). The packet  contains the direction of the passing vehicle, the processor's temperature, the battery voltage, and a portion of the magnetometer data stream. At the time of detection, a hardware interrupt is sent to the license plate recognition system to trigger it. Interrupts may also be initiated by a mechanical button that has also been included for ease of testing.
+The automobile detection subsystem provides a means for detecting entry and departure of vehicles from a parking lot. This subsystem is designed to be placed on the side of the road next to each parking lot entrance and exit. Automobiles are detected using a magnetometer which perceives the induced change in the local magnetic field as the metallic structure of the vehicle passes by, as described in \cite{stillwell2013}. The automobile detection subsystem is based around the commercially available Arduino Fio 16-bit platform which utilizes the ubiquitous Atmel ATMEGA328p microcontroller. When an automobile is detected by the Arduino Fio, a packet is sent through the onboard XBee radio to the central base station (described in section 3.3). The packet  contains the direction of the passing vehicle, the processor's temperature, the battery voltage, and a portion of the magnetometer data stream. At the time of detection, a hardware interrupt is sent to the license plate recognition system to trigger it. Interrupts may also be initiated by a mechanical button that has also been included for ease of testing.
 
 \begin{figure}
 \begin{center}
@@ -140,13 +140,15 @@ When processing the image, two factors are taken into consideration:
 \item File Size and
 \item License Plate Quality
 \end{enumerate}
-The file size is reduced as much as possible in order to expedite the file transfer process from the Acquisition Raspberry Pi. The second factor, license plate quality, is considered because the image must be readable by the Optical Character Recognition software used on the server. Several different methods of processing the images using OpenCV were attempted, including but not limited to:
+The file size is reduced as much as possible in order to expedite the file transfer process from the Acquisition Raspberry Pi. The second factor, license plate quality, is considered because the image must be readable by the Optical Character Recognition (OCR) software used on the server. Several different methods of processing the images using OpenCV were attempted, including but not limited to:
 \begin{enumerate}
 \item Contour Mapping,
 \item Image Cropping,
-\item Image Resizing, and
+\item Image Resizing and Compression, and
 \item Color Manipulation
 \end{enumerate}
+
+Two datasets are analyzed on how they ran through the OCR software (section 4.2). These two datasets, "cropped images" and "compressed images" had different methods of processing applied. "Cropped images" is a set of images that were greedily cropped to eliminate space at the top and bottom of the picture around the car and were converted to grayscale images. "Compressed images" is a set of images that had various amounts of compression applied to them as well as different color filters.
 
 Once the software has processed the image is sent to the ACMx server via a wi-fi connection.
 
@@ -159,52 +161,48 @@ Once the software has processed the image is sent to the ACMx server via a wi-fi
 \caption{Central Base Station Hardware}
 \label{fig:basestation}
 \end{figure}
-The central base station will be the point of contact between the sensor network and the server. The data gathered by the Arduino Fio and Raspberry Pi sensors will be routed to the base station via XBee radios. The base station, which will itself be a Raspberry Pi, will forward the data to the ACMx server using HTTP requests. Forwarding data is the main function of the base station. The base station will run the Raspbian operating system \cite{raspbian}, a lightweight version of Linux. Raspbian is optimized for the Raspberry Pi, so writing shell scripts that will take care of forwarding the data via HTTP to the server will be an easily achievable task. A second function of the base station will be to take periodic overhead photos of the parking lots to help reconcile the sensed data with the actual state of the lots. System administrators will be able to look at the photos to see if the number of cars reported in the lot by the sensors is correct, and fix any errors. See section 2.6 for more detailed information about the error correction functionality of the web application.
 
+The central base station is the point of contact between the sensor network and the server. The data gathered by the Arduino Fio and Raspberry Pi sensors are routed to the base station via XBee radios. The base station, which is itself a Raspberry Pi, forwards the data to the ACMx server using HTTP requests. Forwarding data is the main function of the base station. The base station runs the Raspbian operating system \cite{raspbian}, a lightweight version of Linux. Raspbian is optimized for the Raspberry Pi, so writing Python scripts that take care of forwarding the data via HTTP to the server was simple.
 
 \subsection{Server Processing}
-{\color{red}\textbf{NOT COMPLETE}}
 Once an image has been captured by an Acquisition Raspberry Pi it is transmitted via the XBee radio to the base station Raspberry Pi where it is uploaded online via an Ethernet connection. The REST route that the image is posted serves several purposes. First, it authenticates the sender by checking for a username and password. The script then timestamps the image and saves it to a directory on the server not directly accessible from the web. Lastly, the script calls a function to invoke two different automatic license plate recognition (ALPR) programs and store the resulting character extraction to a MySQL database.
 
 \subsubsection{ALPR Literature Survey}
-{\color{red}\textbf{NOT COMPLETE}}
 License plate extraction algorithms have been developed, implemented, and critiqued in the academic community. For use in our project, we needed to find an implemented ALPR algorithm capable of running in a Linux environment (on the server) or a cloud service that would allow for reliable character recognition from license images.
 
 Much of the research done on ALPR technology is less concerned with implementation and more interested in algorithmic advances. License plate recognition relies heavily on manipulation of graphics files and computer vision - each fields of study in their own right. Despite the lack of detailed literature on implemented programs, we were still able to find papers that briefly mentioned two operational systems: OpenALPR and JavaANPR. Note that ALPR and ANPR are synonymous (some packages use the term 'number' plate recognition in place of 'license' plate recognition).
 
-\emph{A. OpenALPR}
+\textbf{A. OpenALPR}
 
-OpenALPR is a relatively new open source ALPR system that is built on top of OpenCV (a computer vision framework), and the Tesseract OCR engine. Initial commits to the source code were made in December, 2013. Using such a new program can be more risky than going with an established leader in the market, but we found that OpenALPR offered just the type of functionality we were looking for.
+OpenALPR is a relatively new open source ALPR system that is built on top of OpenCV (a computer vision framework), and the Tesseract OCR engine. Initial commits to the source code were made in December, 2013. Using such a new program can be more risky than going with an established leader in the market, but we found that OpenALPR offered just the type of functionality we were looking for \cite{openalpr}.
 
-\emph{B. JavaANPR}
+\textbf{B. JavaANPR}
 
-JavaANPR is an older program (published in 2007) that was created as part of a Bachelor's thesis at the Brno University of Technology in the Czech Republic. Stemming from an academic environment, JavaANPR has much more detailed documentation on the program and the algorithms implemented in the program than any other option surveyed (both academic and industrial). On the same token, development on the program seems to have stopped after the thesis was submitted, so the software has not seen updates in eight years. No software is perfect, and knowing that we would be using a program that is no longer being maintained is just one of the drawbacks we discovered about JavaANPR. The other main disadvantage of JavaANPR is that it was developed in Europe for European license plates. The source code would have to be correctly adapted in order to recognize North American plates, and the OCR engine would need to be trained for fonts used in America.
+JavaANPR is an older program (published in 2007) that was created as part of a Bachelor's thesis at the Brno University of Technology in the Czech Republic \cite{javaanpr}. Stemming from an academic environment, JavaANPR has much more detailed documentation on the program and the algorithms implemented in the program than any other option surveyed (both academic and industrial). On the same token, development on the program seems to have stopped after the thesis was submitted, so the software has not seen updates in eight years. No software is perfect, and knowing that we would be using a program that is no longer being maintained is just one of the drawbacks we discovered about JavaANPR. The other main disadvantage of JavaANPR is that it was developed in Europe for European license plates. The source code would have to be correctly adapted in order to recognize North American plates, and the OCR engine would need to be trained for fonts used in America.
 
-\emph{C. General ALPR Algorithm}
+\textbf{C. General ALPR Algorithm}
 
 The two programs do share the same general algorithm for extracting license plates. First, the plate is identified using some means to isolate rectangles in the image (texture, color, boundaries, etc.). Once the bounding box containing the plate is found, segmentation begins to isolate each individual character on the license plate. Finally, these image representations of characters are mapped to their most likely plain text counterpart.
 
-In general, ALPR systems only work for a specific geographic region they are "trained" for. For example, North American plates are a different size than European plates. Detection algorithms to identify a license plate in America would not work on an English car without modifications to the ALPR's configuration. Similarly, different states and countries use different fonts on their plates. In order to achieve maximum accuracy, you would need to collect hundreds of samples of the font and teach the program what those letters look like.
+In general, ALPR systems only work for a specific geographic region they are "trained" for. For example, North American plates are a different size than European plates. Detection algorithms to identify a license plate in America would not work on an English car without modifications to the ALPR's configuration. Similarly, different states and countries use different fonts on their plates. In order to achieve maximum accuracy, you would need to collect hundreds of samples of the font and teach the program what those letters look like \cite{nikolaos2006}.
 
 
 \subsubsection{ALPR Industry Survey}
-{\color{red}\textbf{NOT COMPLETE}}
 Many ALPR systems exist today for commercial and government purposes. Uses can range from cross-referencing address information with the DMV to bill users of toll roads to monitoring roadways for stolen cars or even measuring car speeds. Our team was able to contact two manufacturers of ALPR systems to learn more about their use in industry: Q-Free ASA and The 3M Company.
 
-\emph{A. Q-Free ASA}
+\textbf{A. Q-Free ASA}
 
-One commercial provider of ALPR software is Q-Free ASA, which is based out of the Netherlands. Q-Free is a top search result when querying for ALPR software. Their ALPR product, named Intrada, offers a cloud based solution where we are able to send the image of the license plate to their servers, and get back the plain text representation of the characters. One unique feature Intrada includes that we did not find in any other package surveyed is the ability to identify the state of origin of the license plate. Intrada does this by analyzing minor differences in fonts used across state borders.
+One commercial provider of ALPR software is Q-Free ASA, which is based out of the Netherlands. Q-Free is a top search result when querying for ALPR software. Their ALPR product, named Intrada, offers a cloud based solution where we are able to send the image of the license plate to their servers, and get back the plain text representation of the characters. One unique feature Intrada includes that we did not find in any other package surveyed is the ability to identify the state of origin of the license plate. Intrada does this by analyzing minor differences in fonts used across state borders \cite{intrada2014}.
 
 Note that this feature is not the same as training OpenALPR or another system with a new font. In OpenALPR, new trained data helps increase accuracy in detection. As a user, you can ask OpenALPR to examine the probability of a "template match" to a specific font, but the software does not intelligently determine which font family it most closely matches. Intrada offers the simplest solution in terms of startup costs because there is no local software to configure on our machine.
 
-\emph{B. The 3M Company}
+\textbf{B. The 3M Company}
 
-E-470 uses high speed cameras to capture and extract license plate data in order to bill users of their toll road in the Denver Metro area. We reached out to the E-470 Public Highway Authority to inquire more about their deployment of sensors and ALPR software. Representatives informed us that their toll booths used an ALPR system developed by The 3M Company. Even though E-470 is using an ALPR which automatically detects the characters of a license plate, every image must be reviewed by a human operator before the driver is billed. In our project, we don't want a human operator to have to confirm each plate - we want to trust the ALPR to do its job.
+E-470 uses high speed cameras to capture and extract license plate data in order to bill users of their toll road in the Denver Metro area. We reached out to the E-470 Public Highway Authority to inquire more about their deployment of sensors and ALPR software. Representatives informed us that their toll booths used an ALPR system developed by The 3M Company. Even though E-470 is using an ALPR which automatically detects the characters of a license plate, every image must be reviewed by a human operator before the driver is billed \cite{e470}. In our project, we don't want a human operator to have to confirm each plate - we want to trust the ALPR to do its job.
 
-After communicating with E-470, we contacted The 3M Company with regards to their ALPR software. A representative reached out and confirmed that they do offer an API to their program, allowing their technology to be built into other projects. Because we are creating a parking lot monitor system, and not just a license plate recognition system, an API is crucial so we can integrate the ALPR into our workflow. Unfortunately, our request for an educational use license for their ALPR was denied, as after reviewing our team's proposal 3M was worried we might try to commercialize our network. We were unable to learn more about their algorithm or API after that point.
+After communicating with E-470, we contacted The 3M Company with regards to their ALPR software. A representative reached out and confirmed that they do offer an API to their program, allowing their technology to be built into other projects. Because we are creating a parking lot monitor system, and not just a license plate recognition system, an API is crucial so we can integrate the ALPR into our workflow \cite{mmmalpr}. Unfortunately, our request for an educational use license for their ALPR was denied, as after reviewing our team's proposal 3M was worried we might try to commercialize our network. We were unable to learn more about their algorithm or API after that point.
 
 \subsubsection{Selection of ALPR Programs}
-{\color{red}\textbf{NOT COMPLETE}}
 Our literature and industry surveys left us with three viable options for license plate recognition: OpenALPR, JavaANPR, and Q-Free's Intrada ALPR. Of those three, only OpenALPR was ready to be integrated into our network. Intrada ALPR is a commercial service, so our ability to use it was dependent on Q-Free granting an educational use license to us for the semester. Lastly, JavaANPR would need to be modified to detect and recognize North American plates and fonts. JavaANPR also lacks additional information that both OpenALPR and Intrada ALPR provide such as execution time and confidence.
 
 The goal of this project is to demonstrate a proof of concept network that is capable of monitoring parking lots and capturing license plate data. To stay aligned with this goal, and because of our unfamiliarity with graphical algorithms, we decided not to pursue using JavaANPR as a software solution for our network.
@@ -214,7 +212,6 @@ After reaching out to Q-Free with regards to using their Intrada service for the
 Instead of choosing between two ALPR systems, we decided to integrate both platforms into our network to allow an ALPR comparison between the two tools, and offer better data integrity by checking if results from both systems (for the same photo) matched.
 
 \subsubsection{Test Data Collection}
-{\color{red}\textbf{NOT COMPLETE}}
 In order to evaluate the ALPR platforms, we needed to collect test data. Both platforms were already trained to run North American license plates out-of-the-box, so the stage was set to process images for a comparison in performance. With our final deployment in mind, we also wanted to collect images from a variety of different angles and distances, as the resulting evaluation will help determine the best camera placement in the CTLM parking lot. To accurately test the ALPR programs for our project, the test images need to be taken with the same camera that would be used during deployment.
 
 We loaded a special testing script written in Python onto a Raspberry Pi to accomplish this task. The script was programmed to wait for a hardware interrupt before taking an image. We wired a button via a breadboard to provide the hardware interrupt. Our team brought this Pi, camera, and button out to the CTLM parking lot and positioned it near where it would be deployed.
@@ -223,16 +220,14 @@ Once powered on, we had one teammate drive their car in and out of the parking l
 
 Besides images of the same license plate, we also collected several images of nearby parked cars, as well as cars that entered or exited the CTLM parking lot during that time period. And because our system is to be deployed on a college campus, we also collected images from different states, as the population of nonresidents is much greater here than in neighboring small towns.
 
-Overall, we were able to collect 56 images of seven different plates that contained recognizable numbers. Each image from the Raspberry Pi camera was about 3 megabytes in size in its uncompressed form. The Python script also specified that the camera should save in a JPEG (.jpg) format.
+Overall, we were able to collect 52 images of seven different plates that contained recognizable numbers. Each image from the Raspberry Pi camera was about 3 megabytes in size in its uncompressed form. The Python script also specified that the camera should save in a JPEG (.jpg) format.
 
 The data set, which we will now refer to as the \emph{unaltered image data set}, is the basis for all other data sets in this paper. That is, all other data sets are derived from these original, uncompressed images. 
 
 \subsubsection{ALPR-Project Integration}
-{\color{red}\textbf{NOT COMPLETE}}
 Both OpenALPR and Intrada ALPR had to be integrated into our web application so they would run automatically without the need for human intervention. OpenALPR, because it is not a cloud service, needed to be installed locally on the ACMx server. The Intrada ALPR was much simpler because we were only interacting with the API.
 
-\emph{A. OpenALPR}
-{\color{red}\textbf{NOT COMPLETE}}
+\textbf{A. OpenALPR}
 As stated in Section 3.4.1, OpenALPR is built on top of OpenCV, a computer vision library, and Tesseract OCR, an OCR engine. Tesseract OCR had additional dependencies that needed to be installed before it would compile.
 
 We used Ubuntu's \verb+apt-get+ command to install almost all of Tesseract's dependency packages. Tesseract makes use of a recent version of an image processing software called Leptonica. Because the version used in Tesseract superseded the versions available in Ubuntu's repository, we had to download the source files for Leptonica and compile it from scratch.
@@ -246,8 +241,7 @@ Once OpenCV and Tesseract were operational, compiling OpenALPR was a breeze. The
 \item the execution time.
 \end{inparaenum}
 
-\emph{B. Intrada ALPR}
-{\color{red}\textbf{NOT COMPLETE}}
+\textbf{B. Intrada ALPR}
 Intrada ALPR uses the SOAP protocol for exchanging information. To create SOAP requests, we used the \verb+SoapClient+ class available in PHP to create, send, and receive the output of our request.
 
 Intrada requires a username and password to process images. The SOAP API allows for the sending of the username and password as part of each request object for authentication. Then, Intrada runs their proprietary algorithm on its own servers before returning a result string back to our web application. The result string contains colon delimited fields that carry 
@@ -260,7 +254,7 @@ Intrada requires a username and password to process images. The SOAP API allows 
 \item the execution time.
 \end{inparaenum}
 
-\emph{C. MySQL Interface}
+\textbf{C. MySQL Interface}
 The resulting plain text representations of the license plate are stored in MySQL database tables. There exists one table for OpenALPR recognitions, and one table for Intrada ALPR recognitions. Each table has the same structure: it stores the license plate and a reference to the 'images' table where the image filepath is stored. The Intrada ALPR table also contains a column for the recognized state. These fields are then used by the web application to be displayed to administrator users.
 
 \subsubsection{ALPR Evaluation Environment}
@@ -277,7 +271,15 @@ Prior to the start of our project, the ACMx group created a web application desi
 \item Administrator website
 \end{enumerate}
 
-The Smartlots website makes use of the magnetometer sensor data; it provides maps showing the number of cars in each parking lot, maintains lists of parking lots, and lists usage statistics about each lot. The administrator website provides tools for system administrators. These tools are described in detail below. Before we started this project, the ACMx group had already created the publicly-accessible Smartlots interface. Therefore, we chose to focus on creating the administrator side of the site, and improving the back-end of the entire site to make it more secure and easier to extend in the future.
+The Smartlots website makes use of the magnetometer sensor data; it provides maps showing the number of cars in each parking lot, maintains lists of parking lots, and lists usage statistics about each lot. The administrator website provides tools for system administrators. These tools are described in detail below. Before we started this project, the ACMx group had already created the publicly-accessible Smartlots webpage. Therefore, we chose to focus on creating the administrator side of the site, and improving the back-end of the entire site to make it more secure and easier to extend in the future. The homepage of the Smartlots site is shown in figure \ref{fig:homepage}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=4.5in]{homepage}
+\end{center}
+\caption{The Smartlots homepage}
+\label{fig:homepage}
+\end{figure}
 
 The web application subsystem encompasses several components, each of which helps to accomplish our goal of providing campus members with a better parking experience. The interfaces for both general users and administrators make the data we collect useful and easy to access. The web application itself is written with PHP on the back end and HTML5/CSS3/JavaScript on the front end. The data from the sensors is stored in a MySQL database, which is described in detail below. The following subsections describe the various pieces of the site that we completed during this project.
 
@@ -306,7 +308,7 @@ Administrators are able to create, delete, and view other administrator accounts
 
 \textbf{B. License Plate Viewer}
 
-As mentioned in section 2.5, the license plate images are translated by the ALPR software from an image into a string of plain text, and stored in the MySQL database on the ACMx server. One of the main functions of the web interface is to display this data to administrators. The page that displays the license plate data is a simple interface that shows every license plate number we have collected, along with the time it was collected, the parking lot it came from, and the original image that the license number came from. The data is divided into two tables: one for the data returned from the OpenALPR software, and one for the data returned by the Intrada software. The entries are sorted by most-recent first. For this project, we were only interested in creating a proof-of-concept type interface that shows we have the capability to display the collected plate data in a useful format; in the future it could be useful to cross-reference our data with the campus parking department's database to check if a car has entered a lot without a permit.
+As mentioned in section 3.5, the license plate images are translated by the ALPR software from an image into a string of plain text, and stored in the MySQL database on the ACMx server. One of the main functions of the web interface is to display this data to administrators. The page that displays the license plate data is a simple interface that shows every license plate number we have collected, along with the time it was collected, the parking lot it came from, and the original image that the license number came from. The data is divided into two tables: one for the data returned from the OpenALPR software, and one for the data returned by the Intrada software. The entries are sorted by most-recent first. For this project, we were only interested in creating a proof-of-concept type interface that shows we have the capability to display the collected plate data in a useful format; in the future it could be useful to cross-reference our data with the campus parking department's database to check if a car has entered a lot without a permit.
 
 \textbf{C. Sensor Data Viewer}
 
@@ -379,7 +381,7 @@ Due to the fact that this project was time-constrained, we were unable to test o
 \label{fig:deployment}
 \end{figure}
 
-The central base station, as described in section 2.4, will be placed in an upper window of the CTLM building, allowing it to take a clear overhead picture of at least one of the two parking lots. The first deployment only have one overhead camera to start off with, although ideally we would have two - one for each lot. Several potential locations exist which allow for a clear line-of-sight to all automobile detection subsystems, one of which is detailed in Figure \ref{fig:deployment}. The location of the base station must put it in range of the XBees mounted on each sensor node, to allow data to be transferred from the detection subsystem to the base station. The locations being considered must also provide internet access to the base station Raspberry Pi through an Ethernet port.
+The central base station, as described in section 3.3, will be placed in an upper window of the CTLM building, allowing it to take a clear overhead picture of at least one of the two parking lots. The first deployment only have one overhead camera to start off with, although ideally we would have two - one for each lot. Several potential locations exist which allow for a clear line-of-sight to all automobile detection subsystems, one of which is detailed in Figure \ref{fig:deployment}. The location of the base station must put it in range of the XBees mounted on each sensor node, to allow data to be transferred from the detection subsystem to the base station. The locations being considered must also provide internet access to the base station Raspberry Pi through an Ethernet port.
 
 \subsection{Xbee Image Transmission}
 Currently, our system relies on a IEEE 802.11 WiFi network for transmitting license plate images from the Acquisition Raspberry Pi. Future systems would benefit from having such images funneled and transmitted through the Xbee radio due to significantly improved transmission range. We envision that this would be implemented by sending a bitstream of the image from the Raspberry Pi to the Arduino Fio through a serial link which would then be streamed and packetized by the Fio to the Xbee radio. However, such a feature would have to be carefully thought out so as to not obstruct the Arduino Fio's automobile detection operations and not congest the Xbee data link.
@@ -413,11 +415,25 @@ Once deployed, the Smartlots system, augmented with our additional license plate
 
 \bibitem{Slim} \emph{Slim} [Online] Avaliable: \url{http://www.slimframework.com/}
 
-\bibitem{du2013} S. Du et. al., ``Automatic License Plate Recognition (ALPR): A State-of-the-Art Review,'' \emph{IEEE Trans. Circuits and Systems for Video Technology}, vol. 23, no. 2, Feb. 2013.
+\bibitem{du2013} S. Du, M. Ibrahim, M. Shehata and W. Badawy, ``Automatic License Plate Recognition (ALPR): A State-of-the-Art Review,'' \emph{IEEE Trans. Circuits and Systems for Video Technology}, vol. 23, no. 2, Feb. 2013.
 
 \bibitem{intrada2014} Q-Free ASA. (2014). \emph{OCR Technology} [Online]. Available: \url{http://www.q-free.com/product/ocr-technology/}
 
-\bibitem{patel2012} C. Patel et al., ``Optical Character Recognition by Open Source OCR Tool Tesseract: A Case Study,'' \emph{Intl. Journal Computer Applications} vol. 55, no. 10, Oct. 2012.
+\bibitem{openalpr} OpenALPR. (2014). \emph{OCR Technology} [Online]. Available: \url{http://www.q-free.com/product/ocr-technology/}
+
+\bibitem{trainocr} OpenALPR. (2014). \emph{Train OCR} [Online]. Available: \url{https://github.com/openalpr/train-ocr}
+
+\bibitem{javaanpr} Ondrej Martinsky. (2007). \emph{Automatic Number Plate Recognition System} [Online]. Available: \url{http://javaanpr.sourceforge.net/}
+
+\bibitem{e470} E-470 Public Highway Authority. (2014). \emph{How E-470 Works} [Online]. Available: \url{https://expresstoll.com}
+
+\bibitem{mmmalpr} The 3M Company. (2014). \emph{ALPR Technology} [Online]. Available: \url{http://solutions.3m.com}
+
+\bibitem{soapw3c} D. Box, D. Ehnebuske, G. Kakivaya, A. Layman, N. Mendelsohn, H. Nielsen, S. Thatte and D. Winer. (2014). \emph{Simple Object Access Protocol (SOAP) 1.1} [Online]. Available: \url{http://www.w3.org}
+
+\bibitem{patel2012} C. Patel, A. Patel and D. Patel, ``Optical Character Recognition by Open Source OCR Tool Tesseract: A Case Study,'' \emph{Intl. Journal Computer Applications} vol. 55, no. 10, Oct. 2012.
+
+\bibitem{nikolaos2006} C. Nikolaos, I. Anagnostopoulos, V. Loumos and E. Kayafas, ``A License Plate-Recognition Algorithm for Intelligent Transportation System Applications,'' \emph{IEEE Trans. Intelligent Transportation Systems} vol. 7, no. 3, Sept. 2006.
 
 \end{thebibliography}
 
