@@ -300,14 +300,42 @@ The system will be deployed at the CTLM Upper and Lower parking lots at CSM. The
 \label{fig:deployment}
 \end{figure}
 
-The central base station, as described in section 2.4, will be placed in an upper window of the CTLM building, allowing it to take a clear overhead picture of at least one of the two parking lots. For the first deployment we may only have one overhead camera to start off with, although ideally we would have two - one for each lot. Several potential locations exist which allow for a clear line-of-sight to all automobile detection subsystems, one of which is detailed in Figure \ref{fig:deployment}. The location of the base station must put it in range of the XBees mounted on each sensor node, to allow data to be transferred from the detection subsystem to the base station. The locations being considered must also provide internet access to the base station Raspberry Pi through ethernet ports.
+The central base station, as described in section 2.4, will be placed in an upper window of the CTLM building, allowing it to take a clear overhead picture of at least one of the two parking lots. For the first deployment we may only have one overhead camera to start off with, although ideally we would have two - one for each lot. Several potential locations exist which allow for a clear line-of-sight to all automobile detection subsystems, one of which is detailed in Figure \ref{fig:deployment}. The location of the base station must put it in range of the XBees mounted on each sensor node, to allow data to be transferred from the detection subsystem to the base station. The locations being considered must also provide internet access to the base station Raspberry Pi through Ethernet ports.
 
 \section{Results}
-{\color{red}\textbf{NOT COMPLETE}}
+\subsection{ALPR Results}
+Three data sets were run through each ALPR system. In each case, Intrada ALPR was able to recognize at least double as many plates as OpenALPR.
 
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{| l || l | l | l |}
+\hline
+Data Set & Correct Recognition & Total Images & Percent Correct \\ \hline
+Unaltered images & 12 & 41 & 29.27 \% \\ \hline
+Cropped images & 4 & 52 & 7.69 \% \\ \hline
+Compressed images & 4 & 27 & 14.81 \% \\ \hline
+\end{tabular}
+\end{center}
+\caption{OpenALPR Results}
+\end{table}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{| l || l | l | l |}
+\hline
+Data Set & Correct Recognition & Total Images & Percent Correct \\ \hline
+Unaltered images & 27 & 41 & 65.85 \% \\ \hline
+Cropped images & 12 & 52 & 23.08 \% \\ \hline
+Compressed images & 8 & 27 & 29.63 \% \\ \hline
+\end{tabular}
+\end{center}
+\caption{Intrada ALPR Results}
+\end{table}
 
 \section{Future Research}
-{\color{red}\textbf{NOT COMPLETE}}
+
+\subsubsection{Web Application}
+
 
 \section{Summary}
 {\color{red}\textbf{NOT COMPLETE}}
