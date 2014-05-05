@@ -24,7 +24,7 @@ def resizeImage(rootdir, filename, prefixString, resizeFactor):
     size = GetSize(newImage)
 
     # Crop the image
-    newImage = newImage[size[1]/3:4*(size[1]/5), 0:]
+    # newImage = newImage[size[1]/3:4*(size[1]/5), 0:]
 
     # Write the image to files
     SaveImage(prefixString + filename, newImage)
