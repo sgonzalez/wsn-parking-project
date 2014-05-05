@@ -4,4 +4,5 @@
 
 echo -e "Running test image acquisition program..."
 
+cd wsn-parking-proejct/sensor-pi
 sudo python testimages.py
